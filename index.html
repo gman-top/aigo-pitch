@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AIGO Studios — Infrastructure for Real-Time Gaming</title>
+  <meta name="description" content="AIGO Studios — Infrastructure for Real-Time Gaming. First we launch games. Then we create moments. Then we build the IP." />
+  <meta name="theme-color" content="#08090B" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AIGO Studios — Infrastructure for Real-Time Gaming" />
+  <meta property="og:description" content="Most studios build games. We built the engine that builds them." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts: Poppins (display) · Inter (body) · JetBrains Mono (data) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/brand/star.png" />
+</head>
+<body>
+
+  <!-- ============ HUD ============ -->
+  <div class="progress" id="progress"></div>
+  <div class="hud" aria-hidden="true">
+    <div class="hud-label hud-tl">AIGO // PITCH</div>
+    <div class="hud-label hud-tr"><span class="dot"></span>REAL-TIME CORE · ONLINE</div>
+    <div class="hud-label hud-bl">INFRASTRUCTURE FOR REAL-TIME GAMING</div>
+    <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
+  </div>
+  <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
+
+  <!-- inline star symbol reused as a CSS mask + decorative SVG -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="aigo-star" viewBox="0 0 200 200">
+      <path d="M200 100h-.046C191.139 99.975 184 92.822 184 84c0 8.822-7.139 15.975-15.954 16 8.815.025 15.954 7.178 15.954 16 0-8.822 7.139-15.975 15.954-16H200z" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <main class="deck">
+
+    <!-- ========================================================
+         1 · COVER
+    ========================================================= -->
+    <section class="slide stage-pure" id="cover">
+      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <h1 class="display" data-anim data-d="1">Infrastructure for<span class="nl">Real-Time Gaming</span></h1>
+        <div class="brandline" data-anim data-d="2">AIGO STUDIOS</div>
+        <div class="boot" data-anim data-d="3">
+          <span>INITIALIZING ENGINE</span><span class="sep">·</span>
+          <span>REAL-TIME CORE · ONLINE</span><span class="sep">·</span>
+          <span>100K TPS · 12MS · ZERO DOWNTIME</span>
+        </div>
+        <div data-anim data-d="4" style="margin-top:6px">
+          <button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch the film · 2:21</button>
+        </div>
+        <div class="cover-cta" data-anim data-d="5">
+          <span>NAVIGATE</span>
+          <span class="kbd">&larr;</span><span class="kbd">&rarr;</span>
+          <span class="kbd">SPACE</span>
+          <span>OR SCROLL</span>
+        </div>
+      </div>
+      <div class="scroll-hint">SCROLL TO BEGIN &darr;</div>
+    </section>
+
+    <!-- ========================================================
+         2 · THESIS + STATS
+    ========================================================= -->
+    <section class="slide" id="thesis">
+      <div class="inner">
+        <div class="lead">
+          <div class="micro" data-anim>THE THESIS</div>
+          <h2 class="headline thesis-head" data-anim data-d="1">Most studios build games.<span class="nl">We built the <span class="accent">engine</span> that builds them.</span></h2>
+        </div>
+        <div class="stats" data-anim data-d="2">
+          <div class="stat"><div class="num">15</div><div class="lbl">Titles live</div></div>
+          <div class="stat"><div class="num">4</div><div class="lbl">Categories</div></div>
+          <div class="stat"><div class="num">35<span class="u">+</span></div><div class="lbl">Markets</div></div>
+          <div class="stat"><div class="num">1</div><div class="lbl">Real-time engine</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         3 · THE GAMES (ACT I)
+    ========================================================= -->
+    <section class="slide stage-pure" id="games">
+      <div class="inner">
+        <div class="sec-head">
+          <div class="row">
+            <div>
+              <div class="micro" data-anim>ACT I · THE GAMES</div>
+              <h2 class="headline" data-anim data-d="1" style="margin-top:16px">First, we launch games.</h2>
+            </div>
+            <p class="sub" data-anim data-d="2">Real titles, live now — each its own world. Slots, crash, instant and sports, all from one real-time core. Hover any title to watch it run.</p>
+          </div>
+        </div>
+        <div class="cards" data-anim data-d="3">
+
+          <article class="card" style="--c:#E0B23C" data-game="temple-of-xibalba">
+            <div class="topline"></div>
+            <div class="media">
+              <img class="poster" src="assets/games/temple-of-xibalba.jpg" alt="Temple of Xibalba gameplay" loading="lazy" />
+            </div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Slots</div>
+              <div class="name">Temple of Xibalba</div>
+              <div class="tag">Aztec temple · 3D bonus · buy-bonus</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>10,000x</b></span></div>
+            </div>
+          </article>
+
+          <article class="card" style="--c:#FFD54F" data-game="banana-hustlers">
+            <div class="topline"></div>
+            <div class="media">
+              <img class="poster" src="assets/games/banana-hustlers.jpg" alt="Banana Hustlers gameplay" loading="lazy" />
+            </div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Slots</div>
+              <div class="name">Banana Hustlers</div>
+              <div class="tag">Wild multipliers · buy free spins</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>15,000x</b></span></div>
+            </div>
+          </article>
+
+          <article class="card" style="--c:#E0B23C" data-game="plinko">
+            <div class="topline"></div>
+            <div class="media"><img class="poster" src="assets/games/plinko.jpg" alt="Plinko Gone Wild gameplay" loading="lazy" /></div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Crash</div>
+              <div class="name">Plinko Gone Wild</div>
+              <div class="tag">Real physics · 5 ball types</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>10,000x</b></span></div>
+            </div>
+          </article>
+
+          <article class="card" style="--c:#FF9800" data-game="uncrossable-rush">
+            <div class="topline"></div>
+            <div class="media">
+              <img class="poster" src="assets/games/uncrossable-rush.jpg" alt="Uncrossable Rush gameplay" loading="lazy" />
+            </div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Crash</div>
+              <div class="name">Uncrossable Rush</div>
+              <div class="tag">Lane-rush multipliers · shields</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>500,000x</b></span></div>
+            </div>
+          </article>
+
+          <article class="card" style="--c:#00E5FF" data-game="mine-game">
+            <div class="topline"></div>
+            <div class="media">
+              <img class="poster" src="assets/games/mine-game.jpg" alt="Mining gameplay" loading="lazy" />
+            </div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Instant</div>
+              <div class="name">Mining</div>
+              <div class="tag">Provably fair · click to reveal</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>100,000x</b></span></div>
+            </div>
+          </article>
+
+          <article class="card" style="--c:#8B5CFF" data-game="FSL">
+            <div class="topline"></div>
+            <div class="media"><video class="poster" src="assets/fsl/goal.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Future Sports League gameplay"></video></div>
+            <div class="scrim"></div>
+            <div class="meta">
+              <div class="cat">Sports</div>
+              <div class="name">Future Sports League</div>
+              <div class="tag">Penalty-shootout crash · pick your corner</div>
+              <div class="telem"><span>RTP <b>Custom</b></span><span>MAX WIN <b>Custom</b></span></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         4 · HEXARK (ACT II)
+    ========================================================= -->
+    <section class="slide" id="hexark">
+      <div class="inner">
+        <div class="micro" data-anim style="margin-bottom:36px">ACT II · THE PLATFORM</div>
+        <div class="hex-grid">
+          <div class="hex-video" data-anim data-d="1">
+            <div class="vlabel"><span class="dot"></span>HEXARK.IO · FREE-TO-PLAY</div>
+            <video id="hexark-video" src="https://rfgrhdumqfleuwluwjbd.supabase.co/storage/v1/object/public/portfolio-assets/hexark-video-project.mp4" muted loop playsinline autoplay preload="metadata" poster="assets/games/temple-of-xibalba.png"></video>
+          </div>
+          <div class="hex-copy">
+            <div class="micro green" data-anim data-d="1">FREE-TO-PLAY PLATFORM</div>
+            <h2 class="headline" data-anim data-d="2" style="font-size:clamp(28px,3.6vw,48px)">The free-to-play world<span class="nl">that feeds the funnel.</span></h2>
+            <p class="sub" data-anim data-d="3">A persistent free-to-play world — characters, economy, daily rewards. The top of the funnel that turns players into an audience.</p>
+            <div class="domain" data-anim data-d="3">hexark.io</div>
+            <div class="pillars" data-anim data-d="4">
+              <div class="pillar"><div class="k">FREE-TO-PLAY</div><div class="v">Zero-friction entry. Play first, convert later.</div></div>
+              <div class="pillar"><div class="k">PERSISTENT WORLD</div><div class="v">Characters, inventory, economy, daily rewards.</div></div>
+              <div class="pillar"><div class="k">AUDIENCE ENGINE</div><div class="v">Acquisition + retention layer for every AIGO title.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5a · VAULT RUN — HOOK (ACT III)
+    ========================================================= -->
+    <section class="slide vault-slide stage-pure" id="vault-hook">
+      <div class="inner">
+        <div class="micro" data-anim>ACT III · THE MOMENT</div>
+        <h2 class="hook" data-anim data-d="1" style="margin:18px 0 8px">VAULT RUN</h2>
+        <p class="sub" data-anim data-d="2" style="margin:0 auto 6px;text-align:center">Cash out, or open it. <span class="accent" style="font-weight:600">Would you open it?</span></p>
+        <div class="doors" data-anim data-d="3">
+          <div class="door" style="--dc:#3DDC97">
+            <div><div class="dnum">DOOR 01</div></div>
+            <div class="handle"></div>
+            <div><div class="dk">SAFE</div><div class="dd">low risk · steady boost</div></div>
+          </div>
+          <div class="door" style="--dc:#FF4627">
+            <div><div class="dnum">DOOR 02</div></div>
+            <div class="handle"></div>
+            <div><div class="dk">GREED</div><div class="dd">high risk · big multiplier</div></div>
+          </div>
+          <div class="door" style="--dc:#BDFF5F">
+            <div><div class="dnum">DOOR 03</div></div>
+            <div class="handle"></div>
+            <div><div class="dk">MYSTERY</div><div class="dd">jackpot… or lockdown</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5b · VAULT RUN — STREAMING
+    ========================================================= -->
+    <section class="slide vault-slide" id="vault-stream">
+      <div class="inner">
+        <div class="micro" data-anim style="margin-bottom:30px"><span class="dot" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)"></span>STREAMING · LIVE</div>
+        <div class="stream-grid">
+          <div class="stream-frame" data-anim data-d="1">
+            <div class="live"><span class="dot"></span>VAULT RUN · LIVE</div>
+            <img src="assets/captures/vault-run.jpg" alt="Vault Run live stream interface" loading="lazy" />
+          </div>
+          <div>
+            <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,3.6vw,48px)">The audience opens the doors.</h2>
+            <div class="poll" data-anim data-d="2">
+              <div class="q">OPEN DOOR 7?</div>
+              <div class="poll-row"><span class="pk">SAFE</span><span class="bar"><i style="--w:22%;background:#3DDC97"></i></span><span class="pct">22%</span></div>
+              <div class="poll-row"><span class="pk">GREED</span><span class="bar"><i style="--w:63%;background:#FF4627"></i></span><span class="pct">63%</span></div>
+              <div class="poll-row"><span class="pk">MYSTERY</span><span class="bar"><i style="--w:15%;background:#BDFF5F"></i></span><span class="pct">15%</span></div>
+            </div>
+            <div class="bullets" data-anim data-d="3">
+              <div class="bullet"><span class="b">01</span>Live audience votes decide the door</div>
+              <div class="bullet"><span class="b">02</span>Jackpot vault drops on stream</div>
+              <div class="bullet"><span class="b">03</span>Creator reactions in real time</div>
+              <div class="bullet"><span class="b">04</span>Countdown to the first public run</div>
+            </div>
+            <p class="share" data-anim data-d="4">&ldquo;I opened Door 7 and escaped at 48.7x.&rdquo;</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5c · VAULT RUN — BETA + LAUNCH
+    ========================================================= -->
+    <section class="slide vault-slide stage-pure" id="vault-launch">
+      <div class="inner">
+        <div class="micro" data-anim style="margin-bottom:34px">ACT III · BUILT FOR CLIPS</div>
+        <div class="two-up">
+          <div class="panel green-p" data-anim data-d="1">
+            <div class="micro green">CREATOR &amp; STREAMER BETA</div>
+            <h3>Built for clips.</h3>
+            <div class="chips">
+              <span class="chip">Biggest escape</span>
+              <span class="chip">Most doors opened</span>
+              <span class="chip">Last-second cashout</span>
+              <span class="chip">Greed-door challenge</span>
+              <span class="chip">No cashout until Door 5</span>
+            </div>
+          </div>
+          <div class="panel accent-p" data-anim data-d="2">
+            <div class="micro">PUBLIC LAUNCH · 7-DAY EVENT</div>
+            <h3>The First Vault Run.</h3>
+            <div class="chips">
+              <span class="chip">Daily leaderboard</span>
+              <span class="chip">Jackpot vault</span>
+              <span class="chip">Founder badges</span>
+              <span class="chip">Replay cards</span>
+              <span class="chip">Limited event rooms</span>
+              <span class="chip">Referral rewards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5d · VAULT RUN — PARTNERSHIP SEASONS
+    ========================================================= -->
+    <section class="slide vault-slide" id="vault-partners">
+      <div class="inner">
+        <div class="micro" data-anim style="margin-bottom:14px">PARTNERSHIP SEASONS · CONCEPT</div>
+        <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,3.6vw,48px);margin-bottom:36px">Branded vaults.</h2>
+        <div class="seasons" data-anim data-d="2">
+          <div class="season" style="--sc:#E8C66B">
+            <div class="stag">SEASON 01</div>
+            <div class="sname">MUSIC HEIST</div>
+            <div class="stheme">Luxury black &amp; gold · a global music artist</div>
+          </div>
+          <div class="season" style="--sc:#5BC8FF">
+            <div class="stag">SEASON 02</div>
+            <div class="sname">STADIUM VAULT</div>
+            <div class="stheme">Stadium-tunnel speed run · a football star</div>
+          </div>
+          <div class="season" style="--sc:#FF4627">
+            <div class="stag">SEASON 03</div>
+            <div class="sname">HOLLYWOOD HEIST</div>
+            <div class="stheme">Actor-led cinematic event</div>
+          </div>
+          <div class="season" style="--sc:#BDFF5F">
+            <div class="stag">SEASON 04</div>
+            <div class="sname">STREAMER VAULTS</div>
+            <div class="stheme">Creator-branded rooms &amp; tournaments</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3">Vault Run is not just a game mode.<span class="nl">It is a <span class="accent">format for branded entertainment.</span></span></p>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         6 · ROADMAP
+    ========================================================= -->
+    <section class="slide stage-pure" id="roadmap">
+      <div class="inner">
+        <div class="micro" data-anim>ROADMAP</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:16px">Games today. An IP tomorrow.</h2>
+        <div class="road" data-anim data-d="2">
+          <div class="milestone" style="--mc:#BDFF5F">
+            <div class="node"></div>
+            <div class="phase">LIVE NOW</div>
+            <div class="mt">Games + Hexark</div>
+            <div class="mb">15 titles live · free-to-play world online</div>
+            <div class="status"><span class="sd"></span>Shipped</div>
+          </div>
+          <div class="milestone" style="--mc:#FF4627">
+            <div class="node"></div>
+            <div class="phase">NEXT</div>
+            <div class="mt">Vault Run Launch</div>
+            <div class="mb">The First Vault Run · 7-day public event</div>
+            <div class="status"><span class="sd"></span>In build</div>
+          </div>
+          <div class="milestone" style="--mc:#FF9800">
+            <div class="node"></div>
+            <div class="phase">THEN</div>
+            <div class="mt">Creator &amp; Partner Seasons</div>
+            <div class="mb">Streamer betas &rarr; branded vaults</div>
+            <div class="status"><span class="sd"></span>Planned</div>
+          </div>
+          <div class="milestone" style="--mc:#5BC8FF">
+            <div class="node"></div>
+            <div class="phase">HORIZON</div>
+            <div class="mt">Branded-Entertainment IP</div>
+            <div class="mb">A repeatable format. New rooms, new partners, new markets.</div>
+            <div class="status"><span class="sd"></span>Vision</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         7 · CLOSE
+    ========================================================= -->
+    <section class="slide stage-pure" id="close">
+      <svg class="star-bg" style="width:50vw;bottom:-18vh;left:-12vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-close" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <div class="spine">
+          <div class="line" data-anim data-d="1">First we launch games.</div>
+          <div class="line" data-anim data-d="2">Then we create moments.</div>
+          <div class="line" data-anim data-d="3">Then we <span class="accent">build the IP.</span></div>
+        </div>
+        <div class="tagline" data-anim data-d="4">Infrastructure for Real-Time Gaming</div>
+        <div class="urls" data-anim data-d="5"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io</div>
+        <div data-anim data-d="5"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch the film</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FILM MODAL ============ -->
+  <div class="modal" id="film-modal" role="dialog" aria-modal="true" aria-label="AIGO pitch film">
+    <div class="box">
+      <div class="close-x" data-film-close>CLOSE &times;</div>
+      <video id="film-video" controls playsinline preload="none" poster="assets/brand/star.png">
+        <source src="https://equwbgucibrtqpjzivhy.supabase.co/storage/v1/object/public/pitch/aigo-deck.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script src="js/deck.js"></script>
+</body>
+</html>
