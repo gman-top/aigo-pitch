@@ -277,12 +277,13 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   gap: 0; margin-top: 56px;
   border-top: 1px solid var(--line);
 }
-.stat { padding: 28px 24px 8px 0; border-right: 1px solid var(--line); }
+.stat { padding: 30px 28px 12px 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.stat:not(:first-child) { padding-left: 30px; }
 .stat:last-child { border-right: none; }
 .stat .num {
   font-family: var(--display); font-weight: 700;
-  font-size: clamp(40px, 5.2vw, 72px); line-height: 1; color: var(--text);
-  letter-spacing: -0.03em;
+  font-size: clamp(40px, 5.2vw, 70px); line-height: 1; color: var(--text);
+  letter-spacing: -0.03em; height: clamp(40px, 5.2vw, 70px); display: flex; align-items: flex-end;
 }
 .stat .num .u { color: var(--accent); }
 .stat .lbl {
@@ -588,4 +589,47 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   .seasons { grid-template-columns: 1fr; }
   .dots { display: none; }
   .slide { padding: 96px 22px; min-height: auto; }
+}
+
+/* ============================================================
+   Hype plan (Vault Run go-to-market)
+   ============================================================ */
+.hype { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 56px; max-width: 1120px; }
+.hstep { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--line); }
+.hstep .hn { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 3px; min-width: 26px; letter-spacing: 0.06em; }
+.hstep .ht { font-family: var(--display); font-weight: 600; font-size: clamp(16px, 1.5vw, 20px); color: var(--text); letter-spacing: -0.01em; }
+.hstep .hd { font-family: var(--body); font-size: 13.5px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+
+/* ============================================================
+   Download-PDF button
+   ============================================================ */
+#pdf-btn {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 60;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-dim); background: rgba(14,15,18,0.72); border: 1px solid var(--line);
+  padding: 9px 16px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(8px);
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: color .25s, border-color .25s, transform .25s;
+}
+#pdf-btn:hover { color: var(--text); border-color: var(--accent); transform: translateX(-50%) translateY(-2px); }
+#pdf-btn span { color: var(--accent); }
+
+/* ============================================================
+   Print → clean multi-page PDF (one slide per landscape page)
+   ============================================================ */
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { background: #08090B !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .hud, .dots, .progress, .scroll-hint, .cover-cta, .film-btn, .modal, #pdf-btn { display: none !important; }
+  .deck { display: block !important; height: auto !important; overflow: visible !important; scroll-snap-type: none !important; }
+  .slide {
+    width: 1280px !important; height: 720px !important; min-height: 0 !important;
+    page-break-after: always; break-after: page; break-inside: avoid;
+    position: relative !important; transform: none !important; opacity: 1 !important;
+    scroll-snap-align: none !important; overflow: hidden !important;
+  }
+  .slide:last-child { break-after: auto; page-break-after: avoid; }
+  [data-anim] { opacity: 1 !important; transform: none !important; }
+  video { visibility: visible !important; }
 }

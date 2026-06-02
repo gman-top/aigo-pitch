@@ -31,6 +31,7 @@
     <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
   </div>
   <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
+  <button id="pdf-btn" type="button" onclick="window.print()" aria-label="Download as PDF"><span>&#8595;</span> Download PDF</button>
 
   <!-- inline star symbol reused as a CSS mask + decorative SVG -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -53,7 +54,7 @@
         <div class="boot" data-anim data-d="3">
           <span>INITIALIZING ENGINE</span><span class="sep">·</span>
           <span>REAL-TIME CORE · ONLINE</span><span class="sep">·</span>
-          <span>100K TPS · 12MS · ZERO DOWNTIME</span>
+          <span>7 GAMES LIVE · 4 CATEGORIES</span>
         </div>
         <div data-anim data-d="4" style="margin-top:6px">
           <button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch the film · 2:21</button>
@@ -78,9 +79,9 @@
           <h2 class="headline thesis-head" data-anim data-d="1">Most studios build games.<span class="nl">We built the <span class="accent">engine</span> that builds them.</span></h2>
         </div>
         <div class="stats" data-anim data-d="2">
-          <div class="stat"><div class="num">15</div><div class="lbl">Titles live</div></div>
+          <div class="stat"><div class="num">7</div><div class="lbl">Games live</div></div>
           <div class="stat"><div class="num">4</div><div class="lbl">Categories</div></div>
-          <div class="stat"><div class="num accent" style="font-size:clamp(28px,3.2vw,50px)">Crypto</div><div class="lbl">Markets</div></div>
+          <div class="stat"><div class="num accent">Crypto</div><div class="lbl">Markets</div></div>
           <div class="stat"><div class="num">1</div><div class="lbl">Real-time engine</div></div>
         </div>
       </div>
@@ -172,7 +173,7 @@
 
           <article class="card" style="--c:#8B5CFF" data-game="FSL">
             <div class="topline"></div>
-            <div class="media"><video class="poster" src="assets/fsl/goal.mp4" muted loop playsinline autoplay preload="metadata" aria-label="Future Sports League gameplay"></video></div>
+            <div class="media"><video class="poster" src="assets/fsl/goal.mp4" poster="assets/captures/FSL.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Future Sports League gameplay"></video></div>
             <div class="scrim"></div>
             <div class="meta">
               <div class="cat">Sports</div>
@@ -335,6 +336,24 @@
           </div>
         </div>
         <p class="punch" data-anim data-d="3">Vault Run is not just a game mode.<span class="nl">It is a <span class="accent">format for branded entertainment.</span></span></p>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         5e · VAULT RUN — GO-TO-MARKET / HYPE PLAN
+    ========================================================= -->
+    <section class="slide stage-pure" id="vault-hype">
+      <div class="inner">
+        <div class="micro" data-anim>VAULT RUN · GO-TO-MARKET</div>
+        <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,3.6vw,48px);margin-bottom:6px">The hype plan.</h2>
+        <p class="sub" data-anim data-d="2" style="margin:0 0 32px;text-align:left">Make people remember the action before they ever play.</p>
+        <div class="hype" data-anim data-d="3">
+          <div class="hstep"><div class="hn">01</div><div><div class="ht">The hook — &ldquo;Would you open it?&rdquo;</div><div class="hd">Door teasers, creator reactions, polls and a countdown to the first public run.</div></div></div>
+          <div class="hstep"><div class="hn">02</div><div><div class="ht">Creator &amp; streamer beta</div><div class="hd">Challenges built for clips — biggest escape, greed-door run, last-second cashout.</div></div></div>
+          <div class="hstep"><div class="hn">03</div><div><div class="ht">Public launch — &ldquo;The First Vault Run&rdquo;</div><div class="hd">A 7-day event: daily leaderboard, jackpot vault, founder badges, replay cards.</div></div></div>
+          <div class="hstep"><div class="hn">04</div><div><div class="ht">Partnership seasons</div><div class="hd">Branded vaults with music, sports, film and streamer partners.</div></div></div>
+          <div class="hstep"><div class="hn">05</div><div><div class="ht">IP expansion</div><div class="hd">New rooms, new doors, limited-time events — a format for branded entertainment.</div></div></div>
+        </div>
       </div>
     </section>
 
