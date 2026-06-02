@@ -489,7 +489,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
 .season .sname { font-family: var(--display); font-weight: 700; font-size: clamp(16px, 1.6vw, 21px); color: var(--text); position: relative; z-index: 2; }
 .season .stheme { font-family: var(--body); font-size: 12.5px; color: var(--text-dim); position: relative; z-index: 2; line-height: 1.45; }
 .season .stag { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sc); position: relative; z-index: 2; }
-.punch { font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3.4vw, 46px); line-height: 1.12; letter-spacing: -0.02em; margin-top: 48px; max-width: 22ch; }
+.punch { font-family: var(--display); font-weight: 600; font-size: clamp(24px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -0.02em; margin-top: 44px; max-width: min(94vw, 1180px); }
 
 /* ============================================================
    6 · ROADMAP
