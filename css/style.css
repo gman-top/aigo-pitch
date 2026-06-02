@@ -469,12 +469,15 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   --sc: var(--accent);
   position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
   aspect-ratio: 3 / 4; padding: 22px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px;
-  background: var(--stage2);
-  transition: transform 0.4s var(--ease-standard), border-color 0.4s;
+  background-color: var(--stage2); background-size: cover; background-position: center;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+  transition: transform 0.4s var(--ease-standard), border-color 0.4s, box-shadow 0.4s;
 }
 .season::before {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(160deg, color-mix(in srgb, var(--sc) 16%, transparent), transparent 60%);
+  background:
+    linear-gradient(180deg, rgba(4,5,7,0.28) 0%, rgba(4,5,7,0.55) 45%, rgba(4,5,7,0.92) 100%),
+    linear-gradient(150deg, color-mix(in srgb, var(--sc) 30%, transparent), transparent 55%);
 }
 .season::after {
   content: ""; position: absolute; top: 18px; right: 18px; width: 24px; height: 24px;
