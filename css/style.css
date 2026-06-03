@@ -631,5 +631,74 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   }
   .slide:last-child { break-after: auto; page-break-after: avoid; }
   [data-anim] { opacity: 1 !important; transform: none !important; }
+  .gline { stroke-dashoffset: 0 !important; } .gdot { opacity: 1 !important; }
+  .cacbar .ct i { width: var(--w) !important; }
   video { visibility: visible !important; }
+}
+
+/* ============================================================
+   DATA SLIDES — market / attention / partnerships / economics
+   ============================================================ */
+.srcline { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin-top: 22px; line-height: 1.8; }
+.srcline b { color: var(--text-dim); font-weight: 500; }
+.illus { display: inline-block; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); border: 1px solid rgba(189,255,95,0.45); border-radius: 999px; padding: 3px 9px; vertical-align: middle; margin-left: 10px; }
+
+/* market growth chart */
+.gchart { margin-top: 30px; width: 100%; }
+.gchart svg { width: 100%; height: auto; display: block; overflow: visible; }
+.gaxis { stroke: var(--line); stroke-width: 1; }
+.gtick { font-family: var(--mono); font-size: 12px; fill: var(--text-faint); letter-spacing: 0.08em; }
+.glbl { font-family: var(--mono); font-size: 13px; letter-spacing: 0.02em; font-weight: 700; }
+.gline { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1700; stroke-dashoffset: 1700; transition: stroke-dashoffset 1.5s var(--ease-standard); }
+.in-view .gchart .gline { stroke-dashoffset: 0; }
+.gline.l2 { transition-delay: 0.22s; } .gline.l3 { transition-delay: 0.44s; }
+.gdot { opacity: 0; transition: opacity 0.5s ease 1.2s; } .in-view .gdot { opacity: 1; }
+
+/* price-of-attention ladder */
+.ladder { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: end; margin-top: 40px; }
+.rung { position: relative; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0)); padding: 20px 18px; display: flex; flex-direction: column; justify-content: flex-end; }
+.rung .rcap { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: auto; }
+.rung .ramt { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 2.9vw, 42px); line-height: 1; letter-spacing: -0.03em; color: var(--text); }
+.rung .rwho { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 12px; line-height: 1.5; }
+.rung.r1 { min-height: 130px; } .rung.r2 { min-height: 178px; } .rung.r3 { min-height: 226px; }
+.rung.out { min-height: 286px; border-color: rgba(255,70,39,0.5); background: linear-gradient(180deg, rgba(255,70,39,0.16), rgba(255,70,39,0.02)); }
+.rung.out .ramt { color: var(--accent); }
+.rung.out .rcap { color: var(--accent); }
+
+/* economics — CAC bars + funnel */
+.econ { display: grid; grid-template-columns: 1.05fr 1fr; gap: 50px; margin-top: 34px; align-items: start; }
+.econ h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 22px; font-weight: 500; }
+.cacbar { margin-bottom: 22px; }
+.cacbar .cl { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-bottom: 9px; letter-spacing: 0.03em; }
+.cacbar .cl b { font-family: var(--display); font-size: 17px; letter-spacing: -0.02em; }
+.cacbar .ct { height: 14px; border-radius: 8px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.cacbar .ct i { display: block; height: 100%; width: 0; border-radius: 8px; transition: width 1.1s var(--ease-standard); }
+.in-view .cacbar .ct i { width: var(--w); }
+.cacbar.win .cl b { color: var(--accent); }
+.cacnote { font-family: var(--body); font-size: 13.5px; color: var(--text-dim); line-height: 1.6; margin-top: 6px; }
+.cacnote b { color: var(--green); font-weight: 600; }
+.funnel { display: flex; flex-direction: column; gap: 7px; }
+.frow { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: rgba(255,255,255,0.02); }
+.frow .fv { font-family: var(--display); font-weight: 700; font-size: clamp(18px, 1.9vw, 26px); color: var(--text); letter-spacing: -0.02em; }
+.frow .fl { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-align: right; line-height: 1.4; }
+.frow.win { border-color: rgba(255,70,39,0.5); background: rgba(255,70,39,0.12); } .frow.win .fv { color: var(--accent); }
+.farrow { text-align: center; color: var(--text-faint); font-size: 12px; line-height: 0.5; margin: -2px 0; }
+.anchor-note { margin-top: 30px; border-top: 1px solid var(--line); padding-top: 20px; font-family: var(--display); font-weight: 500; font-size: clamp(15px, 1.6vw, 21px); color: var(--text); line-height: 1.45; max-width: 70ch; }
+.anchor-note .accent { font-weight: 600; }
+
+/* attention hero number */
+.heronum { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 22px; display: flex; align-items: baseline; gap: 30px; flex-wrap: wrap; }
+.heronum .hv { font-family: var(--display); font-weight: 700; font-size: clamp(44px, 6.4vw, 92px); line-height: 0.85; letter-spacing: -0.04em; color: var(--accent); }
+.heronum .hx { max-width: 36ch; }
+.heronum .hx .hxt { font-family: var(--display); font-weight: 600; font-size: clamp(18px, 2vw, 27px); color: var(--text); line-height: 1.22; }
+.heronum .hx .hxs { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 12px; line-height: 1.6; }
+
+@media (max-width: 980px) {
+  .ladder { grid-template-columns: repeat(2, 1fr); }
+  .rung.r1,.rung.r2,.rung.r3,.rung.out { min-height: 150px; }
+  .econ { grid-template-columns: 1fr; gap: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gline { stroke-dashoffset: 0 !important; } .gdot { opacity: 1 !important; }
+  .cacbar .ct i { width: var(--w) !important; transition: none; }
 }
