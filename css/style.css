@@ -765,11 +765,16 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   .headline, .display, .hook, .punch { word-break: break-word; overflow-wrap: anywhere; }
   .sub, .punch { max-width: 100% !important; }
 
-  /* every stat row stacks full-width with bottom dividers */
-  .stats, .stats.s3 { grid-template-columns: 1fr !important; margin-top: 28px !important; border-top: none !important; }
-  .stat { border-right: none !important; border-bottom: 1px solid var(--line) !important; padding: 16px 0 !important; }
-  .stat:first-child { border-top: 1px solid var(--line) !important; }
-  .stat:last-child { border-bottom: none !important; }
+  /* 4-stat thesis row → 2×2 grid; 3-stat data rows → stacked */
+  .stats { grid-template-columns: 1fr 1fr !important; margin-top: 28px !important; border-top: 1px solid var(--line) !important; }
+  .stats.s3 { grid-template-columns: 1fr !important; }
+  .stat { border-right: none !important; padding: 20px 0 16px !important; }
+  .stats .stat:nth-child(odd) { border-right: 1px solid var(--line) !important; padding-right: 16px !important; }
+  .stats .stat:nth-child(even) { padding-left: 18px !important; }
+  .stats .stat:nth-child(1), .stats .stat:nth-child(2) { border-bottom: 1px solid var(--line) !important; }
+  /* 3-stat rows stack full-width with bottom dividers (overrides the 2-col rules) */
+  .stats.s3 .stat { border-right: none !important; border-bottom: 1px solid var(--line) !important; padding: 16px 0 !important; }
+  .stats.s3 .stat:last-child { border-bottom: none !important; }
   .stat .num { height: auto !important; font-size: 46px !important; align-items: flex-start !important; }
 
   /* attention hero band → stack */
