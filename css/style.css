@@ -633,6 +633,21 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   [data-anim] { opacity: 1 !important; transform: none !important; }
   .gline { stroke-dashoffset: 0 !important; } .gdot, .garea { opacity: 1 !important; }
   .cacbar .ct i { width: var(--w) !important; }
+  /* keep the desktop layouts (don't let the responsive collapse fire in print) */
+  .two-up { grid-template-columns: 1fr 1fr !important; }
+  .econ { grid-template-columns: 1.05fr 1fr !important; }
+  .hero2 { grid-template-columns: 1.05fr 1fr !important; }
+  .hero2 .h2r { border-left: 1px solid var(--line) !important; padding-left: 50px !important; }
+  .ladder { grid-template-columns: repeat(4, 1fr) !important; }
+  .stats { grid-template-columns: repeat(4, 1fr) !important; } .stats.s3 { grid-template-columns: repeat(3, 1fr) !important; }
+  .cards { grid-template-columns: repeat(3, 1fr) !important; }
+  .seasons { grid-template-columns: repeat(4, 1fr) !important; }
+  .hex-grid { grid-template-columns: 1.15fr 1fr !important; }
+  .stream-grid { grid-template-columns: 1fr 0.92fr !important; }
+  .road { grid-template-columns: repeat(4, 1fr) !important; }
+  .milestone { border-left: 1px solid var(--line) !important; padding-left: 26px !important; }
+  .milestone:first-child { border-left: none !important; padding-left: 0 !important; }
+  .milestone .node { box-shadow: none !important; } /* crisp dot in print (glow is screen-only) */
   video { visibility: visible !important; }
 }
 
@@ -707,7 +722,27 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
 .road::before { content: ""; position: absolute; top: 5px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--line-strong) 7%, var(--line-strong) 93%, transparent); z-index: 0; }
 .milestone .node { position: relative; z-index: 1; }
 
+/* attention — balanced hero band (giant number | statement) */
+.hero2 { display: grid; grid-template-columns: 1.05fr 1fr; gap: 50px; margin-top: 30px; align-items: center; }
+.hero2 .hv { font-family: var(--display); font-weight: 700; font-size: clamp(48px, 6.6vw, 104px); line-height: 0.86; letter-spacing: -0.04em; color: var(--accent); }
+.hero2 .hxt { font-family: var(--display); font-weight: 600; font-size: clamp(16px, 1.7vw, 22px); color: var(--text); line-height: 1.3; margin-top: 16px; max-width: 40ch; }
+.hero2 .hxs { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 12px; }
+.hero2 .h2r { border-left: 1px solid var(--line); padding-left: 50px; }
+.hero2 .h2r .stmt { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.8vw, 38px); line-height: 1.16; letter-spacing: -0.02em; }
+.hero2 .h2r .h2rtag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-top: 20px; }
+
+/* vault-launch — fuller two-up panels */
+.two-up.tall .panel { display: flex; flex-direction: column; position: relative; overflow: hidden; min-height: clamp(300px, 40vh, 384px); }
+.panel .pnum { position: absolute; top: -10px; right: 18px; font-family: var(--display); font-weight: 700; font-size: clamp(96px, 9vw, 156px); line-height: 1; color: rgba(244,245,247,0.045); pointer-events: none; }
+.panel .pdesc { font-family: var(--body); font-size: 14px; color: var(--text-dim); line-height: 1.55; margin-bottom: 24px; max-width: 44ch; position: relative; }
+.panel .pfoot { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); position: relative; }
+.panel.green-p .pfoot { color: var(--green); } .panel.accent-p .pfoot { color: var(--accent); }
+.two-up.tall .panel h3 { margin-bottom: 14px; position: relative; }
+.two-up.tall .panel .micro, .two-up.tall .panel .chips { position: relative; }
+
 @media (max-width: 980px) {
+  .hero2 { grid-template-columns: 1fr; gap: 26px; }
+  .hero2 .h2r { border-left: none; padding-left: 0; }
   .ladder { grid-template-columns: repeat(2, 1fr); }
   .rung.r1,.rung.r2,.rung.r3,.rung.out { min-height: 150px; }
   .econ { grid-template-columns: 1fr; gap: 30px; }
