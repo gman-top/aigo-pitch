@@ -94,31 +94,45 @@
       <div class="inner">
         <div class="micro" data-anim>WHY NOW · THE MARKET</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:16px;font-size:clamp(30px,4.2vw,58px)">Three curves bending up at once.</h2>
-        <div class="stats" data-anim data-d="2">
+        <div class="stats s3" data-anim data-d="2" style="margin-top:32px">
           <div class="stat"><div class="num"><span class="u">$38B</span></div><div class="lbl">Online casino by 2030 · 12.2% CAGR</div></div>
           <div class="stat"><div class="num">$81B</div><div class="lbl">Crypto gambling GGR · 2024 (~5&times; since &rsquo;22)</div></div>
           <div class="stat"><div class="num">~35%</div><div class="lbl">of mobile casino sessions are crash</div></div>
         </div>
         <div class="gchart" data-anim data-d="3">
-          <svg viewBox="0 0 1180 330" role="img" aria-label="Three rising market curves 2022 to 2030">
-            <!-- baseline -->
-            <line class="gaxis" x1="60" y1="288" x2="1140" y2="288"></line>
+          <svg viewBox="0 0 1180 360" role="img" aria-label="Three rising market curves 2022 to 2030">
+            <defs>
+              <linearGradient id="tamfill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FF4627" stop-opacity="0.20"></stop>
+                <stop offset="1" stop-color="#FF4627" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <!-- gridlines -->
+            <line class="ggrid" x1="70" y1="90"  x2="1040" y2="90"></line>
+            <line class="ggrid" x1="70" y1="160" x2="1040" y2="160"></line>
+            <line class="ggrid" x1="70" y1="230" x2="1040" y2="230"></line>
+            <line class="gaxis" x1="70" y1="300" x2="1040" y2="300"></line>
             <!-- year ticks -->
-            <text class="gtick" x="60"   y="312">2022</text>
-            <text class="gtick" x="590"  y="312" text-anchor="middle">2026</text>
-            <text class="gtick" x="1140" y="312" text-anchor="end">2030</text>
+            <text class="gtick" x="70"   y="326">2022</text>
+            <text class="gtick" x="555"  y="326" text-anchor="middle">2026</text>
+            <text class="gtick" x="1040" y="326" text-anchor="end">2030</text>
+            <!-- legend (top-left, clear of the lines) -->
+            <g class="glegend">
+              <circle cx="78" cy="56"  r="5" fill="#BDFF5F"></circle><text class="gleg" x="94" y="60">Crypto gambling GGR &middot; 5&times; since &rsquo;22</text>
+              <circle cx="78" cy="82"  r="5" fill="#FF4627"></circle><text class="gleg" x="94" y="86">Online casino TAM &middot; $19B &rarr; $38B</text>
+              <circle cx="78" cy="108" r="5" fill="#5BC8FF"></circle><text class="gleg" x="94" y="112">Kick hours watched &middot; +131%/yr</text>
+            </g>
+            <!-- area under the TAM curve -->
+            <path class="garea" fill="url(#tamfill)" d="M70,250 C320,240 520,212 700,176 C860,142 960,120 1040,104 L1040,300 L70,300 Z"></path>
             <!-- online casino TAM (accent) -->
-            <path class="gline" stroke="#FF4627" d="M60,250 C360,238 520,210 700,176 C880,142 1020,108 1140,80"></path>
-            <circle class="gdot" cx="1140" cy="80" r="5" fill="#FF4627"></circle>
-            <text class="glbl" x="1132" y="62" text-anchor="end" fill="#FF4627">Online casino TAM &middot; $19B&rarr;$38B</text>
-            <!-- crypto GGR (green) -->
-            <path class="gline l2" stroke="#BDFF5F" d="M60,272 C320,266 500,240 690,188 C860,142 1010,86 1140,44"></path>
-            <circle class="gdot" cx="1140" cy="44" r="5" fill="#BDFF5F"></circle>
-            <text class="glbl" x="1132" y="30" text-anchor="end" fill="#BDFF5F">Crypto gambling GGR &middot; 5&times;</text>
+            <path class="gline" stroke="#FF4627" d="M70,250 C320,240 520,212 700,176 C860,142 960,120 1040,104"></path>
+            <circle class="gdot" cx="1040" cy="104" r="5.5" fill="#FF4627"></circle>
+            <!-- crypto GGR (green) — steepest -->
+            <path class="gline l2" stroke="#BDFF5F" d="M70,272 C300,266 500,238 690,184 C860,132 960,94 1040,66"></path>
+            <circle class="gdot" cx="1040" cy="66" r="5.5" fill="#BDFF5F"></circle>
             <!-- kick hours (blue) -->
-            <path class="gline l3" stroke="#5BC8FF" d="M60,282 C300,280 470,270 660,232 C840,196 1010,150 1140,118"></path>
-            <circle class="gdot" cx="1140" cy="118" r="5" fill="#5BC8FF"></circle>
-            <text class="glbl" x="1132" y="138" text-anchor="end" fill="#5BC8FF">Kick hours watched &middot; +131%/yr</text>
+            <path class="gline l3" stroke="#5BC8FF" d="M70,284 C300,282 470,272 660,238 C820,202 960,170 1040,150"></path>
+            <circle class="gdot" cx="1040" cy="150" r="5.5" fill="#5BC8FF"></circle>
           </svg>
         </div>
         <div class="srcline" data-anim data-d="4"><b>Sources:</b> Grand View Research (online casino &amp; gambling market, 2025) &middot; Yield Sec / Financial Times (crypto GGR, 2024) &middot; CasinoRank (crash share, 2025) &middot; Stream Hatchet / Streams Charts (Kick hours, 2025)</div>
@@ -285,8 +299,8 @@
     <section class="slide stage-pure" id="attention">
       <div class="inner">
         <div class="micro" data-anim>WHY VAULT RUN · THE ATTENTION</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.6vw,48px)">The world&rsquo;s biggest audience is watching games being played.</h2>
-        <div class="stats" data-anim data-d="2" style="margin-top:36px">
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(24px,3.2vw,42px)">The world&rsquo;s biggest audience is watching games being played.</h2>
+        <div class="stats s3" data-anim data-d="2" style="margin-top:28px">
           <div class="stat"><div class="num">20.8B</div><div class="lbl">Twitch hours watched · 2024</div></div>
           <div class="stat"><div class="num">4.5B</div><div class="lbl">Kick hours · +131% YoY</div></div>
           <div class="stat"><div class="num"><span class="u">Top 3</span></div><div class="lbl">Kick category: Slots &amp; Casino</div></div>
@@ -298,8 +312,8 @@
             <div class="hxs">Twitch Plays Pokémon · Guinness World Record, 2014</div>
           </div>
         </div>
-        <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(19px,2.4vw,30px)">Crowd-controlled play set a world record.<span class="nl">Vault Run makes it a <span class="accent">casino game.</span></span></p>
-        <div class="srcline" data-anim data-d="5" style="margin-top:16px"><b>Sources:</b> TwitchTracker / Business of Apps (2024) &middot; Stream Hatchet / Streams Charts (Kick, 2025) &middot; Guinness World Records (Twitch Plays Pokémon, 2014)</div>
+        <p class="punch" data-anim data-d="4" style="margin-top:16px;font-size:clamp(18px,2.2vw,27px)">Crowd-controlled play set a world record.<span class="nl">Vault Run makes it a <span class="accent">casino game.</span></span></p>
+        <div class="srcline" data-anim data-d="5" style="margin-top:12px"><b>Sources:</b> TwitchTracker / Business of Apps (2024) &middot; Stream Hatchet / Streams Charts (Kick, 2025) &middot; Guinness World Records (Twitch Plays Pokémon, 2014)</div>
       </div>
     </section>
 
