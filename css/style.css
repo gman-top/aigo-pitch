@@ -803,4 +803,9 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
 
   /* games / branded grids stack 1-up cleanly (already 1fr at 640, keep gaps) */
   .cards { gap: 14px !important; }
+
+  /* hype plan → single-column roadmap list (was a cramped 2-col on mobile) */
+  .hype { grid-template-columns: 1fr !important; gap: 0 !important; max-width: 100% !important; }
+  .hstep { padding: 18px 0 !important; }
+  .hstep:first-child { border-top: none !important; }
 }
