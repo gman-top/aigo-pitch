@@ -751,3 +751,51 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   .gline { stroke-dashoffset: 0 !important; } .gdot, .garea { opacity: 1 !important; }
   .cacbar .ct i { width: var(--w) !important; transition: none; }
 }
+
+/* ============================================================
+   MOBILE — phones (≤640px). Stack everything, hide the overlapping
+   corner HUD, make the data slides legible.
+   ============================================================ */
+@media (max-width: 640px) {
+  /* the fixed corner HUD labels sit over content on small screens */
+  .hud-label { display: none !important; }
+  .slide { padding: 54px 20px !important; }
+
+  /* headlines / copy never overflow */
+  .headline, .display, .hook, .punch { word-break: break-word; overflow-wrap: anywhere; }
+  .sub, .punch { max-width: 100% !important; }
+
+  /* every stat row stacks full-width with bottom dividers */
+  .stats, .stats.s3 { grid-template-columns: 1fr !important; margin-top: 28px !important; border-top: none !important; }
+  .stat { border-right: none !important; border-bottom: 1px solid var(--line) !important; padding: 16px 0 !important; }
+  .stat:first-child { border-top: 1px solid var(--line) !important; }
+  .stat:last-child { border-bottom: none !important; }
+  .stat .num { height: auto !important; font-size: 46px !important; align-items: flex-start !important; }
+
+  /* attention hero band → stack */
+  .hero2 { grid-template-columns: 1fr !important; gap: 22px !important; margin-top: 24px !important; }
+  .hero2 .h2r { border-left: none !important; padding-left: 0 !important; border-top: 1px solid var(--line); padding-top: 20px !important; }
+  .hero2 .hv { font-size: 60px !important; }
+  .hero2 .h2r .stmt { font-size: 26px !important; }
+
+  /* economics → stack, bars + funnel full width */
+  .econ { grid-template-columns: 1fr !important; gap: 28px !important; }
+  .frow .fv { font-size: 22px !important; }
+
+  /* two-up panels → stack, auto height */
+  .two-up, .two-up.tall { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .two-up.tall .panel { min-height: 0 !important; }
+  .panel .pnum { font-size: 78px !important; top: -4px !important; }
+
+  /* price-of-attention ladder → vertical list (no staircase) */
+  .ladder { grid-template-columns: 1fr !important; gap: 12px !important; }
+  .rung, .rung.r1, .rung.r2, .rung.r3, .rung.out { min-height: 0 !important; }
+  .rung .ramt { font-size: 40px !important; }
+
+  /* market chart → legible: taller, swipe horizontally */
+  .gchart { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 20px; }
+  .gchart svg { width: 720px; }
+
+  /* games / branded grids stack 1-up cleanly (already 1fr at 640, keep gaps) */
+  .cards { gap: 14px !important; }
+}
