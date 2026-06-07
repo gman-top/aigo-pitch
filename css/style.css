@@ -592,13 +592,25 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
 }
 
 /* ============================================================
-   Hype plan (Vault Run go-to-market)
+   Hype plan (Vault Run go-to-market) — phase rail + channel matrix
    ============================================================ */
-.hype { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 56px; max-width: 1120px; }
-.hstep { display: flex; gap: 18px; align-items: flex-start; padding: 16px 0; border-top: 1px solid var(--line); }
-.hstep .hn { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent); padding-top: 3px; min-width: 26px; letter-spacing: 0.06em; }
-.hstep .ht { font-family: var(--display); font-weight: 600; font-size: clamp(16px, 1.5vw, 20px); color: var(--text); letter-spacing: -0.01em; }
-.hstep .hd { font-family: var(--body); font-size: 13.5px; color: var(--text-dim); margin-top: 6px; line-height: 1.5; }
+/* the 5-phase narrative spine, compact across the top */
+.phase-rail { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin: 0 0 30px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.phase { display: flex; flex-direction: column; gap: 5px; }
+.phase .pn { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); }
+.phase .pname { font-family: var(--display); font-weight: 600; font-size: clamp(13px, 1.15vw, 16px); letter-spacing: -0.01em; line-height: 1.15; color: var(--text); }
+.phase .ptag { font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); line-height: 1.4; }
+
+/* the channel matrix — 9 platforms, each accent-coded by --sc */
+.channels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.channel { --sc: var(--accent); position: relative; border: 1px solid var(--line); border-left: 2px solid var(--sc); border-radius: 12px; padding: 16px 18px; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0)); transition: transform 0.3s var(--ease-standard), border-color 0.3s, box-shadow 0.3s; }
+.channel:hover { transform: translateY(-3px); border-color: var(--sc); box-shadow: 0 16px 40px rgba(0,0,0,0.42); }
+.channel .cname { font-family: var(--display); font-weight: 700; font-size: clamp(15px, 1.4vw, 19px); letter-spacing: -0.01em; color: var(--text); }
+.channel .crole { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--sc); margin-top: 4px; }
+.channel .ctac { font-family: var(--body); font-size: 12.5px; line-height: 1.5; color: var(--text-dim); margin-top: 10px; }
+/* responsive (kept next to the component so it lands after the base rule in source order) */
+@media (max-width: 980px) { .channels { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .channels { grid-template-columns: 1fr; } }
 
 /* ============================================================
    Download-PDF button
@@ -642,6 +654,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   .stats { grid-template-columns: repeat(4, 1fr) !important; } .stats.s3 { grid-template-columns: repeat(3, 1fr) !important; }
   .cards { grid-template-columns: repeat(3, 1fr) !important; }
   .seasons { grid-template-columns: repeat(4, 1fr) !important; }
+  .channels { grid-template-columns: repeat(3, 1fr) !important; }
+  .phase-rail { grid-template-columns: repeat(5, 1fr) !important; }
   .hex-grid { grid-template-columns: 1.15fr 1fr !important; }
   .stream-grid { grid-template-columns: 1fr 0.92fr !important; }
   .road { grid-template-columns: repeat(4, 1fr) !important; }
@@ -804,8 +818,6 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
   /* games / branded grids stack 1-up cleanly (already 1fr at 640, keep gaps) */
   .cards { gap: 14px !important; }
 
-  /* hype plan → single-column roadmap list (was a cramped 2-col on mobile) */
-  .hype { grid-template-columns: 1fr !important; gap: 0 !important; max-width: 100% !important; }
-  .hstep { padding: 18px 0 !important; }
-  .hstep:first-child { border-top: none !important; }
+  /* hype plan v2 → phase rail auto-wraps; channel matrix steps 3→2→1 via the queries above */
+  .phase-rail { gap: 12px 18px !important; padding: 16px 0 !important; }
 }
