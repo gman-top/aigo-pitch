@@ -627,9 +627,89 @@ h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.04; l
 #pdf-btn span { color: var(--accent); }
 
 /* ============================================================
+   ACCESS GATE — vault-door passcode overlay
+   (client-side deterrent; the deck stays hidden until unlocked)
+   ============================================================ */
+body.locked { overflow: hidden; height: 100vh; }
+body.locked .deck, body.locked .hud, body.locked .dots,
+body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
+
+#lock { position: fixed; inset: 0; z-index: 1000; background: var(--stage);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  transition: background 0.6s var(--ease-standard); }
+/* once unlocked, the overlay itself goes transparent so the parting doors reveal the live deck behind */
+#lock.unlocked { background: transparent; pointer-events: none; }
+
+/* the two vault doors that split apart on success */
+.vault-door { position: absolute; top: 0; height: 100%; width: 50.5%; z-index: 1;
+  background:
+    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px) 0 0 / 64px 64px,
+    linear-gradient(180deg, #15171b 0%, #0c0d10 55%, #08090b 100%);
+  box-shadow: inset 0 0 140px rgba(0,0,0,0.7);
+  transition: transform 1.15s cubic-bezier(0.76, 0, 0.18, 1); }
+.vault-door::after { content: ""; position: absolute; top: 0; height: 100%; width: 2px;
+  background: linear-gradient(180deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 26px 2px rgba(255,70,39,0.6); opacity: 0.55; }
+.vd-left  { left: 0; }  .vd-left::after  { right: -1px; }
+.vd-right { right: 0; } .vd-right::after { left: -1px; }
+#lock.unlocked .vd-left  { transform: translateX(-100%); }
+#lock.unlocked .vd-right { transform: translateX(100%); }
+
+/* console */
+.lock-inner { position: relative; z-index: 3; width: min(92vw, 470px); padding: 24px; text-align: center;
+  transition: opacity 0.5s var(--ease-standard), transform 0.6s var(--ease-standard); }
+#lock.unlocked .lock-inner { opacity: 0; transform: scale(0.94); }
+.lock-star { width: 80px; height: auto; margin: 0 auto 22px;
+  filter: drop-shadow(0 0 22px rgba(255,70,39,0.45)); animation: lockpulse 3s var(--ease-standard) infinite; }
+@keyframes lockpulse {
+  0%,100% { filter: drop-shadow(0 0 16px rgba(255,70,39,0.32)); transform: scale(1); }
+  50%     { filter: drop-shadow(0 0 34px rgba(255,70,39,0.7));  transform: scale(1.04); } }
+.lock-brand { font-family: var(--display); font-weight: 700; letter-spacing: 0.42em; font-size: 14px;
+  color: var(--text); margin-bottom: 12px; padding-left: 0.42em; }
+.lock-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 32px; }
+.lock-tag .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 8px var(--accent); margin-right: 8px; vertical-align: middle; animation: pulse 2s var(--ease-standard) infinite; }
+.lock-field { display: flex; align-items: stretch; gap: 6px; padding: 6px; border: 1px solid var(--line-strong);
+  border-radius: 12px; background: rgba(255,255,255,0.025); transition: border-color .25s, box-shadow .25s; }
+.lock-field:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+#lock-input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; color: var(--text);
+  font-family: var(--mono); font-size: 15px; letter-spacing: 0.28em; padding: 13px 14px; }
+#lock-input::placeholder { color: var(--text-faint); letter-spacing: 0.16em; }
+#lock-btn { font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--accent); border: none; border-radius: 8px; padding: 0 18px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: transform .2s, filter .2s; }
+#lock-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+#lock-btn .tri { font-size: 8px; }
+.lock-msg { min-height: 16px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--text-dim); }
+.lock-msg.err { color: var(--accent); }
+.lock-msg.ok  { color: var(--green); }
+.lock-foot { margin-top: 30px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--text-faint); }
+.lock-deny { animation: lockdeny 0.42s; }
+@keyframes lockdeny { 0%,100% { transform: translateX(0); } 18% { transform: translateX(-11px); }
+  38% { transform: translateX(9px); } 58% { transform: translateX(-6px); } 78% { transform: translateX(3px); } }
+.lock-boot { position: absolute; left: 50%; bottom: 9%; transform: translateX(-50%); z-index: 3;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--green); text-align: center; line-height: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vault-door { transition: none; } .lock-star { animation: none; }
+  #lock.unlocked .lock-inner { transition: none; }
+}
+@media (max-width: 640px) {
+  .lock-field { flex-direction: column; }
+  #lock-btn { padding: 12px; justify-content: center; }
+}
+
+/* ============================================================
    Print → clean multi-page PDF (one slide per landscape page)
    ============================================================ */
 @media print {
+  #lock { display: none !important; }
+  body.locked .deck, body.locked .hud, body.locked .dots,
+  body.locked .progress, body.locked #pdf-btn { visibility: visible !important; }
   @page { size: 1280px 720px; margin: 0; }
   html, body { background: #08090B !important; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }

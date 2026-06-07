@@ -20,7 +20,30 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" href="assets/brand/star.png" />
 </head>
-<body>
+<body class="locked">
+
+  <!-- ============ ACCESS GATE · client-side passcode (deterrent, not server-side security) ============ -->
+  <div id="lock" role="dialog" aria-modal="true" aria-label="Restricted access — passcode required">
+    <div class="vault-door vd-left" aria-hidden="true"></div>
+    <div class="vault-door vd-right" aria-hidden="true"></div>
+    <div class="lock-inner">
+      <img class="lock-star" src="assets/brand/star.png" alt="AIGO" />
+      <div class="lock-brand">AIGO STUDIOS</div>
+      <div class="lock-tag"><span class="dot"></span>RESTRICTED &middot; AUTHORIZATION REQUIRED</div>
+      <form id="lock-form" autocomplete="off" novalidate>
+        <div class="lock-field">
+          <input id="lock-input" type="password" placeholder="ENTER PASSCODE" aria-label="Passcode"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button id="lock-btn" type="submit">ENTER <span class="tri">&#9654;</span></button>
+        </div>
+        <div id="lock-msg" class="lock-msg" role="status" aria-live="polite"></div>
+      </form>
+      <div class="lock-foot">INFRASTRUCTURE FOR REAL-TIME GAMING</div>
+      <noscript><div class="lock-msg err" style="margin-top:14px">JavaScript is required to enter.</div></noscript>
+    </div>
+    <div class="lock-boot" id="lock-boot" aria-hidden="true"></div>
+  </div>
+  <script>try{if(sessionStorage.getItem("aigo_unlocked")==="1"){document.body.classList.remove("locked");var _l=document.getElementById("lock");if(_l&&_l.parentNode)_l.parentNode.removeChild(_l);}}catch(e){}</script>
 
   <!-- ============ HUD ============ -->
   <div class="progress" id="progress"></div>
@@ -634,6 +657,7 @@
     </div>
   </div>
 
+  <script src="js/gate.js"></script>
   <script src="js/deck.js"></script>
 </body>
 </html>
