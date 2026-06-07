@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AIGO Studios — Restricted</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#08090B" />
+  <meta property="og:title" content="AIGO Studios — Restricted Access" />
+  <meta property="og:description" content="Authorization required." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/brand/star.png" />
+</head>
+<body class="locked">
+
+  <!-- ============ ENCRYPTED ENTRY · vault passcode ============ -->
+  <div id="lock" role="dialog" aria-modal="true" aria-label="Restricted access — passcode required">
+    <div class="vault-door vd-left" aria-hidden="true"></div>
+    <div class="vault-door vd-right" aria-hidden="true"></div>
+    <div class="lock-inner">
+      <img class="lock-star" src="assets/brand/star.png" alt="AIGO" />
+      <div class="lock-brand">AIGO STUDIOS</div>
+      <div class="lock-tag"><span class="dot"></span>RESTRICTED &middot; AUTHORIZATION REQUIRED</div>
+      <form id="lock-form" autocomplete="off" novalidate>
+        <div class="lock-field">
+          <input id="lock-input" type="password" placeholder="ENTER PASSCODE" aria-label="Passcode"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button id="lock-btn" type="submit">ENTER <span class="tri">&#9654;</span></button>
+        </div>
+        <div id="lock-msg" class="lock-msg" role="status" aria-live="polite"></div>
+      </form>
+      <div class="lock-foot">INFRASTRUCTURE FOR REAL-TIME GAMING</div>
+      <noscript><div class="lock-msg err" style="margin-top:14px">JavaScript is required to enter.</div></noscript>
+    </div>
+    <div class="lock-boot" id="lock-boot" aria-hidden="true"></div>
+  </div>
+
+  <script>
+  /* AIGO PITCH — encrypted entry.
+     The deck is embedded below as AES-256-GCM ciphertext. The key is
+     derived from the passcode with PBKDF2 (SHA-256). Only the correct
+     passcode can decrypt the deck in the browser; this file contains
+     no passcode and no plaintext. A wrong passcode fails the GCM auth
+     tag, so it can never reveal the content. */
+  (function () {
+    "use strict";
+    var PAYLOAD = __AIGO_PAYLOAD__;
+    var SS = "aigo_pass";
+
+    var body  = document.body;
+    var lock  = document.getElementById("lock");
+    var form  = document.getElementById("lock-form");
+    var input = document.getElementById("lock-input");
+    var msg   = document.getElementById("lock-msg");
+    var inner = lock.querySelector(".lock-inner");
+    var boot  = document.getElementById("lock-boot");
+
+    function b64d(s) {
+      var bin = atob(s), u = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      return u;
+    }
+
+    function decrypt(pass) {
+      var enc = new TextEncoder();
+      return crypto.subtle
+        .importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"])
+        .then(function (km) {
+          return crypto.subtle.deriveKey(
+            { name: "PBKDF2", salt: b64d(PAYLOAD.salt), iterations: PAYLOAD.iter, hash: "SHA-256" },
+            km, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+        })
+        .then(function (key) {
+          return crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(PAYLOAD.iv) }, key, b64d(PAYLOAD.ct));
+        })
+        .then(function (buf) { return new TextDecoder().decode(buf); }); // rejects on wrong passcode
+    }
+
+    function render(html) {
+      try { document.open(); document.write(html); document.close(); }
+      catch (e) { location.reload(); }
+    }
+
+    function deny(text) {
+      msg.textContent = text || "ACCESS DENIED";
+      msg.className = "lock-msg err";
+      inner.classList.remove("lock-deny"); void inner.offsetWidth; inner.classList.add("lock-deny");
+      input.value = ""; try { input.focus(); } catch (e) {}
+    }
+
+    function grant(html, pass) {
+      try { sessionStorage.setItem(SS, pass); } catch (e) {}
+      msg.textContent = "ACCESS GRANTED";
+      msg.className = "lock-msg ok";
+      if (boot) {
+        ["AUTHORIZING…", "REAL-TIME CORE · ONLINE", "OPENING THE VAULT"].forEach(function (l, i) {
+          setTimeout(function () { boot.innerHTML += (i ? "<br>" : "") + l; }, 200 + i * 240);
+        });
+      }
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      lock.classList.add("unlocked");
+      setTimeout(function () { render(html); }, reduce ? 80 : 1150);
+    }
+
+    if (!(window.crypto && window.crypto.subtle)) {
+      setTimeout(function () { deny("SECURE CONTEXT REQUIRED (HTTPS)"); }, 60);
+      return;
+    }
+
+    // auto-unlock if already authorized this browser session
+    try {
+      var saved = sessionStorage.getItem(SS);
+      if (saved) {
+        decrypt(saved).then(function (html) { body.classList.remove("locked"); render(html); })
+                      .catch(function () { try { sessionStorage.removeItem(SS); } catch (e) {} });
+      }
+    } catch (e) {}
+
+    setTimeout(function () { try { input.focus(); } catch (e) {} }, 450);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var val = (input.value || "").trim();
+      if (!val) return;
+      msg.textContent = ""; msg.className = "lock-msg";
+      decrypt(val).then(function (html) { grant(html, val); })
+                  .catch(function () { deny(); });
+    });
+  })();
+  </script>
+</body>
+</html>
