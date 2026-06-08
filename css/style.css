@@ -904,6 +904,23 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .conv .cflow path { animation: none; } }
 @media (max-width: 860px) { .conv-grid { grid-template-columns: 1fr; grid-template-areas: "a" "b" "c" "d" "e"; } .conv-fountain { display: none; } }
 
+/* full-bleed cinematic slide backgrounds */
+.slide.has-bg { overflow: hidden; }
+.slide-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.slide-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slide-bg .scrim { position: absolute; inset: 0; }
+.slide.has-bg > .inner { position: relative; z-index: 2; }
+/* split: content kept to the left over a right-anchored image */
+.slide.split-right { justify-content: flex-start; }
+.slide.split-right > .inner { max-width: min(640px, 55%); margin: 0; }
+/* why-watch: keep content inside the 16:9 frame next to the vault render */
+#why-watch .headline { font-size: clamp(27px, 3.6vw, 48px) !important; }
+#why-watch .sub { margin-top: 12px; max-width: 48ch; font-size: clamp(14px, 1.4vw, 17px); }
+#why-watch .two-up { margin-top: 18px !important; gap: 16px; }
+#why-watch .panel { padding: clamp(15px, 1.7vw, 22px); }
+#why-watch .punch { margin-top: 16px !important; }
+@media (max-width: 860px) { .slide.split-right { justify-content: center; } .slide.split-right > .inner { max-width: 100%; } .slide.split-right .slide-bg .scrim { background: linear-gradient(180deg, rgba(8,9,12,0.62), rgba(8,9,12,0.86)) !important; } }
+
 /* Stake vs AIGO comparison */
 .vs { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
 .vs .vrow { display: grid; grid-template-columns: 1fr 42px 1fr; gap: 16px; align-items: center; }
