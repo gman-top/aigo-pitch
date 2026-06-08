@@ -884,6 +884,8 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .evo-logo-aigo { position: relative; }
 .evo-logo-aigo img { width: clamp(168px, 19vw, 232px); height: auto; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5)); }
 .evo-logo-aigo::before { content: ""; position: absolute; left: -8px; top: 38%; transform: translateY(-50%); width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(255,70,39,0.18), transparent 66%); z-index: -1; pointer-events: none; }
+/* vault run logo hero (solution slide) */
+.vrun-hero { display: block; width: clamp(230px, 27vw, 330px); height: auto; margin: 10px auto 12px; filter: drop-shadow(0 14px 34px rgba(0,0,0,0.55)); }
 
 /* Stake vs AIGO comparison */
 .vs { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
