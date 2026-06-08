@@ -1137,3 +1137,52 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
   background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--ic, var(--accent)) 20%, transparent), transparent 72%);
   margin-bottom: 6px;
 }
+
+/* opportunity (slide 04) — five worlds converging into the AIGO star */
+.cvg5 { grid-template-columns: 1.22fr 0.9fr 0.6fr; margin-top: 30px; }
+.cvg5 .cvg-left { gap: 12px; }
+.cvg5 .cnode { align-items: flex-start; gap: 14px; padding: 13px 18px; min-height: 0; }
+.cvg5 .cnode .cicon { width: 40px; height: 40px; min-width: 40px; margin-top: 1px; }
+.cvg5 .cnode .cicon svg { width: 20px; height: 20px; }
+.cvg5 .cname { font-family: var(--display); font-weight: 700; font-size: clamp(15px,1.5vw,19px); color: var(--text); letter-spacing: -0.01em; line-height: 1.12; }
+.cvg5 .cval { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ic); margin: 3px 0 4px; }
+.cvg5 .cdesc { font-family: var(--body); font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+.cvg5 .cvg-mid .cflow path { stroke-dasharray: 4 22; animation: cflow 1.5s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .cvg5 .cvg-mid .cflow path { animation: none; } }
+@media (max-width: 860px) { .cvg5 { grid-template-columns: 1fr !important; } .cvg5 .cvg-mid { display: none; } .cvg5 .cvg-right { flex-direction: row; justify-content: flex-start; margin-top: 16px; } }
+
+/* milestones (slide 22) — one mission-readiness console, not 6 floating cards */
+.console { --ic: var(--green); margin-top: 28px; padding: clamp(18px,2.2vw,30px) clamp(22px,2.8vw,40px); }
+.clist { display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px; }
+.clist .crow { display: flex; align-items: center; gap: 15px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+.clist .crow:nth-child(5), .clist .crow:nth-child(6) { border-bottom: none; }
+.crow .ck { width: 30px; height: 30px; min-width: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 13px; border: 1px solid color-mix(in srgb, var(--green) 45%, transparent); background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--green) 18%, transparent), transparent 72%); }
+.crow .ctx { font-family: var(--display); font-weight: 600; font-size: clamp(15px,1.4vw,19px); color: var(--text); letter-spacing: -0.01em; line-height: 1.22; }
+@media (max-width: 860px) { .clist { grid-template-columns: 1fr; } .clist .crow:nth-child(5) { border-bottom: 1px solid var(--line); } }
+
+/* ask (slide 21) — €4M hero | use-of-funds split, full width */
+.ask-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(30px,5vw,76px); margin-top: 26px; align-items: start; }
+.ask-hero .ah-num { font-family: var(--display); font-weight: 700; font-size: clamp(60px,8.4vw,132px); line-height: 0.9; letter-spacing: -0.04em; color: var(--accent); }
+.ask-hero .ah-lbl { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-top: 12px; }
+.ask-sub { display: flex; margin-top: 28px; border-top: 1px solid var(--line); }
+.ask-sub .stat { flex: 1; padding: 20px 22px 0 0; border-right: 1px solid var(--line); }
+.ask-sub .stat:last-child { border-right: none; padding-left: 22px; }
+.ask-r h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 22px; font-weight: 500; }
+@media (max-width: 860px) { .ask-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+/* solution (slide 05) — single cinematic vault hero (SAFE/GREED/MYSTERY doors) */
+.vault-hero-shot { max-width: 1080px; margin: 10px auto 0; border-radius: 16px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.10); box-shadow: 0 34px 84px rgba(0,0,0,0.62); }
+.vault-hero-shot img { display: block; width: 100%; height: auto; }
+.vault-hero-shot::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07); background: radial-gradient(120% 80% at 50% -10%, rgba(255,70,39,0.10), transparent 55%); }
+
+/* compaction overrides — keep 04 + 05 within one viewport (no clipping at the fold) */
+.cvg5 { margin-top: 22px; }
+.cvg5 .cvg-left { gap: 10px; }
+.cvg5 .cnode { padding: 11px 16px; }
+.cvg5 .cdesc { font-size: 11.5px; line-height: 1.34; }
+#opportunity .punch { margin-top: 16px !important; font-size: clamp(18px, 2.3vw, 30px) !important; }
+#solution .vrun-hero { width: clamp(138px, 13vw, 176px); margin: 0 auto 4px; }
+#solution .sub { margin-bottom: 10px !important; }
+#solution .chips.lit { margin: 0 auto 10px !important; }
+.vault-hero-shot { max-width: 880px; margin-top: 4px; }
+.vault-hero-shot img { max-height: 52vh; object-fit: cover; }
