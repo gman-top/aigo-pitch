@@ -1120,3 +1120,20 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .channel .clogo { position: absolute; top: 16px; right: 16px; width: 26px; height: 26px; color: var(--sc); opacity: 0.9; }
 .channel .clogo svg { width: 100%; height: 100%; display: block; }
 .channel .cname { padding-right: 34px; }
+
+/* growth (slide 17) — funnels that physically taper; right = projected/model (ghosted) */
+.funnel.taper .frow { width: var(--fw, 100%); margin-left: auto; margin-right: auto; }
+.funnel.model .frow { border-style: dashed; border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.012); }
+.funnel.model .frow.win { border-style: solid; }
+@media (max-width: 640px) { .funnel.taper .frow { width: 100% !important; } }
+
+/* team (slide 20) — monogram avatars (no fake faces), frame-filling cards */
+.team .person { position: relative; min-height: clamp(214px, 29vh, 292px); }
+.team .mono {
+  width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: 0.01em;
+  color: var(--ic, var(--accent));
+  border: 1px solid color-mix(in srgb, var(--ic, var(--accent)) 48%, transparent);
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--ic, var(--accent)) 20%, transparent), transparent 72%);
+  margin-bottom: 6px;
+}
