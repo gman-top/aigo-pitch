@@ -1369,3 +1369,36 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
   #why-we-win .ww-born { animation: none !important; transform: scale(1) !important; opacity: 1 !important; }
   #why-we-win .ww-dest { opacity: .62 !important; }
 }
+
+/* ============================================================
+   PRINT COMPACTION — keep the tall multi-col slides inside the 720px PDF page
+   (print-only; screen layout untouched)
+   ============================================================ */
+@media print {
+  .slide { padding-top: 46px !important; padding-bottom: 34px !important; }
+
+  /* 04 opportunity — 5 nodes + diagram + punch into one page */
+  #opportunity .headline { font-size: 38px !important; }
+  #opportunity .cvg5 { margin-top: 12px !important; }
+  #opportunity .cvg5 .cvg-left { gap: 7px !important; }
+  #opportunity .cvg5 .cnode { padding: 8px 14px !important; min-height: 0 !important; }
+  #opportunity .cvg5 .cnode .cicon { width: 34px !important; height: 34px !important; min-width: 34px !important; }
+  #opportunity .cvg5 .cdesc { font-size: 10.5px !important; line-height: 1.3 !important; }
+  #opportunity .cvg-conv { min-height: 0 !important; }
+  #opportunity .punch { margin-top: 10px !important; font-size: 22px !important; }
+
+  /* 11 why-we-win — split topology + docked punch into one page */
+  #why-we-win .headline { font-size: 38px !important; }
+  #why-we-win .ww { margin-top: 14px !important; }
+  #why-we-win .ww-svg { height: 150px !important; margin: 10px 0 12px !important; }
+  #why-we-win .ww-punch { margin-top: 14px !important; font-size: 24px !important; }
+
+  /* 17 growth — two funnels + anchor-note into one page */
+  #growth .headline { font-size: 34px !important; }
+  #growth .econ { margin-top: 16px !important; gap: 40px !important; }
+  #growth .funnel { gap: 4px !important; }
+  #growth .frow { padding: 8px 16px !important; }
+  #growth .frow .fv { font-size: 20px !important; }
+  #growth .anchor-note { margin-top: 12px !important; padding-top: 10px !important; font-size: 14px !important; }
+  #growth .srcline { margin-top: 8px !important; }
+}
