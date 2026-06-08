@@ -116,7 +116,7 @@ body::before {
   min-height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: safe center;
   justify-content: center;
   padding: clamp(72px, 9vh, 120px) var(--pad);
   overflow: hidden;
@@ -804,6 +804,28 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .frow.lbl .fv { display: none; }
 .frow.lbl .fl { text-align: center; font-family: var(--display); font-weight: 600; font-size: clamp(13px, 1.2vw, 17px); letter-spacing: 0; text-transform: none; color: var(--text); }
 .frow.lbl.win .fl { color: var(--accent); }
+
+/* audience comparison — two pipelines (rented vs owned) */
+.vcompare .panel { display: flex; flex-direction: column; padding: clamp(20px, 2.4vw, 30px); }
+.vcompare .cmptag { align-self: flex-start; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--text-dim); margin-top: 12px; }
+.vcompare .cmptag.good { border-color: rgba(255,70,39,0.45); color: var(--accent); background: rgba(255,70,39,0.08); }
+.flow { display: flex; flex-direction: column; align-items: stretch; }
+.fstep { display: flex; align-items: center; gap: 13px; border: 1px solid var(--line); border-radius: 12px; padding: 12px 15px; background: rgba(255,255,255,0.02); }
+.fstep .fnum { width: 25px; height: 25px; min-width: 25px; border-radius: 50%; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+.fstep .ficon { color: var(--text-faint); display: flex; }
+.fstep .ficon svg { width: 18px; height: 18px; }
+.fstep .ftext { font-family: var(--display); font-weight: 600; font-size: clamp(14px, 1.3vw, 18px); color: var(--text); letter-spacing: -0.01em; }
+.fconn { width: 2px; height: 16px; margin-left: 27px; background: var(--line); }
+.flow.aigo .fconn { background: linear-gradient(180deg, rgba(255,70,39,0.75), rgba(255,70,39,0.22)); }
+.flow.aigo .fstep .fnum { border-color: rgba(255,70,39,0.4); color: var(--accent); }
+.flow.aigo .fstep .ficon { color: var(--accent); }
+.fstep.win { border-color: rgba(255,70,39,0.55); background: rgba(255,70,39,0.13); box-shadow: 0 0 28px -10px rgba(255,70,39,0.65); }
+.fstep.win .ftext, .fstep.win .fnum { color: var(--accent); border-color: rgba(255,70,39,0.7); }
+.cmpfoot { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; color: var(--text-dim); }
+.cmpfoot.bad { color: #ff7a5f; } .cmpfoot.good { color: var(--accent); }
+.cmpfoot b { color: var(--text); }
+.fspace { flex: 1; min-height: 14px; }
+@media (max-width: 860px) { .cmpfoot { margin-top: 18px; } .fspace { display: none; } }
 .team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 34px; }
 .team .person { border: 1px solid var(--line); border-radius: 16px; padding: clamp(20px, 2.4vw, 30px); background: var(--stage2); display: flex; flex-direction: column; gap: 9px; }
 .team .trole { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
@@ -828,7 +850,8 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 @media (max-width: 760px) { .xsell { grid-template-columns: 1fr; } .xarrow { flex-direction: row; flex-wrap: wrap; justify-content: center; } .xarrow .xchev { transform: rotate(90deg); } }
 
 /* ---- visual-polish round: top-aligned slides, brighter chips, 3-up grid, vs compare, milestone grid, roadmap features ---- */
-.slide.topalign { align-items: flex-start; }
+/* legacy hook — now centers when content fits, falls back to top only when too tall */
+.slide.topalign { align-items: safe center; }
 .chips.lit .chip { border-color: rgba(255,255,255,0.32); color: var(--text); background: rgba(255,255,255,0.06); }
 .three-up { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 @media (max-width: 860px) { .three-up { grid-template-columns: 1fr; } }
@@ -885,7 +908,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .evo-logo-aigo img { width: clamp(168px, 19vw, 232px); height: auto; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.5)); }
 .evo-logo-aigo::before { content: ""; position: absolute; left: -8px; top: 38%; transform: translateY(-50%); width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(255,70,39,0.18), transparent 66%); z-index: -1; pointer-events: none; }
 /* vault run logo hero (solution slide) */
-.vrun-hero { display: block; width: clamp(230px, 27vw, 330px); height: auto; margin: 10px auto 12px; filter: drop-shadow(0 14px 34px rgba(0,0,0,0.55)); }
+.vrun-hero { display: block; width: clamp(190px, 21vw, 268px); height: auto; margin: 2px auto 8px; filter: drop-shadow(0 14px 34px rgba(0,0,0,0.55)); }
 
 /* opportunity · five worlds erupting from a portal (image-1 fountain) */
 .conv { position: relative; margin-top: 20px; }
