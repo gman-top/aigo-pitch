@@ -1070,6 +1070,14 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 
   /* hype plan v2 → phase rail auto-wraps; channel matrix steps 3→2→1 via the queries above */
   .phase-rail { gap: 12px 18px !important; padding: 16px 0 !important; }
+
+  /* mobile: keyboard-nav hints are pointless on touch; the fixed PDF button floats over content */
+  .cover-cta { display: none !important; }
+  #pdf-btn { display: none !important; }
+  #cover .inner { gap: 22px !important; }
+  .scroll-hint { bottom: 22px !important; font-size: 9px !important; }
+  /* keep the decorative cover star fully clear of content */
+  #cover .star-bg { width: 130vw !important; right: -55vw !important; top: -6vh !important; opacity: 0.05 !important; }
 }
 
 /* ============================================================
