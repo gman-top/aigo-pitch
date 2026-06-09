@@ -1303,7 +1303,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
    SLIDE 11 · WHY WE WIN — split topology: destination (paid/dead) vs network (owned/compounding)
    ============================================================ */
 #why-we-win .ww {
-  --ic: var(--accent); position: relative; display: grid; grid-template-columns: 1fr 1px 1fr; align-items: stretch; gap: 0; margin-top: 26px; max-width: 1080px;
+  --ic: var(--accent); position: relative; display: grid; grid-template-columns: 1fr 1px 1fr; align-items: stretch; gap: 0; margin-top: 30px; max-width: 100%;
   border: none; border-radius: 16px; overflow: hidden;
   background:
     radial-gradient(120% 92% at 100% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 56%),
@@ -1323,7 +1323,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 #why-we-win .ww-meter { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; }
 #why-we-win .ww-dest .ww-meter { color: var(--text-faint); }
 #why-we-win .ww-net .ww-meter { color: var(--accent); }
-#why-we-win .ww-svg { width: 100%; height: clamp(150px,17vw,210px); margin: 14px 0 16px; display: block; overflow: visible; }
+#why-we-win .ww-svg { width: 100%; height: clamp(176px,20vw,250px); margin: 18px 0 18px; display: block; overflow: visible; }
 #why-we-win .ww-rings circle { stroke: var(--line); stroke-width: 1; transform-origin: 150px 110px; animation: ww-ring 4s ease-out infinite; }
 #why-we-win .ww-rings circle:nth-child(2) { animation-delay: 1.33s; }
 #why-we-win .ww-rings circle:nth-child(3) { animation-delay: 2.66s; }
@@ -1337,7 +1337,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 #why-we-win .ww-born { animation: ww-birth 6s ease-out infinite; transform-origin: 168px 30px; transform-box: fill-box; }
 #why-we-win .ww-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: auto; }
 #why-we-win .chip.lit { border-color: rgba(255,255,255,.32); color: var(--text); background: rgba(255,255,255,.06); }
-#why-we-win .ww-punch { display: flex; justify-content: space-between; max-width: 1080px; gap: 24px; }
+#why-we-win .ww-punch { display: flex; justify-content: space-between; max-width: 100%; gap: 24px; }
 #why-we-win .ww-pl { color: var(--text-dim); }
 #why-we-win .ww-pr { text-align: right; }
 @keyframes ww-ring { 0%{ transform: scale(1); opacity: .5 } 100%{ transform: scale(3.1); opacity: 0 } }
@@ -1420,9 +1420,27 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .market-prem .mbi svg { width: 19px; height: 19px; }
 .market-prem .mbname { flex: 1; font-family: var(--mono); font-size: 13px; letter-spacing: 0.06em; color: var(--text-dim); }
 .market-prem .mbl b { font-family: var(--display); font-weight: 700; font-size: clamp(20px,2.1vw,30px); letter-spacing: -0.02em; color: var(--text); }
-.market-prem .mbt { position: relative; height: 14px; border-radius: 8px; background: rgba(255,255,255,0.035); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); overflow: visible; }
-.market-prem .mbt i { display: block; height: 100%; width: 0; border-radius: 8px; position: relative; background: linear-gradient(90deg, color-mix(in srgb, var(--mc) 50%, transparent), var(--mc)); box-shadow: 0 0 22px -2px color-mix(in srgb, var(--mc) 75%, transparent); transition: width 1.2s var(--ease-standard); }
+.market-prem .mbt { position: relative; height: 12px; border-radius: 6px; background: rgba(255,255,255,0.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); overflow: hidden; }
+.market-prem .mbt i { display: block; height: 100%; width: 0; border-radius: 6px; background: var(--mc); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18); transition: width 1.2s var(--ease-standard); }
 .in-view .market-prem .mbt i { width: var(--w); }
-.market-prem .mbt i::after { content: ""; position: absolute; right: 0; top: 50%; transform: translate(50%,-50%); width: 11px; height: 11px; border-radius: 50%; background: var(--mc); box-shadow: 0 0 14px var(--mc); }
 @media print { .market-prem .mbt i { width: var(--w) !important; } }
 @media (max-width: 640px) { .market-prem .mbl { gap: 12px; } .market-prem .mbl b { font-size: 22px; } }
+
+/* ============================================================
+   VISION (slide 02) — curves converge INTO the AIGO star (2-col, like slide 04)
+   ============================================================ */
+#vision .cvg3 { grid-template-columns: 1.05fr 1fr; align-items: stretch; }
+#vision .cvg-conv { position: relative; min-height: 280px; }
+#vision .cvg-conv svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#vision .cvg-conv .cflow path { stroke-dasharray: 4 24; animation: cflow 1.5s linear infinite; }
+#vision .cvg-conv .chub { position: absolute; left: 76%; top: 50%; transform: translate(-50%,-50%); }
+#vision .cvg-conv .chtxt { position: absolute; left: 76%; top: calc(50% + 86px); transform: translateX(-50%); text-align: center; max-width: 270px; }
+@media (prefers-reduced-motion: reduce) { #vision .cvg-conv .cflow path { animation: none; } }
+@media (max-width: 860px) {
+  #vision .cvg3 { grid-template-columns: 1fr !important; }
+  #vision .cvg-conv { min-height: 0; margin-top: 16px; display: flex; flex-direction: column; align-items: center; }
+  #vision .cvg-conv svg { display: none; }
+  #vision .cvg-conv .chub { position: static; transform: none; margin: 0 auto; }
+  #vision .cvg-conv .chtxt { position: static; transform: none; margin: 16px auto 0; max-width: none; }
+}
+@media print { #vision .cvg-conv .cflow path { animation: none !important; stroke-dashoffset: 0 !important; } }
