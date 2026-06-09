@@ -43,7 +43,10 @@ html, body {
   font-family: var(--body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
+  overflow-x: clip; /* clip is reliable on iOS where body overflow-x:hidden leaks; hidden is the fallback */
 }
 
 body { font-size: 16px; line-height: 1.55; }
@@ -1079,6 +1082,9 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
   /* the decorative off-canvas stars overflow the viewport → horizontal scroll on iOS Safari
      (which ignores body overflow-x:hidden for absolutely-positioned children). Hide on mobile. */
   .star-bg { display: none !important; }
+  /* defensive clip so nothing can create a phantom horizontal scroll on touch */
+  .deck { overflow-x: clip; }
+  .inner { overflow-x: clip; max-width: 100%; }
 }
 
 /* ============================================================
