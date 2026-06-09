@@ -1076,8 +1076,9 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
   #pdf-btn { display: none !important; }
   #cover .inner { gap: 22px !important; }
   .scroll-hint { bottom: 22px !important; font-size: 9px !important; }
-  /* keep the decorative cover star fully clear of content */
-  #cover .star-bg { width: 130vw !important; right: -55vw !important; top: -6vh !important; opacity: 0.05 !important; }
+  /* the decorative off-canvas stars overflow the viewport → horizontal scroll on iOS Safari
+     (which ignores body overflow-x:hidden for absolutely-positioned children). Hide on mobile. */
+  .star-bg { display: none !important; }
 }
 
 /* ============================================================
