@@ -1208,9 +1208,11 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 #problem .pstats { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(28px,5vw,68px); margin-top: 28px; align-items: center; }
 #problem .phero .pn { font-family: var(--display); font-weight: 700; font-size: clamp(52px,7.4vw,112px); line-height: 0.92; letter-spacing: -0.04em; color: var(--accent); }
 #problem .phero .pl { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 14px; line-height: 1.6; max-width: 32ch; }
-#problem .prest { display: flex; flex-direction: column; }
-#problem .prest .stat { padding: 20px 0; border-top: 1px solid var(--line); }
-#problem .prest .stat:first-child { border-top: none; padding-top: 0; }
+#problem .prest { display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); padding-left: clamp(30px,4vw,60px); }
+#problem .prest .stat { padding: 22px 0 !important; border-top: 1px solid var(--line); border-right: none !important; }
+#problem .prest .stat:first-child { border-top: none; padding-top: 0 !important; }
+#problem .prest .stat:last-child { padding-bottom: 0 !important; }
+@media (max-width:860px){ #problem .prest { border-left: none; padding-left: 0; } }
 @media (max-width:860px){ #problem .pstats { grid-template-columns: 1fr; gap: 24px; } }
 
 /* 11 why-we-win — split-topology .ww block (destination vs network) is appended at end of file */
