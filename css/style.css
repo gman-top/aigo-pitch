@@ -1150,7 +1150,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 .cvg-conv { position: relative; min-height: 360px; }
 .cvg-conv svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .cvg-conv .chub { position: absolute; left: 90%; top: 50%; transform: translate(-50%,-50%); }
-.cvg5 .cvg-conv .cflow path { stroke-dasharray: 5 20; animation: cflow 1.4s linear infinite; }
+.cvg5 .cvg-conv .cflow path { stroke-dasharray: 4 24; animation: cflow 1.4s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .cvg5 .cvg-conv .cflow path { animation: none; } }
 @media (max-width: 860px) { .cvg5 { grid-template-columns: 1fr !important; } .cvg-conv { min-height: 0; } .cvg-conv svg { display: none; } .cvg-conv .chub { position: static; transform: none; margin: 14px auto 0; } }
 
@@ -1238,15 +1238,17 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 }
 .arena::before { content:""; position:absolute; top:0; left:0; right:0; height:2px;
   background: linear-gradient(90deg, var(--green), color-mix(in srgb,var(--green) 6%,transparent) 44%, color-mix(in srgb,var(--accent) 6%,transparent) 56%, var(--accent)); }
-.abloc { --ic: var(--accent); position: relative; display: flex; flex-direction: column; padding: clamp(8px,1.2vw,18px) clamp(14px,1.8vw,26px); min-height: clamp(300px,40vh,392px); overflow: hidden; }
+.abloc { --ic: var(--accent); position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(16px,2vw,26px) clamp(16px,1.9vw,28px); min-height: clamp(340px,45vh,440px); overflow: hidden; }
+.abloc .ahead { display: flex; flex-direction: column; gap: 14px; }
+.abloc.b .ahead { align-items: flex-end; }
 .abloc.b { text-align: right; align-items: flex-end; }
 .abloc .pnum { color: color-mix(in srgb, var(--ic) 12%, transparent); }
 .abloc.a .pnum { left: 8px; right: auto; }
 .abloc.b .pnum { right: 8px; }
 .abloc .pdesc { max-width: 34ch; }
 .abloc.b .chips { justify-content: flex-end; }
-.abloc .crowd { display: flex; flex-direction: column; gap: 4px; margin: 16px 0 4px; }
-.abloc .crowd i { height: 3px; border-radius: 2px; background: linear-gradient(90deg, color-mix(in srgb,var(--ic) 55%,transparent), color-mix(in srgb,var(--ic) 12%,transparent)); }
+.abloc .crowd { display: flex; flex-direction: column; gap: 7px; margin: 6px 0; }
+.abloc .crowd i { height: 4px; border-radius: 2px; background: linear-gradient(90deg, color-mix(in srgb,var(--ic) 55%,transparent), color-mix(in srgb,var(--ic) 12%,transparent)); }
 .abloc.b .crowd i { background: linear-gradient(270deg, color-mix(in srgb,var(--ic) 55%,transparent), color-mix(in srgb,var(--ic) 12%,transparent)); margin-left: auto; }
 .abloc .crowd i:nth-child(odd) { width: 78%; } .abloc .crowd i:nth-child(even) { width: 92%; }
 .abloc .pfoot { border-top: 1px solid var(--line); }
@@ -1324,7 +1326,7 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
 #why-we-win .ww-pin { fill: var(--text-dim); filter: drop-shadow(0 0 7px rgba(244,245,247,.28)); }
 #why-we-win .ww-edges path { stroke: color-mix(in srgb,var(--accent) 55%,transparent); stroke-width: 1.4; }
 #why-we-win .ww-edges path.ww-mesh { stroke: color-mix(in srgb,var(--accent) 32%,transparent); stroke-width: 1; }
-#why-we-win .cflow.ww-edges path { stroke-dasharray: 4 22; animation: cflow 1.5s linear infinite; }
+#why-we-win .cflow.ww-edges path { stroke-dasharray: 4 24; animation: cflow 1.5s linear infinite; }
 #why-we-win .ww-nodes circle { fill: var(--nc); filter: drop-shadow(0 0 6px color-mix(in srgb,var(--nc) 70%,transparent)); }
 #why-we-win .ww-hub { color: var(--accent); filter: drop-shadow(0 0 12px rgba(255,70,39,.65)); }
 #why-we-win .ww-born { animation: ww-birth 6s ease-out infinite; transform-origin: 168px 30px; transform-box: fill-box; }
