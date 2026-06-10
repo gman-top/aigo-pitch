@@ -1461,3 +1461,45 @@ body.locked .progress, body.locked #pdf-btn { visibility: hidden; }
   #vision .cvg-conv .chtxt { position: static; transform: none; margin: 16px auto 0; max-width: none; }
 }
 @media print { #vision .cvg-conv .cflow path { animation: none !important; stroke-dashoffset: 0 !important; } }
+
+/* ============================================================
+   DESKTOP SHORT-VIEWPORT FIT (height-based)
+   On laptop heights the slide content must shrink so it never
+   runs into the fixed HUD corners or the centered DOWNLOAD-PDF
+   pill (#pdf-btn, fixed bottom:20px). Width guard >860px so it
+   never collides with the mobile width rules above.
+   ============================================================ */
+@media (min-width: 861px) and (max-height: 880px) {
+  .slide { padding-top: clamp(38px, 5vh, 64px); padding-bottom: clamp(78px, 10vh, 104px); }
+  .slide .headline { font-size: clamp(23px, 2.9vw, 40px) !important; }
+  .sub { font-size: clamp(13px, 1.3vw, 15.5px) !important; margin-top: 12px !important; }
+  .punch { font-size: clamp(18px, 2.3vw, 31px) !important; margin-top: 18px !important; }
+  .srcline { margin-top: 12px !important; }
+  .cvg5 { margin-top: 16px !important; }
+  .cnode { min-height: 54px !important; padding: 11px 16px !important; }
+  .cnode .cdesc { font-size: 11.5px !important; line-height: 1.4 !important; }
+  .team { margin-top: 20px !important; }
+  .team .person { min-height: 0 !important; }
+  .market-prem { margin-top: 20px !important; }
+  .rev { min-height: clamp(146px, 18vh, 184px) !important; }
+  .two-up.tall .panel { min-height: clamp(232px, 31vh, 312px) !important; }
+  .rung.r1 { min-height: 100px !important; } .rung.r2 { min-height: 138px !important; } .rung.r3 { min-height: 176px !important; } .rung.out { min-height: 218px !important; }
+  .vault-hero-shot img { max-height: 44vh !important; }
+  .vframe { max-width: min(1000px, 88vh) !important; }
+  #problem .pstats { margin-top: 18px !important; }
+  .econ { margin-top: 16px !important; gap: 38px !important; }
+  .econ h4 { margin-bottom: 12px !important; }
+  .frow { padding: 8px 14px !important; }
+  .frow .fl { font-size: 9.5px !important; }
+  .anchor-note { margin-top: 14px !important; }
+}
+@media (min-width: 861px) and (max-height: 760px) {
+  .slide { padding-top: clamp(30px, 4vh, 50px); padding-bottom: clamp(72px, 9.5vh, 92px); }
+  .slide .headline { font-size: clamp(21px, 2.6vw, 35px) !important; }
+  .sub { font-size: clamp(12.5px, 1.2vw, 14.5px) !important; margin-top: 10px !important; }
+  .punch { font-size: clamp(16px, 2vw, 26px) !important; margin-top: 14px !important; }
+  .cnode { min-height: 48px !important; }
+  .cnode .cdesc { font-size: 11px !important; }
+  .vault-hero-shot img { max-height: 40vh !important; }
+  .vframe { max-width: min(900px, 80vh) !important; }
+}
