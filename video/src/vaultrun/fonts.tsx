@@ -25,6 +25,20 @@ export const FontFaces: React.FC = () => (
         font-display: block;
         src: url("${staticFile("fonts/Inter.woff2")}") format("woff2");
       }
+      @font-face {
+        font-family: "Sora";
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: block;
+        src: url("${staticFile("fonts/Sora.woff2")}") format("woff2");
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        font-style: normal;
+        font-weight: 500 800;
+        font-display: block;
+        src: url("${staticFile("fonts/JetBrainsMono.woff2")}") format("woff2");
+      }
     `}
   </style>
 );

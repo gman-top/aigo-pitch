@@ -4,3 +4,6 @@ out/
 
 keyframes/
 shots/
+public/shots/
+public/game-clips/
+public/audio/vo.wav
