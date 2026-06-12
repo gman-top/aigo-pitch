@@ -2,10 +2,7 @@
   "mcpServers": {
     "magnific": {
       "type": "http",
-      "url": "https://mcp.magnific.com/mcp",
-      "headers": {
-        "Authorization": "Bearer ${MAGNIFIC_API_KEY}"
-      }
+      "url": "https://mcp.magnific.com/mcp"
     }
   }
 }
