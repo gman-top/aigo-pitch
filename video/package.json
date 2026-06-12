@@ -5,12 +5,14 @@
   "description": "Remotion video pipeline for the AIGO Studios pitch deck",
   "scripts": {
     "dev": "remotion studio",
-    "render": "remotion render DeckVideo out/aigo-deck.mp4",
-    "still": "remotion still DeckVideo out/poster.png --frame=60",
+    "render": "remotion render VaultRun out/vault-run.mp4",
+    "render:deck": "remotion render DeckVideo out/aigo-deck.mp4",
+    "still": "remotion still VaultRun out/vault-poster.png --frame=120",
     "upgrade": "remotion upgrade"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
+    "@remotion/fonts": "^4.0.475",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remotion": "^4.0.0"
