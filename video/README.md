@@ -35,9 +35,13 @@ npm run still      # -> out/poster.png (single frame, e.g. for a thumbnail)
 
 The repo root has a `.mcp.json` wiring the
 [Magnific](https://mcp.magnific.com/mcp) MCP server. Use it to upscale/enhance
-the JPGs in `../assets/` before dropping them into a slide. Set the API key
-first (the endpoint returns 401 without auth):
+the JPGs in `../assets/` before dropping them into a slide.
+
+Auth is **OAuth** (the `/mcp` endpoint returns `401`, which triggers the
+browser auth flow) — no API key to set. On first use, approve the server and
+sign in:
 
 ```bash
-export MAGNIFIC_API_KEY=sk_...   # then restart Claude Code / re-run `claude mcp`
+claude            # approve the pending project MCP server, then OAuth in browser
+claude mcp get magnific   # check status
 ```
