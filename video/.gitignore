@@ -1,0 +1,13 @@
+node_modules/
+out/
+.remotion/
+
+keyframes/
+shots/
+public/shots/
+public/game-clips/
+public/audio/vo.wav
+public/game-rec/
+public/audio/original-trailer.wav
+public/stills/
+public/game-clips/hexark.mp4
