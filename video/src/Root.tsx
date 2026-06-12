@@ -4,12 +4,23 @@ import { DeckVideo, TOTAL_FRAMES as DECK_FRAMES } from "./DeckVideo";
 import { VaultRun } from "./vaultrun/VaultRun";
 import { VaultRunReal, REAL_TOTAL } from "./vaultrun/real/VaultRunReal";
 import { VaultRunTrailer, TRAILER_TOTAL, TRAILER_FPS } from "./vaultrun/trailer/Trailer";
+import { VaultRunFinal, FINAL_FRAMES, FFPS } from "./vaultrun/final/Final";
 import { FPS, H, TOTAL_FRAMES, W } from "./vaultrun/theme";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      {/* Primary: cinematic AI trailer (Higgsfield Kling 3.0 + real game clips). */}
+      {/* FINAL: original audio/structure he loves + premium visuals (real 3D
+          gameplay, Cinema 3.0 shots, photoreal humans, suspense pass). */}
+      <Composition
+        id="VaultRunFinal"
+        component={VaultRunFinal}
+        durationInFrames={FINAL_FRAMES}
+        fps={FFPS}
+        width={1920}
+        height={1080}
+      />
+      {/* Earlier cinematic cut (kept for reference). */}
       <Composition
         id="VaultRun"
         component={VaultRunTrailer}
