@@ -5,7 +5,8 @@
    the encrypted shell to index.html (what GitHub Pages serves).
 
    Usage:
-     node encrypt.mjs                 # uses the default passcode below
+     node encrypt.mjs                 # V1: deck.src.html -> index.html (shell.template.html)
+     node encrypt.mjs <src> <out> <tpl>   # e.g. deck.v2.src.html v2/index.html shell.v2.template.html
      AIGO_PASS='your passcode' node encrypt.mjs
 
    Workflow when editing the deck:
@@ -13,14 +14,19 @@
      2. node encrypt.mjs
      3. commit deck.src.html + index.html
    ------------------------------------------------------------------ */
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 import { webcrypto as crypto } from "node:crypto";
 
 const PASS = process.env.AIGO_PASS || "hypergames";
 const ITERATIONS = 200000;
 
-const src = readFileSync("deck.src.html");          // Buffer (bytes to encrypt)
-const tpl = readFileSync("shell.template.html", "utf8");
+const SRC_PATH = process.argv[2] || "deck.src.html";
+const OUT_PATH = process.argv[3] || "index.html";
+const TPL_PATH = process.argv[4] || "shell.template.html";
+
+const src = readFileSync(SRC_PATH);                 // Buffer (bytes to encrypt)
+const tpl = readFileSync(TPL_PATH, "utf8");
 
 if (!tpl.includes("__AIGO_PAYLOAD__")) {
   throw new Error("shell.template.html is missing the __AIGO_PAYLOAD__ placeholder");
@@ -49,5 +55,6 @@ const payload = JSON.stringify({
   ct: b64(new Uint8Array(ciphertext)),
 });
 
-writeFileSync("index.html", tpl.replace("__AIGO_PAYLOAD__", payload));
-console.log(`Encrypted ${src.length} bytes of deck.src.html -> index.html (${b64(new Uint8Array(ciphertext)).length} b64 chars of ciphertext).`);
+try { mkdirSync(dirname(OUT_PATH), { recursive: true }); } catch (e) {}
+writeFileSync(OUT_PATH, tpl.replace("__AIGO_PAYLOAD__", payload));
+console.log(`Encrypted ${src.length} bytes of ${SRC_PATH} -> ${OUT_PATH} (${b64(new Uint8Array(ciphertext)).length} b64 chars of ciphertext).`);

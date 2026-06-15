@@ -1,6 +1,5 @@
 # local scratch (screenshots, plan, render scripts)
-_shots/
-_shots_after/
+_shots*/
 _plan/
-_shot-all.mjs
+_shot-*.mjs
 _hero/
