@@ -1,0 +1,25 @@
+{
+  "name": "aigo-pitch-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion video pipeline for the AIGO Studios pitch deck",
+  "scripts": {
+    "dev": "remotion studio",
+    "render": "remotion render VaultRun out/vault-run.mp4",
+    "render:deck": "remotion render DeckVideo out/aigo-deck.mp4",
+    "still": "remotion still VaultRun out/vault-poster.png --frame=120",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/fonts": "^4.0.475",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "puppeteer-core": "^25.1.0",
+    "typescript": "^5.4.0"
+  }
+}
