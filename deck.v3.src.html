@@ -75,6 +75,10 @@
   .spill.soon{color:var(--text-dim)}
   .spill.later{color:#8B5CFF;border-color:rgba(139,92,255,.4)}
   .spill .sd{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+
+  /* bottom-align status pills in equal-height cards */
+  #two-products .panel,#monetization-sequence .panel,#traction-now .panel{display:flex;flex-direction:column}
+  #two-products .pfoot,#monetization-sequence .pfoot,#traction-now .pfoot{margin-top:auto}
   </style>
 </head>
 <body>
@@ -84,7 +88,7 @@
   <div class="hud" aria-hidden="true">
     <div class="hud-label hud-tl">AIGO // SPORTS ENTERTAINMENT</div>
     <div class="hud-label hud-tr"><span class="dot"></span>PRE-SEED · €500K</div>
-    <div class="hud-label hud-bl">OWNED AUDIENCES · OWNED GAMES</div>
+    <div class="hud-label hud-bl">RENT THE CROWD · KEEP THE GAME</div>
     <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
   </div>
   <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
@@ -100,7 +104,7 @@
         <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
         <h1 class="display" data-anim data-d="1">Building the Future of<span class="nl">Sports Entertainment</span></h1>
         <div class="brandline" data-anim data-d="2">AIGO</div>
-        <p class="sub" data-anim data-d="3" style="text-align:center;max-width:62ch;margin:14px auto 0">Attention is the asset. We build <b style="color:var(--text);font-weight:600">owned sports audiences</b> &mdash; and monetize them with <b style="color:var(--text);font-weight:600">our own games.</b></p>
+        <p class="sub" data-anim data-d="3" style="text-align:center;max-width:64ch;margin:14px auto 0">We manufacture sports audiences on demand. <b style="color:var(--text);font-weight:600">Rent the crowd. Keep the game.</b></p>
         <div class="boot" data-anim data-d="4">
           <span>CONFIDENTIAL · SPORTS ENTERTAINMENT MEDIA</span><span class="sep">·</span>
           <span>RAISING €500K PRE-SEED</span>
@@ -138,7 +142,7 @@
       <div class="inner">
         <div class="micro" data-anim>OUR THESIS · ONE IDEA</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Own the audience.<span class="nl">Monetize with <span class="accent">our own games.</span></span></h2>
-        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:92ch">Both halves are already proven and funded &mdash; sports-creator media raises capital (Overtime, PlayersTV), and owned-gaming monetization compounds value (theScore&rarr;Penn $2.0B, Underdog $1.23B). <b style="color:var(--text);font-weight:600">What&rsquo;s unproven is closing the loop</b> &mdash; turning a creator&rsquo;s audience into registered users of games <i>we own</i>, instead of ad impressions we resell. That&rsquo;s what €500K buys.</p>
+        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:92ch">Every gaming company overpays for users. AIGO becomes the <b style="color:var(--text);font-weight:600">infrastructure that delivers them</b> &mdash; and, unlike an agency, we own the games that monetize them. Both halves are already proven and funded (sports-creator media raises capital; owned-gaming monetization compounds &mdash; theScore&rarr;Penn $2.0B, Underdog $1.23B). <b style="color:var(--text);font-weight:600">What&rsquo;s unproven is closing the loop</b> &mdash; turning a creator&rsquo;s audience into registered users of games <i>we own</i>. That&rsquo;s what €500K buys.</p>
         <div class="two-up" data-anim data-d="3" style="margin-top:22px;align-items:stretch">
           <div class="panel readout" style="--ic:#5BC8FF">
             <div class="micro" style="color:#5BC8FF">THE HYPOTHESIS</div>
@@ -152,6 +156,32 @@
           </div>
         </div>
         <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(17px,2.2vw,28px)">We&rsquo;re not asking you to believe it.<span class="nl">We&rsquo;re asking you to fund the <span class="accent">test.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 3b · TWO PRODUCTS, ONE ENGINE -->
+    <section class="slide topalign" id="two-products">
+      <div class="inner">
+        <div class="micro" data-anim>THE MODEL · TWO PRODUCTS, ONE ENGINE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Rent the crowd. <span class="accent">Keep the game.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:12px">One virality engine &mdash; creators, owned accounts, clippers, reality formats &mdash; that manufactures audiences. We sell that capability <b style="color:var(--text);font-weight:600">twice.</b></p>
+        <div class="two-up" data-anim data-d="3" style="margin-top:20px;align-items:stretch">
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">THE CROWD · RENTABLE</div>
+            <h3 style="margin:10px 0 8px">Acquisition-as-a-service</h3>
+            <div class="pdesc" style="margin-bottom:12px">We manufacture audiences and deliver users &mdash; priced on <b style="color:var(--text);font-weight:600">performance</b> (CPA / rev-share), so the &ldquo;guarantee&rdquo; is real. Rented to <b style="color:var(--text);font-weight:600">anyone except our direct competitors</b> &mdash; their data stays walled.</div>
+            <div class="chips"><span class="chip">Creators</span><span class="chip">Owned accounts</span><span class="chip">Clippers</span><span class="chip">Reality formats</span></div>
+            <div class="pfoot" style="padding-top:12px"><span class="spill live"><span class="sd"></span>Cash + demand signal</span></div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">THE GAME · OURS</div>
+            <h3 style="margin:10px 0 8px">The captive monetization engine</h3>
+            <div class="pdesc" style="margin-bottom:12px">The gaming stream is <b style="color:var(--text);font-weight:600">never rented out</b> &mdash; it monetizes the same audiences we build, at our margin. As it becomes vital, others pay to <i>access</i> it: rev-share, or exclusivity to the highest bidder.</div>
+            <div class="chips lit"><span class="chip">7 live games</span><span class="chip">Vault Run</span><span class="chip">Our margin</span></div>
+            <div class="pfoot" style="padding-top:12px"><span class="spill later"><span class="sd"></span>The compounding asset</span></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(17px,2.3vw,29px)">The same engine sells twice &mdash; and the half we <span class="accent">keep</span> is the half that compounds.</p>
       </div>
     </section>
 
@@ -357,8 +387,8 @@
         <div class="three-up" data-anim data-d="2" style="margin-top:22px;align-items:stretch">
           <div class="panel green-p readout" style="--ic:var(--green)">
             <div class="micro green">STEP 1 · NOW</div>
-            <h3 style="margin:8px 0 10px">Sponsorship + promotion-as-a-service</h3>
-            <div class="pdesc" style="margin-bottom:12px">Real cash from day one &mdash; funds the engine before gaming monetizes.</div>
+            <h3 style="margin:8px 0 10px">Rent the crowd + sponsorship</h3>
+            <div class="pdesc" style="margin-bottom:12px">Acquisition-as-a-service on performance pricing (CPA / rev-share) + branded content. Cash &amp; demand from day one &mdash; funds the engine before gaming monetizes.</div>
             <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
           </div>
           <div class="panel readout" style="--ic:#5BC8FF">
@@ -368,9 +398,9 @@
             <div class="pfoot"><span class="spill soon"><span class="sd"></span>As audience grows</span></div>
           </div>
           <div class="panel readout" style="--ic:#8B5CFF">
-            <div class="micro" style="color:#8B5CFF">STEP 3 · DEEP TAIL</div>
-            <h3 style="margin:8px 0 10px">Casino rev-share · separate brand</h3>
-            <div class="pdesc" style="margin-bottom:12px">Highest LTV, walled off &mdash; captures the most-engaged of-age tail.</div>
+            <div class="micro" style="color:#8B5CFF">STEP 3 · LATER</div>
+            <h3 style="margin:8px 0 10px">Casino tail + license the game</h3>
+            <div class="pdesc" style="margin-bottom:12px">Separate casino brand on the engaged tail &mdash; and the gaming arm itself becomes rentable: rev-share, or exclusivity to the highest bidder.</div>
             <div class="pfoot"><span class="spill later"><span class="sd"></span>Later</span></div>
           </div>
         </div>
@@ -482,7 +512,7 @@
           </svg>
           <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
         </div>
-        <p class="sub" data-anim data-d="3" style="margin:6px auto 0;text-align:center;max-width:62ch">Prove one node &rarr; add nodes &rarr; a network of owned sports audiences feeding owned games &mdash; then the reality show, big formats and media rights.</p>
+        <p class="sub" data-anim data-d="3" style="margin:6px auto 0;text-align:center;max-width:64ch">Prove one node &rarr; add nodes &rarr; a network we <b style="color:var(--text);font-weight:600">rent to anyone</b>, feeding a game stream we <b style="color:var(--text);font-weight:600">keep.</b> Big enough, and others pay to access it &mdash; rev-share, or exclusivity to the highest bidder.</p>
         <div class="tagline" data-anim data-d="4" style="margin-top:18px">AIGO &middot; Owned audiences. Owned games.</div>
         <div class="urls" data-anim data-d="5"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io &nbsp;·&nbsp; <span class="tbd">contact / email</span></div>
         <div data-anim data-d="5" style="margin-top:8px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
