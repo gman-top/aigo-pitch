@@ -23,7 +23,20 @@
   .ph.data::before{content:"NEEDS YOUR REAL DATA"}
   .tbd{font-family:var(--mono);color:var(--accent);font-size:.82em;letter-spacing:.06em;border:1px dashed rgba(255,70,39,.55);border-radius:6px;padding:1px 7px;white-space:nowrap}
   .tbd.wrap{white-space:normal}
-  #network-vision .star-close{width:clamp(54px,7vw,84px);height:auto}
+
+  /* slide 15 — centered "node → network" hero (reuses global .chub + cflow/ww-birth keyframes) */
+  #network-vision .inner{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+  #network-vision .micro{justify-content:center}
+  #network-vision .micro::before{display:none}
+  #network-vision .netviz{position:relative;width:min(540px,84vw);height:clamp(210px,28vw,290px);margin:10px auto 4px}
+  #network-vision .netviz svg{width:100%;height:100%;overflow:visible;display:block}
+  #network-vision .nv-mesh{stroke:color-mix(in srgb,var(--accent) 22%,transparent);stroke-width:1;fill:none}
+  #network-vision .nv-feed{fill:none;stroke:color-mix(in srgb,var(--accent) 60%,transparent);stroke-width:1.5;stroke-dasharray:4 24;animation:cflow 1.5s linear infinite}
+  #network-vision .nv-node{fill:var(--nc);filter:drop-shadow(0 0 7px color-mix(in srgb,var(--nc) 75%,transparent))}
+  #network-vision .nv-born{animation:ww-birth 6s ease-out infinite;transform-origin:center;transform-box:fill-box}
+  #network-vision .netviz .chub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  @media(prefers-reduced-motion:reduce){#network-vision .nv-feed{animation:none}}
+  @media(max-width:760px){#network-vision .netviz{height:clamp(180px,52vw,230px)}}
 
   /* node flow */
   .nodeflow{display:flex;align-items:stretch;gap:0;margin-top:26px;flex-wrap:wrap}
@@ -82,6 +95,7 @@
     <!-- 1 · COVER -->
     <section class="slide stage-pure" id="cover">
       <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <svg class="star-bg" style="width:40vw;bottom:-22vh;left:-16vw;opacity:0.045" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
       <div class="inner">
         <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
         <h1 class="display" data-anim data-d="1">Building the Future of<span class="nl">Sports Entertainment</span></h1>
@@ -437,15 +451,41 @@
 
     <!-- 15 · THE SCALED VISION -->
     <section class="slide stage-pure" id="network-vision">
-      <svg class="star-bg" style="width:50vw;bottom:-18vh;left:-12vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <svg class="star-bg" style="width:54vw;bottom:-20vh;left:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
       <div class="inner">
-        <img class="star-close" src="assets/brand/star.png" alt="AIGO star" data-anim />
-        <div class="micro" data-anim data-d="1" style="text-align:center">THE SCALED COMPANY · ON THE €4M</div>
-        <h2 class="headline" data-anim data-d="2" style="font-size:clamp(28px,4vw,54px);text-align:center;margin-top:10px">Node &rarr; network &rarr; <span class="accent">media company.</span></h2>
-        <p class="sub" data-anim data-d="3" style="margin:16px auto 0;text-align:center;max-width:72ch">Prove one node &rarr; add nodes &rarr; a network of owned sports audiences feeding owned games &mdash; then the reality show, big owned formats and media rights. We fund the proof now; the company scales on the seed.</p>
-        <div class="tagline" data-anim data-d="4" style="margin-top:26px">AIGO &middot; Owned audiences. Owned games.</div>
+        <div class="micro" data-anim>THE SCALED COMPANY · ON THE €4M</div>
+        <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,4vw,54px);text-align:center;margin-top:10px">Node &rarr; network &rarr; <span class="accent">media company.</span></h2>
+        <div class="netviz" data-anim data-d="2">
+          <svg viewBox="0 0 440 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g class="nv-mesh">
+              <path d="M62 54 L378 58"/><path d="M36 150 L74 246"/><path d="M404 150 L366 242"/>
+              <path d="M220 28 L62 54"/><path d="M220 28 L378 58"/>
+            </g>
+            <g class="nv-feeds">
+              <path class="nv-feed" d="M62 54 L220 150"/>
+              <path class="nv-feed" d="M378 58 L220 150"/>
+              <path class="nv-feed" d="M36 150 L220 150"/>
+              <path class="nv-feed" d="M404 150 L220 150"/>
+              <path class="nv-feed" d="M74 246 L220 150"/>
+              <path class="nv-feed" d="M366 242 L220 150"/>
+              <path class="nv-feed" d="M220 28 L220 150"/>
+            </g>
+            <g>
+              <circle class="nv-node" cx="62" cy="54" r="6" style="--nc:#BDFF5F"/>
+              <circle class="nv-node" cx="378" cy="58" r="6" style="--nc:#5BC8FF"/>
+              <circle class="nv-node" cx="36" cy="150" r="5" style="--nc:#8B5CFF"/>
+              <circle class="nv-node" cx="404" cy="150" r="6" style="--nc:#E8C66B"/>
+              <circle class="nv-node" cx="74" cy="246" r="5" style="--nc:#5BC8FF"/>
+              <circle class="nv-node" cx="366" cy="242" r="6" style="--nc:#BDFF5F"/>
+              <circle class="nv-node nv-born" cx="220" cy="28" r="6" style="--nc:#FF4627"/>
+            </g>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+        </div>
+        <p class="sub" data-anim data-d="3" style="margin:6px auto 0;text-align:center;max-width:62ch">Prove one node &rarr; add nodes &rarr; a network of owned sports audiences feeding owned games &mdash; then the reality show, big formats and media rights.</p>
+        <div class="tagline" data-anim data-d="4" style="margin-top:18px">AIGO &middot; Owned audiences. Owned games.</div>
         <div class="urls" data-anim data-d="5"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io &nbsp;·&nbsp; <span class="tbd">contact / email</span></div>
-        <div data-anim data-d="5" style="margin-top:6px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
+        <div data-anim data-d="5" style="margin-top:8px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
       </div>
     </section>
 
