@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AIGO — Sports Entertainment Media (V3)</title>
+  <meta name="description" content="AIGO — Sports Entertainment Media. Investor deck V3." />
+  <meta name="theme-color" content="#08090B" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="icon" href="assets/brand/star.png" />
+
+  <style>
+  /* ---- V3 inline additions (V1/V2 + style.css stay untouched) ---- */
+  .ph{position:relative;border:1.5px dashed rgba(255,70,39,.55);border-radius:14px;background:rgba(255,70,39,.045);padding:22px 24px}
+  .ph::before{content:"PLACEHOLDER · WE ADD THE REAL DATA";position:absolute;top:-10px;left:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);background:var(--stage);padding:3px 10px;border-radius:100px;border:1px solid rgba(255,70,39,.4)}
+  .ph.data::before{content:"NEEDS YOUR REAL DATA"}
+  .tbd{font-family:var(--mono);color:var(--accent);font-size:.82em;letter-spacing:.06em;border:1px dashed rgba(255,70,39,.55);border-radius:6px;padding:1px 7px;white-space:nowrap}
+  .tbd.wrap{white-space:normal}
+  #network-vision .star-close{width:clamp(54px,7vw,84px);height:auto}
+
+  /* node flow */
+  .nodeflow{display:flex;align-items:stretch;gap:0;margin-top:26px;flex-wrap:wrap}
+  .nstep{flex:1 1 180px;min-width:160px;border:1px solid var(--line);border-radius:14px;background:var(--stage2);padding:18px 18px 16px;position:relative}
+  .nstep.acq{--nc:#5BC8FF}.nstep.aud{--nc:#BDFF5F}.nstep.mon{--nc:var(--accent)}.nstep.tail{--nc:#8B5CFF}
+  .nstep .nk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nc,var(--text-dim));margin-bottom:8px}
+  .nstep h4{font-family:var(--display);font-weight:600;font-size:clamp(15px,1.5vw,19px);margin:0 0 6px;color:var(--text)}
+  .nstep .nd{font-size:13px;color:var(--text-dim);line-height:1.4}
+  .narrow{display:flex;align-items:center;justify-content:center;flex:0 0 30px;color:var(--text-faint);font-size:20px}
+  @media(max-width:760px){.nodeflow{flex-direction:column}.narrow{transform:rotate(90deg);height:24px}}
+
+  /* compare two-group value frame */
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+  @media(max-width:760px){.vgrid{grid-template-columns:1fr}}
+  .vcol{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--stage2)}
+  .vcol .vk{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:14px}
+  .vcol.good .vk{color:var(--green)}.vcol.bad .vk{color:var(--text-dim)}
+  .vrow{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+  .vrow:last-child{border-bottom:none}
+  .vrow .vn{font-family:var(--display);font-weight:600;color:var(--text)}
+  .vrow .vsub{font-family:var(--mono);font-size:11px;color:var(--text-faint)}
+
+  /* firewall diagram */
+  .fw{display:grid;grid-template-columns:1fr 56px 1fr;gap:0;align-items:center;margin-top:24px}
+  @media(max-width:760px){.fw{grid-template-columns:1fr;gap:14px}.fw .fwbar{height:auto;padding:8px 0}}
+  .fwbox{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--stage2)}
+  .fwbox.safe{border-color:rgba(189,255,95,.3)}
+  .fwbox.casino{border-color:rgba(139,92,255,.4)}
+  .fwbar{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase}
+  @media(max-width:760px){.fwbar{writing-mode:horizontal-tb}}
+  .fwbox h4{font-family:var(--display);font-weight:600;margin:0 0 10px;color:var(--text)}
+  .fwbox .fwl{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+
+  .spill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line)}
+  .spill.live{color:var(--green);border-color:rgba(189,255,95,.4)}
+  .spill.soon{color:var(--text-dim)}
+  .spill.later{color:#8B5CFF;border-color:rgba(139,92,255,.4)}
+  .spill .sd{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+  </style>
+</head>
+<body>
+
+  <!-- ============ HUD ============ -->
+  <div class="progress" id="progress"></div>
+  <div class="hud" aria-hidden="true">
+    <div class="hud-label hud-tl">AIGO // SPORTS ENTERTAINMENT</div>
+    <div class="hud-label hud-tr"><span class="dot"></span>PRE-SEED · €500K</div>
+    <div class="hud-label hud-bl">OWNED AUDIENCES · OWNED GAMES</div>
+    <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
+  </div>
+  <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
+  <button id="pdf-btn" type="button" onclick="window.print()" aria-label="Download as PDF"><span>&#8595;</span> Download PDF</button>
+
+  <main class="deck">
+
+    <!-- 1 · COVER -->
+    <section class="slide stage-pure" id="cover">
+      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <h1 class="display" data-anim data-d="1">Building the Future of<span class="nl">Sports Entertainment</span></h1>
+        <div class="brandline" data-anim data-d="2">AIGO</div>
+        <p class="sub" data-anim data-d="3" style="text-align:center;max-width:62ch;margin:14px auto 0">Attention is the asset. We build <b style="color:var(--text);font-weight:600">owned sports audiences</b> &mdash; and monetize them with <b style="color:var(--text);font-weight:600">our own games.</b></p>
+        <div class="boot" data-anim data-d="4">
+          <span>CONFIDENTIAL · SPORTS ENTERTAINMENT MEDIA</span><span class="sep">·</span>
+          <span>RAISING €500K PRE-SEED</span>
+        </div>
+        <div data-anim data-d="5" style="margin-top:6px">
+          <button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button>
+        </div>
+        <div class="cover-cta" data-anim data-d="5">
+          <span>NAVIGATE</span>
+          <span class="kbd">&larr;</span><span class="kbd">&rarr;</span>
+          <span class="kbd">SPACE</span>
+          <span>OR SCROLL</span>
+        </div>
+      </div>
+      <div class="scroll-hint">SCROLL TO BEGIN &darr;</div>
+    </section>
+
+    <!-- 2 · WHY NOW -->
+    <section class="slide stage-pure topalign" id="the-shift">
+      <div class="inner">
+        <div class="micro" data-anim>WHY NOW</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Sports attention left broadcast &mdash;<span class="nl">and nobody <span class="accent">re-aggregated it.</span></span></h2>
+        <div class="stats s3" data-anim data-d="2" style="margin-top:28px">
+          <div class="stat"><div class="num">&lt;50%</div><div class="lbl">US pay-TV penetration · late 2025 &mdash; sports attention is migrating off broadcast</div></div>
+          <div class="stat"><div class="num">~200B</div><div class="lbl">YouTube Shorts views / day · early 2026 &mdash; where that attention landed</div></div>
+          <div class="stat"><div class="num"><span class="u">~30%</span></div><div class="lbl">YoY rise in paid game CPI &mdash; buying users keeps getting more expensive</div></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:32px;font-size:clamp(19px,2.5vw,32px)">The audience moved to creators.<span class="nl">The monetization <span class="accent">hasn&rsquo;t followed it &mdash; yet.</span></span></p>
+        <div class="srcline" data-anim data-d="4"><b>Sources:</b> The Desk / pay-TV penetration (2025) &middot; YouTube (Shorts, 2026) &middot; AppsFlyer / Liftoff game-CPI benchmarks. <span class="tbd">Figures to be re-confirmed + dated.</span></div>
+      </div>
+    </section>
+
+    <!-- 3 · THE THESIS -->
+    <section class="slide topalign" id="thesis">
+      <div class="inner">
+        <div class="micro" data-anim>OUR THESIS · ONE IDEA</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Own the audience.<span class="nl">Monetize with <span class="accent">our own games.</span></span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:92ch">Both halves are already proven and funded &mdash; sports-creator media raises capital (Overtime, PlayersTV), and owned-gaming monetization compounds value (theScore&rarr;Penn $2.0B, Underdog $1.23B). <b style="color:var(--text);font-weight:600">What&rsquo;s unproven is closing the loop</b> &mdash; turning a creator&rsquo;s audience into registered users of games <i>we own</i>, instead of ad impressions we resell. That&rsquo;s what €500K buys.</p>
+        <div class="two-up" data-anim data-d="3" style="margin-top:22px;align-items:stretch">
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">THE HYPOTHESIS</div>
+            <h3 style="font-size:clamp(18px,2vw,26px);margin:10px 0 8px">Creator-led sports content acquires gaming users cheaper than the ad auction.</h3>
+            <div class="pdesc">Owned distribution should beat paid CPI &mdash; and retain better, because the audience is real.</div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">HOW WE PROVE IT</div>
+            <h3 style="font-size:clamp(18px,2vw,26px);margin:10px 0 8px">One number, per creator node, over 6 months.</h3>
+            <div class="pdesc">Fully-loaded cost-per-registered-gaming-user from creator content vs a paid control. Beats paid &rarr; the node is repeatable.</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(17px,2.2vw,28px)">We&rsquo;re not asking you to believe it.<span class="nl">We&rsquo;re asking you to fund the <span class="accent">test.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 4 · THE NODE -->
+    <section class="slide stage-pure topalign" id="the-node">
+      <div class="inner">
+        <div class="micro" data-anim>THE MODEL · ONE NODE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">One creator is one <span class="accent">repeatable node.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:12px">Each sports creator or athlete runs the same loop. Prove the economics on one, and the network scales by adding more.</p>
+        <div class="nodeflow" data-anim data-d="3">
+          <div class="nstep acq">
+            <div class="nk">01 · Creator</div>
+            <h4>A sports creator / athlete</h4>
+            <div class="nd">Their audience &mdash; loyal, sport-native, on every channel.</div>
+          </div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep aud">
+            <div class="nk">02 · Content engine</div>
+            <h4>We build owned audience</h4>
+            <div class="nd">Multi-channel content (TikTok, YouTube, IG, X) &mdash; sport-agnostic, made to travel.</div>
+          </div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep mon">
+            <div class="nk">03 · Our games</div>
+            <h4>We monetize</h4>
+            <div class="nd">Audience converts into Vault Run + our 7 live games. Owned, scalable.</div>
+          </div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep tail">
+            <div class="nk">04 · Deep tail</div>
+            <h4>Separate casino brand</h4>
+            <div class="nd">The most-engaged, of-age tail routes to a <i>separate</i> licensed brand.</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:26px;font-size:clamp(18px,2.4vw,30px)">If one node pays back, the network scales by <span class="accent">adding nodes.</span></p>
+      </div>
+    </section>
+
+    <!-- 5 · WHAT WE OWN -->
+    <section class="slide topalign" id="what-we-own">
+      <div class="inner">
+        <div class="micro" data-anim>WHAT WE ALREADY OWN</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">The monetization layer most media companies rent &mdash; <span class="accent">we own it.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px"><b style="color:var(--text);font-weight:600">7 live casino games</b> + <b style="color:var(--text);font-weight:600">Vault Run</b> (a crowd-voted interactive format &mdash; now one of our streams). theScore, Underdog and Stake all had to build or buy this layer. We start with it.</p>
+        <div class="ph data" data-anim data-d="3" style="margin-top:24px">
+          <div class="micro" style="margin-bottom:14px">THE NUMBERS THAT MAKE THIS REAL — FROM THE 7 LIVE GAMES</div>
+          <div class="stats s3" style="margin-top:0">
+            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">Monthly active users (live games)</div></div>
+            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">F2P &rarr; paying conversion %</div></div>
+            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">D7 / D30 retention</div></div>
+          </div>
+          <div class="srcline" style="margin-top:14px">This is the single most powerful slide once filled &mdash; <b style="color:var(--text);font-weight:600">real numbers from games we already run</b>, not industry averages.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · THE PROOF METRIC -->
+    <section class="slide stage-pure topalign" id="proof-metric">
+      <div class="inner">
+        <div class="micro" data-anim>THE PROOF · ONE NUMBER</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Cost per registered user:<span class="nl">creator <span class="accent">vs paid.</span></span></h2>
+        <div class="two-up" data-anim data-d="2" style="margin-top:22px;align-items:stretch">
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">THE TEST</div>
+            <h3 style="margin:10px 0 10px">Creator-acquired vs a paid control.</h3>
+            <div class="pdesc">Fully-loaded cost-per-registered-gaming-user from each creator node, measured against a paid-acquisition control cell &mdash; benchmark = <span class="tbd">your real CPI</span>.</div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">SUCCESS CRITERION · STATED UP FRONT</div>
+            <h3 style="margin:10px 0 10px">Beat paid by ≥30%, or re-scope.</h3>
+            <div class="pdesc">≥30% below paid CPI, ≥2 of 5 nodes individually beat it, D30 retention ≥ paid, and <span class="tbd">€_ sponsorship</span> booked. If not &mdash; kill or re-scope before the seed.</div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px"><b style="color:var(--text);font-weight:600">Month 1 builds the attribution rails</b> (deep links · promo codes · postbacks); months 2&ndash;6 measure the number. The paid control is run at arm&rsquo;s length and independently reviewed. <span class="tbd wrap">Confirm: paid CPI benchmark, current conversion/retention, attribution stack.</span></div>
+      </div>
+    </section>
+
+    <!-- 7 · THE WEDGE / PILOT -->
+    <section class="slide topalign" id="the-wedge">
+      <div class="inner">
+        <div class="micro" data-anim>THE WEDGE · €500K · 6 MONTHS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">5 sports creators. <span class="accent">One question answered.</span></h2>
+        <div class="ask-grid" data-anim data-d="2" style="margin-top:18px">
+          <div class="ask-l">
+            <h4>The pilot</h4>
+            <div class="three-up" style="grid-template-columns:1fr;gap:10px;margin-top:8px">
+              <div class="readout" style="--ic:var(--green);padding:14px 16px"><div class="micro green">COHORT</div><div style="color:var(--text);font-weight:600;margin-top:4px"><span class="tbd">5</span> creators / athletes</div><div class="pdesc">50K&ndash;500K followers each &mdash; hands-on, node-to-node variance visible.</div></div>
+              <div class="readout" style="--ic:#5BC8FF;padding:14px 16px"><div class="micro" style="color:#5BC8FF">CADENCE</div><div style="color:var(--text);font-weight:600;margin-top:4px">~75&ndash;100 short-form / month</div><div class="pdesc">Multi-channel + 1 anchor piece (a Vault Run episode) per creator / month.</div></div>
+              <div class="readout" style="--ic:var(--accent);padding:14px 16px"><div class="micro">MONETIZATION SURFACE</div><div style="color:var(--text);font-weight:600;margin-top:4px">Vault Run + 7 live games</div><div class="pdesc">Plus one creator-branded activation each.</div></div>
+            </div>
+          </div>
+          <div class="ask-r">
+            <h4>Indicative budget <span class="tbd">confirm split</span></h4>
+            <div class="cacbar"><div class="cl"><span>Content &amp; production + ops</span><b>~36%</b></div><div class="ct"><i style="--w:100%;background:#5BC8FF"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Creator fees / rev-share</span><b>~30%</b></div><div class="ct"><i style="--w:83%;background:var(--green)"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Paid-amplification control cell</span><b>~18%</b></div><div class="ct"><i style="--w:50%;background:var(--accent)"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Tooling · attribution · legal</span><b>~16%</b></div><div class="ct"><i style="--w:44%;background:#E8C66B"></i></div></div>
+            <div class="srcline" style="margin-top:12px"><span class="tbd wrap">Named creators / signed LOIs to add — one signed creator de-risks the whole raise.</span></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:20px;font-size:clamp(17px,2.2vw,28px)">The investable claim: <span class="accent">if one node pays back, we add nodes.</span></p>
+      </div>
+    </section>
+
+    <!-- 8 · TRACTION NOW -->
+    <section class="slide stage-pure topalign" id="traction-now">
+      <div class="inner">
+        <div class="micro" data-anim>TRACTION · REVENUE THAT EXISTS NOW</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Cash <span class="accent">before</span> scale.</h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px">Sponsorship is real cash from day one &mdash; it funds the engine before gaming monetizes. The closest live analog, <b style="color:var(--text);font-weight:600">Playmaker</b> (sports audience &rarr; betting), runs this model cash-generatively. <span class="tbd">Playmaker figures to source.</span></p>
+        <div class="three-up" data-anim data-d="3" style="margin-top:20px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">SPONSORSHIP &amp; BRANDED CONTENT</div>
+            <h3 style="margin:8px 0 10px">Brands pay to be in the content</h3>
+            <div class="pdesc" style="margin-bottom:12px">CPA / rev-share deals fund production pre-monetization.</div>
+            <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
+          </div>
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">PROMOTION-AS-A-SERVICE</div>
+            <h3 style="margin:8px 0 10px">Sell the engine itself</h3>
+            <div class="pdesc" style="margin-bottom:12px">Run the content machine for creators/brands while we build owned nodes.</div>
+            <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">7 LIVE GAMES</div>
+            <h3 style="margin:8px 0 10px">Already generating play</h3>
+            <div class="pdesc" style="margin-bottom:12px"><span class="tbd">Current revenue / users to add</span> &mdash; the owned monetization layer.</div>
+            <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="4" style="margin-top:20px"><span class="tbd wrap">Signed sponsorship LOIs, current game revenue/users, and a NeoAds performance case to add here &mdash; the strongest de-risk for the raise.</span></div>
+      </div>
+    </section>
+
+    <!-- 9 · MARKET -->
+    <section class="slide topalign" id="market">
+      <div class="inner">
+        <div class="micro" data-anim>THE OPPORTUNITY</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">We address the <span class="accent">intersection</span> &mdash; not the sum.</h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px">We don&rsquo;t stack these into a hero number. We lead with the firmest dollars and treat the rest as tailwind.</p>
+        <div class="stats s3" data-anim data-d="3" style="margin-top:22px">
+          <div class="stat"><div class="num">~$33B</div><div class="lbl">Influencer marketing &mdash; real ad spend, 2025 (firmest)</div></div>
+          <div class="stat"><div class="num">~$480B</div><div class="lbl">Creator economy TAM by 2027 · Goldman Sachs</div></div>
+          <div class="stat"><div class="num">$100B+</div><div class="lbl">Online gaming GGR &mdash; <b style="color:var(--text)">ceiling for the separate casino brand only</b></div></div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:30px;font-size:clamp(18px,2.4vw,30px)">The €500K proves a <span class="accent">bottom-up slice</span> &mdash; creators × audience × revenue-per-node. The macro markets just let nodes compound.</p>
+        <div class="srcline" data-anim data-d="5"><b>Sources:</b> Statista (influencer spend) &middot; Goldman Sachs (creator economy). Betting/iGaming framed only as the casino-brand ceiling, never parent revenue. <span class="tbd">Re-confirm + date.</span></div>
+      </div>
+    </section>
+
+    <!-- 10 · COMPETITIVE FRAME -->
+    <section class="slide stage-pure topalign" id="competitive-frame">
+      <div class="inner">
+        <div class="micro" data-anim>WHERE VALUE ACCRUES</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Value goes to whoever owns the <span class="accent">monetization.</span></h2>
+        <div class="vgrid" data-anim data-d="2">
+          <div class="vcol good">
+            <div class="vk">&#10003; Owned monetization</div>
+            <div class="vrow"><span class="vn">Underdog</span><span class="vsub">$1.23B · last round 2025</span></div>
+            <div class="vrow"><span class="vn">theScore &rarr; Penn</span><span class="vsub">$2.0B · acquired 2021</span></div>
+            <div class="pdesc" style="margin-top:12px">Media audience + a product they <i>owned</i> = the 9-figure-plus asset.</div>
+          </div>
+          <div class="vcol bad">
+            <div class="vk">&#10007; Content / ad-only ceiling</div>
+            <div class="vrow"><span class="vn">FaZe Clan</span><span class="vsub">$1.2B &rarr; ~$15M</span></div>
+            <div class="vrow"><span class="vn">Bleacher Report</span><span class="vsub">~$180M</span></div>
+            <div class="pdesc" style="margin-top:12px">Creator hype or ads with no monetization engine caps out near 1&times; revenue.</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:22px;font-size:clamp(17px,2.3vw,29px)">AIGO owns the games <span class="accent">and</span> the casino brand &mdash; without renting rights (DAZN &minus;$10B) or partnering (Barstool &rarr; $1).</p>
+        <div class="srcline" data-anim data-d="4">Valuations are venture marks / press estimates, not realized returns. <span class="tbd">Sourced on the appendix.</span></div>
+      </div>
+    </section>
+
+    <!-- 11 · STRUCTURE / FIREWALL -->
+    <section class="slide topalign" id="structure-firewall">
+      <div class="inner">
+        <div class="micro" data-anim>BRAND-SAFE BY DESIGN</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">The casino is walled off &mdash; <span class="accent">on purpose.</span></h2>
+        <div class="fw" data-anim data-d="2">
+          <div class="fwbox safe">
+            <div class="fwl">Brand-safe parent</div>
+            <h4>Sports media + content + our games</h4>
+            <div class="pdesc">Sponsor-friendly, talent-friendly, compliant on every platform (Twitch/YouTube). Athlete &amp; creator likeness lives only here.</div>
+          </div>
+          <div class="fwbar">Firewall</div>
+          <div class="fwbox casino">
+            <div class="fwl">Separate licensed subsidiary</div>
+            <h4>Casino brand · deep tail</h4>
+            <div class="pdesc">Geo-gated, separately licensed, linked by a marketing / rev-share agreement &mdash; <b style="color:var(--text);font-weight:600">not</b> brand-merged. Never uses athlete likeness.</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.2vw,28px)">Penn paid ~$551M for Barstool, wrote down ~$850M, and sold it back for <span class="accent">$1.</span> We don&rsquo;t merge the brand &mdash; we separate it from day one.</p>
+        <div class="srcline" data-anim data-d="4"><b>Why:</b> gaming licenses are non-transferable; platform rules ban casino; NIL/endorsement laws restrict athletes promoting gambling. Separation de-risks sponsors, talent and distribution.</div>
+      </div>
+    </section>
+
+    <!-- 12 · MONETIZATION SEQUENCE -->
+    <section class="slide stage-pure topalign" id="monetization-sequence">
+      <div class="inner">
+        <div class="micro" data-anim>HOW IT MONETIZES · NOW → LATER</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(26px,3.4vw,46px)">Three steps, in order.</h2>
+        <div class="three-up" data-anim data-d="2" style="margin-top:22px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">STEP 1 · NOW</div>
+            <h3 style="margin:8px 0 10px">Sponsorship + promotion-as-a-service</h3>
+            <div class="pdesc" style="margin-bottom:12px">Real cash from day one &mdash; funds the engine before gaming monetizes.</div>
+            <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
+          </div>
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">STEP 2 · AFTER AUDIENCE</div>
+            <h3 style="margin:8px 0 10px">F2P gaming · Vault Run + 7 games</h3>
+            <div class="pdesc" style="margin-bottom:12px">The owned monetization the wedge lights up. Honest: cold audiences convert thin until scale.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>As audience grows</span></div>
+          </div>
+          <div class="panel readout" style="--ic:#8B5CFF">
+            <div class="micro" style="color:#8B5CFF">STEP 3 · DEEP TAIL</div>
+            <h3 style="margin:8px 0 10px">Casino rev-share · separate brand</h3>
+            <div class="pdesc" style="margin-bottom:12px">Highest LTV, walled off &mdash; captures the most-engaged of-age tail.</div>
+            <div class="pfoot"><span class="spill later"><span class="sd"></span>Later</span></div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px">The metric that matters across all three: <b style="color:var(--text);font-weight:600">contribution margin per creator node</b> &mdash; target payback under ~6&ndash;9 months, node LTV:CAC ≥ 3:1.</div>
+      </div>
+    </section>
+
+    <!-- 13 · TEAM -->
+    <section class="slide topalign" id="team">
+      <div class="inner">
+        <div class="micro" data-anim>THE TEAM · AIGO</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Operators who&rsquo;ve done <span class="accent">the parts.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:8px">A complementary team that has shipped together &mdash; <span class="tbd">25+ years combined</span> across iGaming, product, growth and fundraising.</p>
+        <div class="team" data-anim data-d="3" style="margin-top:16px">
+          <div class="person">
+            <div class="mono" style="--ic:#BDFF5F">AN</div>
+            <div class="trole">CO-FOUNDER · COMMERCIAL &amp; STRATEGY</div>
+            <div class="tname">Andreea N&#259;ftic&#259;</div>
+            <div class="tmandate">10+ years driving commercial growth, product launches, and market expansion across iGaming with Bet365 and Superbet.</div>
+            <div class="ttoken">Bet365 &middot; Superbet</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#FF4627">GP</div>
+            <div class="trole">CO-FOUNDER · PRODUCT, DESIGN &amp; AI</div>
+            <div class="tname">George P&#259;tru</div>
+            <div class="tmandate">Product vision, game design, AI-native development, UX/UI and content.</div>
+            <div class="ttoken">15+ yrs &middot; product, design, AI-enablement, Web3</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#E8C66B">RT</div>
+            <div class="trole">MARKETING EXPERT · PAID</div>
+            <div class="tname">Radu T&#259;nase</div>
+            <div class="tmandate">Performance marketing &amp; paid acquisition &mdash; runs the arm&rsquo;s-length paid control the wedge measures against.</div>
+            <div class="ttoken">Owns NeoAds &middot; #1 Google Partner in Romania</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#5BC8FF">JH</div>
+            <div class="trole">FUNDRAISING &amp; STRATEGIC ADVISOR</div>
+            <div class="tname">J.H.</div>
+            <div class="tmandate">Fundraising, investor relations and corporate strategy.</div>
+            <div class="ttoken">Strategic advisor</div>
+          </div>
+          <div class="person" style="border-color:rgba(255,70,39,.35)">
+            <div class="mono" style="--ic:var(--accent)">+</div>
+            <div class="trole">PRIORITY SEED HIRE</div>
+            <div class="tname">Media &amp; talent lead</div>
+            <div class="tmandate">Content production + creator/athlete management &mdash; the one muscle we name honestly as the next hire.</div>
+            <div class="ttoken"><span class="tbd">To recruit</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 · THE ASK + ROADMAP -->
+    <section class="slide stage-pure topalign" id="ask">
+      <div class="inner">
+        <div class="micro" data-anim>THE ASK</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">€500K now. <span class="accent">€4M seed</span> when one node pays back.</h2>
+        <div class="ask-grid" data-anim data-d="2">
+          <div class="ask-l">
+            <div class="ask-hero"><div class="ah-num">€500K</div><div class="ah-lbl">Pre-seed &mdash; one wedge</div></div>
+            <div class="ask-sub">
+              <div class="stat"><div class="num"><span class="tbd">__</span></div><div class="lbl">Months runway</div></div>
+              <div class="stat"><div class="num">7</div><div class="lbl">Games already live</div></div>
+            </div>
+          </div>
+          <div class="ask-r">
+            <h4>Use of funds <span class="tbd">confirm</span></h4>
+            <div class="cacbar"><div class="cl"><span>Content engine &amp; production</span><b>~36%</b></div><div class="ct"><i style="--w:100%;background:#5BC8FF"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Creator fees / rev-share</span><b>~30%</b></div><div class="ct"><i style="--w:83%;background:var(--green)"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Paid control + attribution</span><b>~18%</b></div><div class="ct"><i style="--w:50%;background:var(--accent)"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Ops &amp; legal</span><b>~16%</b></div><div class="ct"><i style="--w:44%;background:#E8C66B"></i></div></div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="3"><span class="accent" style="font-weight:600">The milestone that unlocks the seed:</span> one node pays back below paid CPI. Then we add nodes &mdash; and the reality show, big formats and media rights become the <b style="color:var(--text);font-weight:600">scaled story on the €4M</b>, not this ask.</div>
+      </div>
+    </section>
+
+    <!-- 15 · THE SCALED VISION -->
+    <section class="slide stage-pure" id="network-vision">
+      <svg class="star-bg" style="width:50vw;bottom:-18vh;left:-12vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-close" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <div class="micro" data-anim data-d="1" style="text-align:center">THE SCALED COMPANY · ON THE €4M</div>
+        <h2 class="headline" data-anim data-d="2" style="font-size:clamp(28px,4vw,54px);text-align:center;margin-top:10px">Node &rarr; network &rarr; <span class="accent">media company.</span></h2>
+        <p class="sub" data-anim data-d="3" style="margin:16px auto 0;text-align:center;max-width:72ch">Prove one node &rarr; add nodes &rarr; a network of owned sports audiences feeding owned games &mdash; then the reality show, big owned formats and media rights. We fund the proof now; the company scales on the seed.</p>
+        <div class="tagline" data-anim data-d="4" style="margin-top:26px">AIGO &middot; Owned audiences. Owned games.</div>
+        <div class="urls" data-anim data-d="5"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io &nbsp;·&nbsp; <span class="tbd">contact / email</span></div>
+        <div data-anim data-d="5" style="margin-top:6px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FILM MODAL ============ -->
+  <div class="modal" id="film-modal" role="dialog" aria-modal="true" aria-label="AIGO Vault Run">
+    <div class="box">
+      <div class="close-x" data-film-close>CLOSE &times;</div>
+      <video id="film-video" controls playsinline preload="none" poster="assets/brand/star.png">
+        <source src="https://equwbgucibrtqpjzivhy.supabase.co/storage/v1/object/public/pitch/vaultrun-trailer-vo5.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script src="js/deck.js"></script>
+</body>
+</html>
