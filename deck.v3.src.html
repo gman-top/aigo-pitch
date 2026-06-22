@@ -19,8 +19,8 @@
   <style>
   /* ---- V3 inline additions (V1/V2 + style.css stay untouched) ---- */
   .ph{position:relative;border:1.5px dashed rgba(255,70,39,.55);border-radius:14px;background:rgba(255,70,39,.045);padding:22px 24px}
-  .ph::before{content:"PLACEHOLDER · WE ADD THE REAL DATA";position:absolute;top:-10px;left:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);background:var(--stage);padding:3px 10px;border-radius:100px;border:1px solid rgba(255,70,39,.4)}
-  .ph.data::before{content:"NEEDS YOUR REAL DATA"}
+  .ph::before{content:"TO CONFIRM";position:absolute;top:-10px;left:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);background:var(--stage);padding:3px 10px;border-radius:100px;border:1px solid rgba(255,70,39,.4)}
+  .ph.data::before{content:"LIVE NUMBERS · TO CONFIRM"}
   .tbd{font-family:var(--mono);color:var(--accent);font-size:.82em;letter-spacing:.06em;border:1px dashed rgba(255,70,39,.55);border-radius:6px;padding:1px 7px;white-space:nowrap}
   .tbd.wrap{white-space:normal}
 
@@ -93,6 +93,25 @@
   #flywheel .fly-sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;fill:var(--text-dim)}
   #flywheel .flyw .chub{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%)}
   @media(prefers-reduced-motion:reduce){#flywheel .fly-flow{animation:none}}
+
+  /* hero number emphasis */
+  .bignum{font-family:var(--display);font-weight:700;line-height:.95;letter-spacing:-.02em;color:var(--accent)}
+  /* monetization sequence rail */
+  .seqrail{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim);margin-top:8px}
+  .seqrail b{color:var(--text)}.seqrail .ar{color:var(--accent);font-size:14px}
+
+  /* mobile flywheel: hide tiny rotating labels, show a clean vertical list */
+  .flyw-list{display:none}
+  @media(max-width:640px){
+    #flywheel .fly-lbl,#flywheel .fly-sub{display:none}
+    #flywheel .flyw{width:min(280px,64vw)}
+    #flywheel .flyw-list{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;margin:16px auto 0;text-align:left}
+    #flywheel .flyw-list .fr{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:13px;color:var(--text-dim)}
+    #flywheel .flyw-list .fr b{color:var(--text);font-weight:600;letter-spacing:.04em}
+    #flywheel .flyw-list .fdot{width:9px;height:9px;border-radius:50%;background:var(--nc);flex:0 0 9px}
+  }
+  /* ask: keep the giant € clear of the left edge on mobile */
+  @media(max-width:640px){#ask .ah-num{font-size:clamp(62px,21vw,104px);padding-left:3px}}
   </style>
 </head>
 <body>
@@ -237,6 +256,13 @@
           </svg>
           <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
         </div>
+        <div class="flyw-list" data-anim data-d="2">
+          <div class="fr"><span class="fdot" style="--nc:#FF4627"></span><b>Virality engine</b>&nbsp;<i>creators · clippers · formats</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#BDFF5F"></span><b>Audiences</b>&nbsp;<i>on demand</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#5BC8FF"></span><b>Monetize</b>&nbsp;<i>rent + own</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#E8C66B"></span><b>Reinvest</b>&nbsp;<i>bigger · cheaper</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#8B5CFF"></span><b>More leverage</b>&nbsp;<i>game gets vital</i></div>
+        </div>
         <p class="punch" data-anim data-d="3" style="margin-top:8px;font-size:clamp(17px,2.3vw,29px)">Rent funds the machine. The machine feeds the game.<span class="nl">The game becomes the thing <span class="accent">everyone pays us for.</span></span></p>
       </div>
     </section>
@@ -285,11 +311,11 @@
         <div class="ph data" data-anim data-d="3" style="margin-top:24px">
           <div class="micro" style="margin-bottom:14px">THE NUMBERS THAT MAKE THIS REAL — FROM THE 7 LIVE GAMES</div>
           <div class="stats s3" style="margin-top:0">
-            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">Monthly active users (live games)</div></div>
-            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">F2P &rarr; paying conversion %</div></div>
-            <div class="stat"><div class="num"><span class="tbd">—</span></div><div class="lbl">D7 / D30 retention</div></div>
+            <div class="stat"><div class="num" style="color:var(--accent)">—</div><div class="lbl">Monthly active users (live games)</div></div>
+            <div class="stat"><div class="num" style="color:var(--accent)">—</div><div class="lbl">F2P &rarr; paying conversion %</div></div>
+            <div class="stat"><div class="num" style="color:var(--accent)">—</div><div class="lbl">D7 / D30 retention</div></div>
           </div>
-          <div class="srcline" style="margin-top:14px">This is the single most powerful slide once filled &mdash; <b style="color:var(--text);font-weight:600">real numbers from games we already run</b>, not industry averages.</div>
+          <div class="srcline" style="margin-top:14px"><b style="color:var(--text);font-weight:600">Real numbers from games we already run</b> &mdash; added pre-raise. The de-risk most media companies can&rsquo;t show.</div>
         </div>
       </div>
     </section>
@@ -307,11 +333,11 @@
           </div>
           <div class="panel accent-p readout" style="--ic:var(--accent)">
             <div class="micro">SUCCESS CRITERION · STATED UP FRONT</div>
-            <h3 style="margin:10px 0 10px">Beat paid by ≥30%, or re-scope.</h3>
-            <div class="pdesc">≥30% below paid CPI, ≥2 of 5 nodes individually beat it, D30 retention ≥ paid, and <span class="tbd">€_ sponsorship</span> booked. If not &mdash; kill or re-scope before the seed.</div>
+            <div class="bignum" style="font-size:clamp(58px,8.5vw,112px);margin:6px 0 2px">≥30%</div>
+            <div class="pdesc">cheaper than paid CPI &mdash; on ≥2 of 5 nodes, with D30 retention ≥ paid. If not, <b style="color:var(--text);font-weight:600">we re-scope before the seed.</b></div>
           </div>
         </div>
-        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px"><b style="color:var(--text);font-weight:600">Month 1 builds the attribution rails</b> (deep links · promo codes · postbacks); months 2&ndash;6 measure the number. The paid control is run at arm&rsquo;s length and independently reviewed. <span class="tbd wrap">Confirm: paid CPI benchmark, current conversion/retention, attribution stack.</span></div>
+        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px"><b style="color:var(--text);font-weight:600">Month 1 builds the attribution rails</b> (deep links · promo codes · postbacks); months 2&ndash;6 measure the number. The paid control runs at arm&rsquo;s length, independently reviewed. <span class="tbd">Benchmark CPI to confirm.</span></div>
       </div>
     </section>
 
@@ -320,25 +346,13 @@
       <div class="inner">
         <div class="micro" data-anim>THE WEDGE · €500K · 6 MONTHS</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">5 sports creators. <span class="accent">One question answered.</span></h2>
-        <div class="ask-grid" data-anim data-d="2" style="margin-top:18px">
-          <div class="ask-l">
-            <h4>The pilot</h4>
-            <div class="three-up" style="grid-template-columns:1fr;gap:10px;margin-top:8px">
-              <div class="readout" style="--ic:var(--green);padding:14px 16px"><div class="micro green">COHORT</div><div style="color:var(--text);font-weight:600;margin-top:4px"><span class="tbd">5</span> creators / athletes</div><div class="pdesc">50K&ndash;500K followers each &mdash; hands-on, node-to-node variance visible.</div></div>
-              <div class="readout" style="--ic:#5BC8FF;padding:14px 16px"><div class="micro" style="color:#5BC8FF">CADENCE</div><div style="color:var(--text);font-weight:600;margin-top:4px">~75&ndash;100 short-form / month</div><div class="pdesc">Multi-channel + 1 anchor piece (a Vault Run episode) per creator / month.</div></div>
-              <div class="readout" style="--ic:var(--accent);padding:14px 16px"><div class="micro">MONETIZATION SURFACE</div><div style="color:var(--text);font-weight:600;margin-top:4px">Vault Run + 7 live games</div><div class="pdesc">Plus one creator-branded activation each.</div></div>
-            </div>
-          </div>
-          <div class="ask-r">
-            <h4>Indicative budget <span class="tbd">confirm split</span></h4>
-            <div class="cacbar"><div class="cl"><span>Content &amp; production + ops</span><b>~36%</b></div><div class="ct"><i style="--w:100%;background:#5BC8FF"></i></div></div>
-            <div class="cacbar"><div class="cl"><span>Creator fees / rev-share</span><b>~30%</b></div><div class="ct"><i style="--w:83%;background:var(--green)"></i></div></div>
-            <div class="cacbar"><div class="cl"><span>Paid-amplification control cell</span><b>~18%</b></div><div class="ct"><i style="--w:50%;background:var(--accent)"></i></div></div>
-            <div class="cacbar"><div class="cl"><span>Tooling · attribution · legal</span><b>~16%</b></div><div class="ct"><i style="--w:44%;background:#E8C66B"></i></div></div>
-            <div class="srcline" style="margin-top:12px"><span class="tbd wrap">Named creators / signed LOIs to add — one signed creator de-risks the whole raise.</span></div>
-          </div>
+        <div class="three-up" data-anim data-d="2" style="margin-top:18px;align-items:stretch">
+          <div class="readout" style="--ic:var(--green)"><div class="micro green">COHORT</div><h3 style="margin:8px 0 6px;font-size:clamp(18px,2vw,24px)"><span class="tbd">5</span> creators / athletes</h3><div class="pdesc">50K&ndash;500K followers each &mdash; hands-on, node-to-node variance visible.</div></div>
+          <div class="readout" style="--ic:#5BC8FF"><div class="micro" style="color:#5BC8FF">CADENCE</div><h3 style="margin:8px 0 6px;font-size:clamp(18px,2vw,24px)">~75&ndash;100 / month</h3><div class="pdesc">Short-form across channels + 1 anchor Vault Run episode per creator / month.</div></div>
+          <div class="readout" style="--ic:var(--accent)"><div class="micro">MONETIZATION SURFACE</div><h3 style="margin:8px 0 6px;font-size:clamp(18px,2vw,24px)">Vault Run + 7 games</h3><div class="pdesc">The audience converts into games we own &mdash; plus one creator-branded activation each.</div></div>
         </div>
-        <p class="punch" data-anim data-d="3" style="margin-top:20px;font-size:clamp(17px,2.2vw,28px)">The investable claim: <span class="accent">if one node pays back, we add nodes.</span></p>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(18px,2.5vw,32px)">The investable claim: <span class="accent">if one node pays back, we add nodes.</span></p>
+        <div class="srcline" data-anim data-d="4"><span class="tbd">One named creator / signed LOI de-risks the whole raise &mdash; to add.</span></div>
       </div>
     </section>
 
@@ -368,7 +382,7 @@
             <div class="pfoot"><span class="spill live"><span class="sd"></span>Live now</span></div>
           </div>
         </div>
-        <div class="anchor-note" data-anim data-d="4" style="margin-top:20px"><span class="tbd wrap">Signed sponsorship LOIs, current game revenue/users, and a NeoAds performance case to add here &mdash; the strongest de-risk for the raise.</span></div>
+        <div class="anchor-note" data-anim data-d="4" style="margin-top:20px">Sponsorship + promotion fund the build while the games already run. <span class="tbd">Signed LOIs + live-game revenue land here pre-raise.</span></div>
       </div>
     </section>
 
@@ -384,7 +398,7 @@
           <div class="stat"><div class="num">$100B+</div><div class="lbl">Online gaming GGR &mdash; <b style="color:var(--text)">ceiling for the separate casino brand only</b></div></div>
         </div>
         <p class="punch" data-anim data-d="4" style="margin-top:30px;font-size:clamp(18px,2.4vw,30px)">The €500K proves a <span class="accent">bottom-up slice</span> &mdash; creators × audience × revenue-per-node. The macro markets just let nodes compound.</p>
-        <div class="srcline" data-anim data-d="5"><b>Sources:</b> Statista (influencer spend) &middot; Goldman Sachs (creator economy). Betting/iGaming framed only as the casino-brand ceiling, never parent revenue. <span class="tbd">Re-confirm + date.</span></div>
+        <div class="srcline" data-anim data-d="5"><b>Sources:</b> Statista (influencer spend) &middot; Goldman Sachs (creator economy). Betting/iGaming framed only as the casino-brand ceiling, never parent revenue.</div>
       </div>
     </section>
 
@@ -396,15 +410,15 @@
         <div class="vgrid" data-anim data-d="2">
           <div class="vcol good">
             <div class="vk">&#10003; Owned monetization</div>
-            <div class="vrow"><span class="vn">Underdog</span><span class="vsub">$1.23B · last round 2025</span></div>
-            <div class="vrow"><span class="vn">theScore &rarr; Penn</span><span class="vsub">$2.0B · acquired 2021</span></div>
-            <div class="pdesc" style="margin-top:12px">Media audience + a product they <i>owned</i> = the 9-figure-plus asset.</div>
+            <div class="bignum" style="font-size:clamp(34px,5vw,60px);color:var(--green)">$2.0B<span style="font-size:.45em;color:var(--text-dim)"> · theScore→Penn</span></div>
+            <div class="vrow" style="margin-top:8px"><span class="vn">Underdog</span><span class="vsub">$1.23B · last round 2025</span></div>
+            <div class="pdesc" style="margin-top:10px">Media audience + a product they <i>owned</i> = the 9-figure-plus asset.</div>
           </div>
           <div class="vcol bad">
             <div class="vk">&#10007; Content / ad-only ceiling</div>
-            <div class="vrow"><span class="vn">FaZe Clan</span><span class="vsub">$1.2B &rarr; ~$15M</span></div>
-            <div class="vrow"><span class="vn">Bleacher Report</span><span class="vsub">~$180M</span></div>
-            <div class="pdesc" style="margin-top:12px">Creator hype or ads with no monetization engine caps out near 1&times; revenue.</div>
+            <div class="bignum" style="font-size:clamp(34px,5vw,60px);color:var(--text-dim)">$1.2B <span style="color:var(--accent)">&rarr; $15M</span></div>
+            <div class="vrow" style="margin-top:8px"><span class="vn">FaZe Clan</span><span class="vsub">near-total wipeout</span></div>
+            <div class="pdesc" style="margin-top:10px">Creator hype or ads with no monetization engine caps out near 1&times; revenue. (Bleacher Report ~$180M.)</div>
           </div>
         </div>
         <p class="punch" data-anim data-d="3" style="margin-top:22px;font-size:clamp(17px,2.3vw,29px)">AIGO owns the games <span class="accent">and</span> the casino brand &mdash; without renting rights (DAZN &minus;$10B) or partnering (Barstool &rarr; $1).</p>
@@ -430,7 +444,7 @@
             <div class="pdesc">Geo-gated, separately licensed, linked by a marketing / rev-share agreement &mdash; <b style="color:var(--text);font-weight:600">not</b> brand-merged. Never uses athlete likeness.</div>
           </div>
         </div>
-        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.2vw,28px)">Penn paid ~$551M for Barstool, wrote down ~$850M, and sold it back for <span class="accent">$1.</span> We don&rsquo;t merge the brand &mdash; we separate it from day one.</p>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.2vw,28px)">Penn paid ~$551M for Barstool, wrote down ~$850M, and sold it back for <span class="accent" style="font-size:1.45em;font-weight:700">$1.</span> We don&rsquo;t merge the brand &mdash; we separate it from day one.</p>
         <div class="srcline" data-anim data-d="4"><b>Why:</b> gaming licenses are non-transferable; platform rules ban casino; NIL/endorsement laws restrict athletes promoting gambling. Separation de-risks sponsors, talent and distribution.</div>
       </div>
     </section>
@@ -440,7 +454,8 @@
       <div class="inner">
         <div class="micro" data-anim>HOW IT MONETIZES · NOW → LATER</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(26px,3.4vw,46px)">Three steps, in order.</h2>
-        <div class="three-up" data-anim data-d="2" style="margin-top:22px;align-items:stretch">
+        <div class="seqrail" data-anim data-d="2"><b>NOW</b><span class="ar">&rarr;</span><b>AS AUDIENCE GROWS</b><span class="ar">&rarr;</span><b>LATER</b></div>
+        <div class="three-up" data-anim data-d="2" style="margin-top:16px;align-items:stretch">
           <div class="panel green-p readout" style="--ic:var(--green)">
             <div class="micro green">STEP 1 · NOW</div>
             <h3 style="margin:8px 0 10px">Rent the crowd + sponsorship</h3>
@@ -460,7 +475,7 @@
             <div class="pfoot"><span class="spill later"><span class="sd"></span>Later</span></div>
           </div>
         </div>
-        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px">The metric that matters across all three: <b style="color:var(--text);font-weight:600">contribution margin per creator node</b> &mdash; target payback under ~6&ndash;9 months, node LTV:CAC ≥ 3:1.</div>
+        <p class="punch" data-anim data-d="3" style="margin-top:22px;font-size:clamp(17px,2.3vw,29px)">One number rules all three: <span class="accent">node LTV:CAC ≥ 3:1</span>, payback under 6&ndash;9 months.</p>
       </div>
     </section>
 
@@ -519,7 +534,7 @@
           <div class="ask-l">
             <div class="ask-hero"><div class="ah-num">€500K</div><div class="ah-lbl">Pre-seed &mdash; one wedge</div></div>
             <div class="ask-sub">
-              <div class="stat"><div class="num"><span class="tbd">__</span></div><div class="lbl">Months runway</div></div>
+              <div class="stat"><div class="num">12&ndash;18</div><div class="lbl">Months runway</div></div>
               <div class="stat"><div class="num">7</div><div class="lbl">Games already live</div></div>
             </div>
           </div>
