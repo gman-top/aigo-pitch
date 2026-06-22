@@ -79,6 +79,20 @@
   /* bottom-align status pills in equal-height cards */
   #two-products .panel,#monetization-sequence .panel,#traction-now .panel{display:flex;flex-direction:column}
   #two-products .pfoot,#monetization-sequence .pfoot,#traction-now .pfoot{margin-top:auto}
+
+  /* slide · flywheel (the compounding engine) */
+  #flywheel .inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+  #flywheel .flyw{position:relative;width:min(680px,94vw);aspect-ratio:680/480;margin:6px auto 2px}
+  #flywheel .flyw svg{width:100%;height:100%;overflow:visible;display:block}
+  #flywheel .fly-track{fill:none;stroke:var(--line);stroke-width:1.5}
+  #flywheel .fly-flow{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-dasharray:3 25;filter:drop-shadow(0 0 5px rgba(255,70,39,.6));animation:cflow 1.4s linear infinite}
+  #flywheel .fly-spoke{stroke:color-mix(in srgb,var(--accent) 15%,transparent);stroke-width:1}
+  #flywheel .fly-node{fill:var(--nc);filter:drop-shadow(0 0 7px color-mix(in srgb,var(--nc) 75%,transparent))}
+  #flywheel .fly-arrow{fill:var(--accent);filter:drop-shadow(0 0 4px rgba(255,70,39,.55))}
+  #flywheel .fly-lbl{font-family:var(--mono);font-size:15px;letter-spacing:.04em;fill:var(--text);font-weight:600}
+  #flywheel .fly-sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;fill:var(--text-dim)}
+  #flywheel .flyw .chub{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%)}
+  @media(prefers-reduced-motion:reduce){#flywheel .fly-flow{animation:none}}
   </style>
 </head>
 <body>
@@ -141,8 +155,8 @@
     <section class="slide topalign" id="thesis">
       <div class="inner">
         <div class="micro" data-anim>OUR THESIS · ONE IDEA</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Own the audience.<span class="nl">Monetize with <span class="accent">our own games.</span></span></h2>
-        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:92ch">Every gaming company overpays for users. AIGO becomes the <b style="color:var(--text);font-weight:600">infrastructure that delivers them</b> &mdash; and, unlike an agency, we own the games that monetize them. Both halves are already proven and funded (sports-creator media raises capital; owned-gaming monetization compounds &mdash; theScore&rarr;Penn $2.0B, Underdog $1.23B). <b style="color:var(--text);font-weight:600">What&rsquo;s unproven is closing the loop</b> &mdash; turning a creator&rsquo;s audience into registered users of games <i>we own</i>. That&rsquo;s what €500K buys.</p>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(30px,4.2vw,58px)">Everyone overpays for users.<span class="nl">We <span class="accent">make</span> them.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:82ch">Paid channels cost <b style="color:var(--text);font-weight:600">$250&ndash;650</b> per depositing player &mdash; and rising. AIGO <b style="color:var(--text);font-weight:600">manufactures</b> users instead &mdash; and, unlike an agency, owns the games that monetize them (theScore&rarr;Penn $2.0B, Underdog $1.23B prove the second half). €500K funds the proof that closing the loop beats paid.</p>
         <div class="two-up" data-anim data-d="3" style="margin-top:22px;align-items:stretch">
           <div class="panel readout" style="--ic:#5BC8FF">
             <div class="micro" style="color:#5BC8FF">THE HYPOTHESIS</div>
@@ -182,6 +196,48 @@
           </div>
         </div>
         <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(17px,2.3vw,29px)">The same engine sells twice &mdash; and the half we <span class="accent">keep</span> is the half that compounds.</p>
+      </div>
+    </section>
+
+    <!-- 3c · THE FLYWHEEL -->
+    <section class="slide topalign" id="flywheel">
+      <div class="inner">
+        <div class="micro" data-anim>THE FLYWHEEL · WHY IT COMPOUNDS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(28px,3.8vw,50px)">We compound. The rest just <span class="accent">spend.</span></h2>
+        <div class="flyw" data-anim data-d="2">
+          <svg viewBox="0 0 680 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <circle class="fly-track" cx="340" cy="250" r="175"/>
+            <g class="fly-spokes">
+              <line class="fly-spoke" x1="340" y1="75" x2="340" y2="250"/>
+              <line class="fly-spoke" x1="506" y1="196" x2="340" y2="250"/>
+              <line class="fly-spoke" x1="443" y1="392" x2="340" y2="250"/>
+              <line class="fly-spoke" x1="237" y1="392" x2="340" y2="250"/>
+              <line class="fly-spoke" x1="174" y1="196" x2="340" y2="250"/>
+            </g>
+            <circle class="fly-flow" cx="340" cy="250" r="175"/>
+            <path class="fly-arrow" transform="translate(443,108) rotate(36)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <path class="fly-arrow" transform="translate(340,425) rotate(180)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <g class="fly-nodes">
+              <circle class="fly-node" cx="340" cy="75" r="7" style="--nc:#FF4627"/>
+              <circle class="fly-node" cx="506" cy="196" r="6" style="--nc:#BDFF5F"/>
+              <circle class="fly-node" cx="443" cy="392" r="6" style="--nc:#5BC8FF"/>
+              <circle class="fly-node" cx="237" cy="392" r="6" style="--nc:#E8C66B"/>
+              <circle class="fly-node" cx="174" cy="196" r="6" style="--nc:#8B5CFF"/>
+            </g>
+            <text class="fly-lbl" x="340" y="36" text-anchor="middle">VIRALITY ENGINE</text>
+            <text class="fly-sub" x="340" y="53" text-anchor="middle">creators · clippers · formats</text>
+            <text class="fly-lbl" x="540" y="191" text-anchor="start">AUDIENCES</text>
+            <text class="fly-sub" x="540" y="208" text-anchor="start">on demand</text>
+            <text class="fly-lbl" x="478" y="388" text-anchor="start">MONETIZE</text>
+            <text class="fly-sub" x="478" y="405" text-anchor="start">rent + own</text>
+            <text class="fly-lbl" x="202" y="388" text-anchor="end">REINVEST</text>
+            <text class="fly-sub" x="202" y="405" text-anchor="end">bigger · cheaper</text>
+            <text class="fly-lbl" x="138" y="191" text-anchor="end">MORE LEVERAGE</text>
+            <text class="fly-sub" x="138" y="208" text-anchor="end">game gets vital</text>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:8px;font-size:clamp(17px,2.3vw,29px)">Rent funds the machine. The machine feeds the game.<span class="nl">The game becomes the thing <span class="accent">everyone pays us for.</span></span></p>
       </div>
     </section>
 
