@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AIGO — The Media Engine (V4)</title>
+  <meta name="description" content="AIGO — We didn't rent the crowd. We built the source." />
+  <meta name="theme-color" content="#08090B" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="icon" href="assets/brand/star.png" />
+
+  <style>
+  /* ---- V4 inline additions (V1/V2/V3 + style.css stay untouched) ---- */
+  .ph{position:relative;border:1.5px dashed rgba(255,70,39,.55);border-radius:14px;background:rgba(255,70,39,.045);padding:22px 24px}
+  .ph::before{content:"TO CONFIRM";position:absolute;top:-10px;left:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);background:var(--stage);padding:3px 10px;border-radius:100px;border:1px solid rgba(255,70,39,.4)}
+  .ph.data::before{content:"LIVE NUMBERS · TO CONFIRM"}
+  .tbd{font-family:var(--mono);color:var(--accent);font-size:.82em;letter-spacing:.06em;border:1px dashed rgba(255,70,39,.55);border-radius:6px;padding:1px 7px;white-space:nowrap}
+  .tbd.wrap{white-space:normal}
+  .bignum{font-family:var(--display);font-weight:700;line-height:.95;letter-spacing:-.02em;color:var(--accent)}
+
+  /* node flow / sequence (reused) */
+  .nodeflow{display:flex;align-items:stretch;gap:0;margin-top:22px;flex-wrap:wrap}
+  .nstep{flex:1 1 150px;min-width:140px;border:1px solid var(--line);border-radius:14px;background:var(--stage2);padding:16px 16px 14px;position:relative}
+  .nstep .nk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nc,var(--text-dim));margin-bottom:7px}
+  .nstep h4{font-family:var(--display);font-weight:600;font-size:clamp(15px,1.5vw,19px);margin:0 0 6px;color:var(--text)}
+  .nstep .nd{font-size:12.5px;color:var(--text-dim);line-height:1.4}
+  .nstep .ph-tag{margin-top:8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  .narrow{display:flex;align-items:center;justify-content:center;flex:0 0 28px;color:var(--accent);font-size:19px}
+  @media(max-width:760px){.nodeflow{flex-direction:column}.narrow{transform:rotate(90deg);height:22px}}
+
+  /* two-group compare frame (reused) */
+  .vgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+  @media(max-width:760px){.vgrid{grid-template-columns:1fr}}
+  @media(max-width:640px){.vrow{flex-direction:column;align-items:flex-start;gap:2px}.vrow .vsub{text-align:left}}
+  .vcol{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--stage2)}
+  .vcol .vk{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+  .vcol.good .vk{color:var(--green)}.vcol.bad .vk{color:var(--text-dim)}
+  .vrow{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);gap:14px}
+  .vrow:last-child{border-bottom:none}
+  .vrow .vn{font-family:var(--display);font-weight:600;color:var(--text)}
+  .vrow .vsub{font-family:var(--mono);font-size:11px;color:var(--text-faint);text-align:right}
+
+  .spill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line)}
+  .spill.live{color:var(--green);border-color:rgba(189,255,95,.4)}
+  .spill.soon{color:var(--text-dim)}
+  .spill.later{color:#8B5CFF;border-color:rgba(139,92,255,.4)}
+  .spill .sd{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+  #monetization-sequence .panel,#traction .panel,#engine-not-agency .panel{display:flex;flex-direction:column}
+  #monetization-sequence .pfoot,#traction .pfoot{margin-top:auto}
+
+  /* ===== SATELLITES constellation (signature) ===== */
+  #satellites .inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+  #satellites .sky{position:relative;width:min(680px,94vw);aspect-ratio:640/440;margin:6px auto 2px}
+  #satellites .sky svg{width:100%;height:100%;overflow:visible;display:block}
+  #satellites .orbit{fill:none;stroke:color-mix(in srgb,var(--accent) 12%,transparent);stroke-width:1}
+  #satellites .spoke{fill:none;stroke:color-mix(in srgb,var(--accent) 14%,transparent);stroke-width:1}
+  #satellites .inflow{fill:none;stroke:var(--nc);stroke-width:2;stroke-dasharray:3 23;animation:cflow 1.5s linear infinite;filter:drop-shadow(0 0 4px color-mix(in srgb,var(--nc) 70%,transparent))}
+  #satellites .sat{fill:var(--nc);filter:drop-shadow(0 0 8px color-mix(in srgb,var(--nc) 80%,transparent))}
+  #satellites .sat-lbl{font-family:var(--mono);font-size:12px;letter-spacing:.03em;fill:var(--text);font-weight:600}
+  #satellites .ripple{fill:none;stroke:color-mix(in srgb,var(--green) 45%,transparent);transform-origin:center;transform-box:fill-box;animation:ww-birth 4.5s ease-out infinite}
+  #satellites .sky .chub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  .sat-list{display:none}
+  @media(prefers-reduced-motion:reduce){#satellites .inflow,#satellites .ripple{animation:none}}
+  @media(max-width:640px){
+    #satellites .sat-lbl{display:none}
+    #satellites .sky{width:min(280px,64vw)}
+    #satellites .sat-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;width:100%;max-width:380px;margin:16px auto 0;text-align:left}
+    #satellites .sat-list .sr{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--text)}
+    #satellites .sat-list .sd{width:8px;height:8px;border-radius:50%;background:var(--nc);flex:0 0 8px}
+  }
+
+  /* flywheel (reused from V3) */
+  #flywheel .inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+  #flywheel .flyw{position:relative;width:min(660px,94vw);aspect-ratio:680/470;margin:4px auto 2px}
+  #flywheel .flyw svg{width:100%;height:100%;overflow:visible;display:block}
+  #flywheel .fly-track{fill:none;stroke:var(--line);stroke-width:1.5}
+  #flywheel .fly-flow{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-dasharray:3 25;filter:drop-shadow(0 0 5px rgba(255,70,39,.6));animation:cflow 1.4s linear infinite}
+  #flywheel .fly-spoke{stroke:color-mix(in srgb,var(--accent) 15%,transparent);stroke-width:1}
+  #flywheel .fly-node{fill:var(--nc);filter:drop-shadow(0 0 7px color-mix(in srgb,var(--nc) 75%,transparent))}
+  #flywheel .fly-arrow{fill:var(--accent);filter:drop-shadow(0 0 4px rgba(255,70,39,.55))}
+  #flywheel .fly-lbl{font-family:var(--mono);font-size:14px;letter-spacing:.04em;fill:var(--text);font-weight:600}
+  #flywheel .fly-sub{font-family:var(--mono);font-size:11px;letter-spacing:.02em;fill:var(--text-dim)}
+  #flywheel .flyw .chub{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%)}
+  .flyw-list{display:none}
+  @media(prefers-reduced-motion:reduce){#flywheel .fly-flow{animation:none}}
+  @media(max-width:640px){
+    #flywheel .fly-lbl,#flywheel .fly-sub{display:none}
+    #flywheel .flyw{width:min(280px,64vw)}
+    #flywheel .flyw-list{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;margin:16px auto 0;text-align:left}
+    #flywheel .flyw-list .fr{display:flex;align-items:center;gap:11px;font-family:var(--mono);font-size:13px;color:var(--text-dim)}
+    #flywheel .flyw-list .fr b{color:var(--text);font-weight:600;letter-spacing:.04em}
+    #flywheel .flyw-list .fdot{width:9px;height:9px;border-radius:50%;background:var(--nc);flex:0 0 9px}
+  }
+
+  /* investor options */
+  .optgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+  @media(max-width:860px){.optgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.optgrid{grid-template-columns:1fr}}
+  .opt{border:1px solid var(--line);border-radius:14px;background:var(--stage2);padding:18px 18px 16px;display:flex;flex-direction:column;gap:7px}
+  .opt.lead{border-color:rgba(255,70,39,.5);box-shadow:0 0 34px -10px rgba(255,70,39,.5)}
+  .opt .ok{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--nc,var(--text-dim))}
+  .opt .otk{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.4vw,30px);color:var(--text);letter-spacing:-.01em}
+  .opt .oin{font-family:var(--mono);font-size:11px;color:var(--text-dim);border-top:1px solid var(--line);padding-top:9px;margin-top:2px}
+  .opt ul{margin:2px 0 0;padding-left:15px;color:var(--text-dim);font-size:12.5px;line-height:1.5}
+  .opt ul li{margin-bottom:3px}
+  .caveat{font-family:var(--mono);font-size:9px;line-height:1.5;letter-spacing:.02em;color:var(--text-faint);margin-top:16px;max-width:none}
+
+  /* network-vision hero (reused) */
+  #engine-vision .inner{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+  #engine-vision .micro{justify-content:center}#engine-vision .micro::before{display:none}
+  #engine-vision .netviz{position:relative;width:min(540px,84vw);height:clamp(200px,27vw,280px);margin:10px auto 4px}
+  #engine-vision .netviz svg{width:100%;height:100%;overflow:visible;display:block}
+  #engine-vision .nv-feed{fill:none;stroke:color-mix(in srgb,var(--accent) 60%,transparent);stroke-width:1.5;stroke-dasharray:4 24;animation:cflow 1.5s linear infinite}
+  #engine-vision .nv-mesh{stroke:color-mix(in srgb,var(--accent) 22%,transparent);stroke-width:1;fill:none}
+  #engine-vision .nv-node{fill:var(--nc);filter:drop-shadow(0 0 7px color-mix(in srgb,var(--nc) 75%,transparent))}
+  #engine-vision .nv-born{animation:ww-birth 6s ease-out infinite;transform-origin:center;transform-box:fill-box}
+  #engine-vision .netviz .chub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+  @media(prefers-reduced-motion:reduce){#engine-vision .nv-feed{animation:none}}
+  </style>
+</head>
+<body>
+
+  <!-- ============ HUD ============ -->
+  <div class="progress" id="progress"></div>
+  <div class="hud" aria-hidden="true">
+    <div class="hud-label hud-tl">AIGO // THE MEDIA ENGINE</div>
+    <div class="hud-label hud-tr"><span class="dot"></span>PRE-SEED · UP TO €1.5M</div>
+    <div class="hud-label hud-bl">WE BUILT THE SOURCE</div>
+    <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
+  </div>
+  <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
+  <button id="pdf-btn" type="button" onclick="window.print()" aria-label="Download as PDF"><span>&#8595;</span> Download PDF</button>
+
+  <main class="deck">
+
+    <!-- ============ ACT I · THE FOUNDATION ============ -->
+
+    <!-- 1 · COVER -->
+    <section class="slide stage-pure" id="cover">
+      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <svg class="star-bg" style="width:40vw;bottom:-22vh;left:-16vw;opacity:0.045" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <h1 class="display" data-anim data-d="1">We didn&rsquo;t rent the crowd.<span class="nl">We built the <span class="accent">source.</span></span></h1>
+        <div class="brandline" data-anim data-d="2">AIGO</div>
+        <p class="sub" data-anim data-d="3" style="text-align:center;max-width:66ch;margin:14px auto 0">A game studio with its own <b style="color:var(--text);font-weight:600">media engine</b> &mdash; owned distribution that manufactures audience and pours it straight into games we own.</p>
+        <div class="boot" data-anim data-d="4">
+          <span>CONFIDENTIAL INVESTOR PRESENTATION</span><span class="sep">·</span>
+          <span>RAISING UP TO €1.5M PRE-SEED</span>
+        </div>
+        <div data-anim data-d="5" style="margin-top:6px">
+          <button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button>
+        </div>
+        <div class="cover-cta" data-anim data-d="5">
+          <span>NAVIGATE</span><span class="kbd">&larr;</span><span class="kbd">&rarr;</span><span class="kbd">SPACE</span><span>OR SCROLL</span>
+        </div>
+      </div>
+      <div class="scroll-hint">SCROLL TO BEGIN &darr;</div>
+    </section>
+
+    <!-- 2 · AIGO STUDIOS BUILDS -->
+    <section class="slide vault-slide stage-pure topalign" id="studios-builds">
+      <div class="inner">
+        <div class="micro" data-anim>AIGO STUDIOS · THE BUILDER</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.6vw,48px)">Most media companies rent what monetizes.<span class="nl">We <span class="accent">built it first.</span></span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:12px;max-width:84ch">AIGO Studios is a real game studio that ships. <b style="color:var(--text);font-weight:600">7 live casino games</b> + <b style="color:var(--text);font-weight:600">Vault Run</b> &mdash; a crowd-voted interactive format and show. We own the games and the IP. That is the asset every media play eventually wishes it had.</p>
+        <div class="chips lit" data-anim data-d="3" style="max-width:840px;margin:16px 0 0">
+          <span class="chip">7 live games</span><span class="chip">Vault Run format</span><span class="chip">Owned IP</span><span class="chip">AI-native build</span><span class="chip">Ships fast</span>
+        </div>
+        <div class="vault-hero-shot" data-anim data-d="4" style="margin-top:16px">
+          <img src="assets/vault-doors.jpg" alt="Vault Run — the live door moment" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · HEXARK FRONT DOOR -->
+    <section class="slide topalign" id="hexark-frontdoor">
+      <div class="inner">
+        <div class="micro" data-anim>HEXARK · THE FRONT DOOR</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Where the audience <span class="accent">lands and stays.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:12px">Hexark is our free-to-play platform &mdash; the front door where owned attention is deposited, plays, earns, and converts. Watch the Vault Run stream, vote, play free games, redeem rewards. The retention layer that turns a viewer into a player.</p>
+        <div class="three-up" data-anim data-d="3" style="margin-top:20px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)"><div class="micro green">DEPOSIT ATTENTION</div><h3 style="margin:8px 0 8px">Free-to-play world</h3><div class="pdesc">Watch, vote, play to earn XP &mdash; login required, so the audience is owned and identified.</div></div>
+          <div class="panel readout" style="--ic:#5BC8FF"><div class="micro" style="color:#5BC8FF">RETAIN</div><h3 style="margin:8px 0 8px">Profiles &amp; rewards</h3><div class="pdesc">XP, skins, leaderboards and reward redemption keep the audience coming back.</div></div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)"><div class="micro">CONVERT</div><h3 style="margin:8px 0 8px">Into our games</h3><div class="pdesc">Qualified players flow into AIGO&rsquo;s games &mdash; the owned monetization layer.</div></div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:22px;font-size:clamp(18px,2.4vw,30px)">Hexark is where attention is <span class="accent">deposited.</span> The games are where it pays.</p>
+      </div>
+    </section>
+
+    <!-- 4 · PROOF / TRACTION -->
+    <section class="slide stage-pure topalign" id="proof">
+      <div class="inner">
+        <div class="micro" data-anim>TRACTION · IT ALREADY RUNS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Real games. Real players. <span class="accent">Today.</span></h2>
+        <div class="ph data" data-anim data-d="2" style="margin-top:22px">
+          <div class="micro" style="margin-bottom:14px">FROM THE 7 LIVE GAMES + HEXARK</div>
+          <div class="stats s3" style="margin-top:0">
+            <div class="stat"><div class="num" style="color:var(--accent);font-size:clamp(30px,3.6vw,48px)">TBC</div><div class="lbl">Monthly active users</div></div>
+            <div class="stat"><div class="num" style="color:var(--accent);font-size:clamp(30px,3.6vw,48px)">TBC</div><div class="lbl">F2P &rarr; paying conversion %</div></div>
+            <div class="stat"><div class="num" style="color:var(--accent);font-size:clamp(30px,3.6vw,48px)">TBC</div><div class="lbl">D7 / D30 retention</div></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.2vw,28px)">The team already builds and runs real games.<span class="nl">Now watch what we do with <span class="accent">distribution.</span></span></p>
+        <div class="srcline" data-anim data-d="4"><b style="color:var(--text);font-weight:600">Real numbers go here</b> &mdash; added pre-raise. The de-risk most media companies can&rsquo;t show.</div>
+      </div>
+    </section>
+
+    <!-- ============ ACT II · THE PIVOT ============ -->
+
+    <!-- 5 · THE LEAK -->
+    <section class="slide topalign" id="the-leak">
+      <div class="inner">
+        <div class="micro" data-anim>THE PROBLEM · THE LEAK</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">You don&rsquo;t have a marketing budget.<span class="nl">You have a <span class="accent">leak.</span></span></h2>
+        <div class="two-up" data-anim data-d="2" style="margin-top:20px;align-items:center">
+          <div>
+            <div class="bignum" style="font-size:clamp(56px,8vw,104px)">25&ndash;55%</div>
+            <div class="pdesc" style="margin-top:6px;font-size:15px">of net gaming revenue goes to <b style="color:var(--text);font-weight:600">affiliates</b> &mdash; not once, but for <b style="color:var(--text);font-weight:600">the player&rsquo;s entire lifetime.</b> You rent the reach, then pay the skim forever.</div>
+            <div class="srcline" style="margin-top:10px"><b>Source:</b> Scaleo / iRev (iGaming affiliate revshare).</div>
+          </div>
+          <div>
+            <div class="micro" style="margin-bottom:10px">AND EVERY OTHER MIDDLEMAN YOU&rsquo;D AVOID BY OWNING THE ENGINE</div>
+            <div class="cacbar"><div class="cl"><span>Influencer agencies</span><b>15&ndash;40%</b></div><div class="ct"><i style="--w:73%;background:#5BC8FF"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Ad-tech &ldquo;tax&rdquo;</span><b>~35&ndash;49%</b></div><div class="ct"><i style="--w:89%;background:#E8C66B"></i></div></div>
+            <div class="cacbar"><div class="cl"><span>Platform take (Twitch/YT)</span><b>45&ndash;50%</b></div><div class="ct"><i style="--w:100%;background:#8B5CFF"></i></div></div>
+            <div class="srcline" style="margin-top:8px">Separate, non-additive leaks &mdash; a menu of what you stop paying once the engine is yours.</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:20px;font-size:clamp(17px,2.2vw,28px)">Rent reach &mdash; pay the skim every campaign, forever. <span class="accent">Own the engine &mdash; keep the current.</span></p>
+      </div>
+    </section>
+
+    <!-- 6 · SATELLITES (signature) -->
+    <section class="slide topalign" id="satellites">
+      <div class="inner">
+        <div class="micro" data-anim>THE PIVOT · OWN THE CONSTELLATION</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(28px,3.8vw,50px)">Why rent satellites <span class="accent">when you can be the engine?</span></h2>
+        <div class="sky" data-anim data-d="2">
+          <svg viewBox="0 0 640 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <circle class="orbit" cx="320" cy="230" r="95"/>
+            <circle class="orbit" cx="320" cy="230" r="155"/>
+            <circle class="orbit" cx="320" cy="230" r="210"/>
+            <g class="spokes">
+              <line class="spoke" x1="386" y1="90"  x2="320" y2="230"/>
+              <line class="spoke" x1="430" y1="262" x2="320" y2="230"/>
+              <line class="spoke" x1="430" y1="345" x2="320" y2="230"/>
+              <line class="spoke" x1="240" y1="372" x2="320" y2="230"/>
+              <line class="spoke" x1="232" y1="200" x2="320" y2="230"/>
+              <line class="spoke" x1="208" y1="108" x2="320" y2="230"/>
+              <line class="spoke" x1="332" y1="38"  x2="320" y2="230"/>
+            </g>
+            <g class="inflows">
+              <path class="inflow" style="--nc:#5BC8FF" d="M386 90 L320 230"/>
+              <path class="inflow" style="--nc:#BDFF5F" d="M430 262 L320 230"/>
+              <path class="inflow" style="--nc:#E8C66B" d="M430 345 L320 230"/>
+              <path class="inflow" style="--nc:#8B5CFF" d="M240 372 L320 230"/>
+              <path class="inflow" style="--nc:#5BC8FF" d="M232 200 L320 230"/>
+              <path class="inflow" style="--nc:#E8C66B" d="M208 108 L320 230"/>
+              <path class="inflow" style="--nc:#BDFF5F" d="M332 38 L320 230"/>
+            </g>
+            <g class="sats">
+              <circle class="sat" cx="386" cy="90"  r="8" style="--nc:#5BC8FF"/>
+              <circle class="sat" cx="430" cy="262" r="7" style="--nc:#BDFF5F"/>
+              <circle class="sat" cx="430" cy="345" r="8" style="--nc:#E8C66B"/>
+              <circle class="sat" cx="240" cy="372" r="7" style="--nc:#8B5CFF"/>
+              <circle class="sat" cx="232" cy="200" r="7" style="--nc:#5BC8FF"/>
+              <circle class="sat" cx="208" cy="108" r="8" style="--nc:#E8C66B"/>
+              <circle class="sat" cx="332" cy="38"  r="7" style="--nc:#BDFF5F"/>
+            </g>
+            <circle class="ripple" cx="320" cy="230" r="60"/>
+            <text class="sat-lbl" x="398" y="84"  text-anchor="start">Streamers</text>
+            <text class="sat-lbl" x="444" y="266" text-anchor="start">Social accounts</text>
+            <text class="sat-lbl" x="444" y="349" text-anchor="start">Creators</text>
+            <text class="sat-lbl" x="226" y="388" text-anchor="end">Clippers</text>
+            <text class="sat-lbl" x="218" y="196" text-anchor="end">Channels</text>
+            <text class="sat-lbl" x="194" y="104" text-anchor="end">Reality formats</text>
+            <text class="sat-lbl" x="332" y="26"  text-anchor="middle">Ad / affiliate</text>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+        </div>
+        <div class="sat-list" data-anim data-d="2">
+          <div class="sr"><span class="sd" style="--nc:#5BC8FF"></span>Streamers</div>
+          <div class="sr"><span class="sd" style="--nc:#BDFF5F"></span>Social accounts</div>
+          <div class="sr"><span class="sd" style="--nc:#E8C66B"></span>Creators</div>
+          <div class="sr"><span class="sd" style="--nc:#8B5CFF"></span>Clippers</div>
+          <div class="sr"><span class="sd" style="--nc:#5BC8FF"></span>Channels</div>
+          <div class="sr"><span class="sd" style="--nc:#E8C66B"></span>Reality formats</div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:6px;font-size:clamp(17px,2.3vw,29px)">Today these are third parties that skim the value and reset to zero. <span class="accent">We build &amp; own the constellation</span> &mdash; AIGO is the current that feeds it.</p>
+      </div>
+    </section>
+
+    <!-- 7 · ENGINE NOT AGENCY -->
+    <section class="slide stage-pure topalign" id="engine-not-agency">
+      <div class="inner">
+        <div class="micro" data-anim>THE HINGE · ENGINE, NOT AGENCY</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">An agency you rent.<span class="nl">An engine you <span class="accent">own.</span></span></h2>
+        <div class="vgrid" data-anim data-d="2">
+          <div class="vcol bad">
+            <div class="vk">&#10007; Media agency &mdash; rented</div>
+            <div class="vrow"><span class="vn">Project services</span><span class="vsub">you re-buy it</span></div>
+            <div class="vrow"><span class="vn">Audience belongs to the client</span><span class="vsub">not you</span></div>
+            <div class="vrow"><span class="vn">Resets to zero</span><span class="vsub">every campaign</span></div>
+            <div class="vrow"><span class="vn">No owned asset</span><span class="vsub">~4&ndash;8&times; multiple</span></div>
+          </div>
+          <div class="vcol good">
+            <div class="vk">&#10003; Media engine &mdash; owned</div>
+            <div class="vrow"><span class="vn">Always-on infrastructure</span><span class="vsub">runs 24/7</span></div>
+            <div class="vrow"><span class="vn">Audience is ours</span><span class="vsub">an asset on our books</span></div>
+            <div class="vrow"><span class="vn">Compounds</span><span class="vsub">CAC falls each quarter</span></div>
+            <div class="vrow"><span class="vn">Owned IP + audience</span><span class="vsub">IP-owner multiples</span></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:20px;font-size:clamp(16px,2.1vw,27px)">Markets pay <span class="accent">IP owners far more than ad agencies</span> &mdash; because owned assets compound. So we own, not rent.</p>
+        <div class="srcline" data-anim data-d="4">Multiple gap is a directional industry benchmark (entertainment/IP vs agency EV/EBITDA), not an AIGO valuation. It justifies the <i>strategy</i>, not a price.</div>
+      </div>
+    </section>
+
+    <!-- 8 · COMPARABLES -->
+    <section class="slide topalign" id="comparables">
+      <div class="inner">
+        <div class="micro" data-anim>PROOF, NOT HYPE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">The owners win. The renters <span class="accent">break.</span></h2>
+        <div class="vgrid" data-anim data-d="2">
+          <div class="vcol good">
+            <div class="vk">&#10003; Own the engine + the product</div>
+            <div class="vrow"><span class="vn">MrBeast / Beast Industries</span><span class="vsub">~$5B</span></div>
+            <div class="vrow"><span class="vn">Red Bull Media House</span><span class="vsub">north star</span></div>
+            <div class="pdesc" style="margin-top:10px">Even MrBeast&rsquo;s engine isn&rsquo;t the profit center &mdash; the <b style="color:var(--text);font-weight:600">owned products it feeds are</b> (Feastables). That&rsquo;s exactly why we built the games first.</div>
+          </div>
+          <div class="vcol bad">
+            <div class="vk">&#10007; Rent / optimize others&rsquo; reach</div>
+            <div class="vrow"><span class="vn">Jellysmack</span><span class="vsub">~$1B &rarr; layoffs</span></div>
+            <div class="vrow"><span class="vn">Spotter</span><span class="vsub">capital-intensive, owns no IP</span></div>
+            <div class="vrow"><span class="vn">Barstool &rarr; Penn</span><span class="vsub">$551M &rarr; $1</span></div>
+            <div class="pdesc" style="margin-top:10px">Rent the reach and you stay platform-fragile; the value lives with the owner-operator, not the rented bolt-on.</div>
+          </div>
+        </div>
+        <div class="srcline" data-anim data-d="3">Figures reported / press estimates (Fortune, Variety), not realized returns or AIGO comps.</div>
+      </div>
+    </section>
+
+    <!-- ============ ACT III · THE MACHINE ============ -->
+
+    <!-- 9 · FLYWHEEL -->
+    <section class="slide topalign" id="flywheel">
+      <div class="inner">
+        <div class="micro" data-anim>THE FLYWHEEL · WHY IT COMPOUNDS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(28px,3.8vw,50px)">Every loop lowers the cost of the <span class="accent">next player.</span></h2>
+        <div class="flyw" data-anim data-d="2">
+          <svg viewBox="0 0 680 470" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <circle class="fly-track" cx="340" cy="245" r="172"/>
+            <g class="fly-spokes">
+              <line class="fly-spoke" x1="340" y1="73" x2="340" y2="245"/>
+              <line class="fly-spoke" x1="504" y1="190" x2="340" y2="245"/>
+              <line class="fly-spoke" x1="441" y1="385" x2="340" y2="245"/>
+              <line class="fly-spoke" x1="239" y1="385" x2="340" y2="245"/>
+              <line class="fly-spoke" x1="176" y1="190" x2="340" y2="245"/>
+            </g>
+            <circle class="fly-flow" cx="340" cy="245" r="172"/>
+            <path class="fly-arrow" transform="translate(442,105) rotate(36)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <path class="fly-arrow" transform="translate(340,417) rotate(180)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <g class="fly-nodes">
+              <circle class="fly-node" cx="340" cy="73" r="7" style="--nc:#FF4627"/>
+              <circle class="fly-node" cx="504" cy="190" r="6" style="--nc:#BDFF5F"/>
+              <circle class="fly-node" cx="441" cy="385" r="6" style="--nc:#5BC8FF"/>
+              <circle class="fly-node" cx="239" cy="385" r="6" style="--nc:#E8C66B"/>
+              <circle class="fly-node" cx="176" cy="190" r="6" style="--nc:#8B5CFF"/>
+            </g>
+            <text class="fly-lbl" x="340" y="34" text-anchor="middle">MEDIA ENGINE</text>
+            <text class="fly-sub" x="340" y="51" text-anchor="middle">owned attention</text>
+            <text class="fly-lbl" x="538" y="186" text-anchor="start">HEXARK</text>
+            <text class="fly-sub" x="538" y="203" text-anchor="start">F2P front door</text>
+            <text class="fly-lbl" x="476" y="381" text-anchor="start">OUR GAMES</text>
+            <text class="fly-sub" x="476" y="398" text-anchor="start">monetize</text>
+            <text class="fly-lbl" x="204" y="381" text-anchor="end">CASINO TAIL</text>
+            <text class="fly-sub" x="204" y="398" text-anchor="end">deep monetization</text>
+            <text class="fly-lbl" x="142" y="186" text-anchor="end">REINVEST</text>
+            <text class="fly-sub" x="142" y="203" text-anchor="end">cheaper next loop</text>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+        </div>
+        <div class="flyw-list" data-anim data-d="2">
+          <div class="fr"><span class="fdot" style="--nc:#FF4627"></span><b>Media engine</b>&nbsp;<i>owned attention</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#BDFF5F"></span><b>Hexark</b>&nbsp;<i>F2P front door</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#5BC8FF"></span><b>Our games</b>&nbsp;<i>monetize</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#E8C66B"></span><b>Casino tail</b>&nbsp;<i>deep monetization</i></div>
+          <div class="fr"><span class="fdot" style="--nc:#8B5CFF"></span><b>Reinvest</b>&nbsp;<i>cheaper next loop</i></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:6px;font-size:clamp(17px,2.3vw,29px)">Owned top-of-funnel &rarr; blended CAC falls instead of <span class="accent">resetting to zero.</span></p>
+      </div>
+    </section>
+
+    <!-- 10 · STRUCTURE -->
+    <section class="slide stage-pure topalign" id="structure">
+      <div class="inner">
+        <div class="micro" data-anim>THE ARCHITECTURE · ONE FUNNEL</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Four pieces. <span class="accent">One funnel, one cap table.</span></h2>
+        <div class="nodeflow" data-anim data-d="2">
+          <div class="nstep" style="--nc:var(--accent)"><div class="nk">The source</div><h4>Media Engine</h4><div class="nd">Owned creators, accounts, clippers, formats. Manufactures attention.</div><div class="ph-tag">Separate co · serves other verticals later</div></div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep" style="--nc:#BDFF5F"><div class="nk">Front door</div><h4>Hexark</h4><div class="nd">F2P platform where attention lands &amp; converts.</div><div class="ph-tag">Live</div></div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep" style="--nc:#5BC8FF"><div class="nk">Monetize</div><h4>AIGO Studios</h4><div class="nd">The 7 games + Vault Run. Owned IP.</div><div class="ph-tag">Live</div></div>
+          <div class="narrow">&rarr;</div>
+          <div class="nstep" style="--nc:#8B5CFF"><div class="nk">Deep tail</div><h4>Casino brand</h4><div class="nd">Separately licensed, age/geo-gated. Studios licenses IP, never holds the licence.</div><div class="ph-tag">Phase 2 · separate entity</div></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(16px,2.1vw,27px)">Not four bets &mdash; one funnel powered by AIGO. <span class="accent">Own the power plant, don&rsquo;t pay the utility.</span></p>
+        <div class="srcline" data-anim data-d="4">Separate entities are the standard pattern (gambling licence ring-fence; media-as-a-service separable to serve outside clients) &mdash; one team, one HoldCo. <span class="tbd">Engine-as-separate-co &amp; external clients = the roadmap, not today&rsquo;s ask.</span></div>
+      </div>
+    </section>
+
+    <!-- 11 · WHY NOW -->
+    <section class="slide topalign" id="why-now">
+      <div class="inner">
+        <div class="micro" data-anim>WHY NOW · THE WINDOW</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Three forces just converged.</h2>
+        <div class="three-up" data-anim data-d="2" style="margin-top:24px">
+          <div class="featcard readout" style="--ic:#5BC8FF"><div class="fk">01 · Attention</div><div class="ft">Streaming hit <b style="color:var(--text)">46.4% of US TV</b> (Aug 2025); broadcast at record lows. Audiences are built on creator surfaces now.</div></div>
+          <div class="featcard readout" style="--ic:#E8C66B"><div class="fk">02 · Cost of acquisition</div><div class="ft">Paid CAC keeps inflating (Meta/Google CPMs up double digits). Owned distribution is the hedge.</div></div>
+          <div class="featcard readout" style="--ic:#BDFF5F"><div class="fk">03 · AI</div><div class="ft">AI can cut game-dev cost <b style="color:var(--text)">~50%</b> (Morgan Stanley) and collapses content cost &mdash; a lean studio can own games <i>and</i> the engine.</div></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:28px;font-size:clamp(18px,2.5vw,32px)">Owning the engine just became <span class="accent">affordable.</span></p>
+        <div class="srcline" data-anim data-d="4"><b>Sources:</b> Nielsen The Gauge (2025) · Morgan Stanley (AI game-dev). CAC inflation directional. <span class="tbd">Re-confirm + date.</span></div>
+      </div>
+    </section>
+
+    <!-- 12 · MARKET -->
+    <section class="slide stage-pure topalign" id="market">
+      <div class="inner">
+        <div class="micro" data-anim>THE OPPORTUNITY</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Four currents &mdash; <span class="accent">not one number.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px">We don&rsquo;t sum these (it would double-count). We swim in the creator current, recapture the wasted spend, and convert it into owned game revenue.</p>
+        <div class="stats s3" data-anim data-d="3" style="margin-top:20px">
+          <div class="stat"><div class="num">~$480B</div><div class="lbl">Creator economy by 2027 · Goldman Sachs &mdash; the current we swim in</div></div>
+          <div class="stat"><div class="num">~$33B</div><div class="lbl">Influencer spend 2025 (+35% YoY) · Statista &mdash; the waste we recapture</div></div>
+          <div class="stat"><div class="num">$80B+</div><div class="lbl">Online gambling GGR &mdash; the owned tail (casino-brand only)</div></div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:28px;font-size:clamp(18px,2.4vw,30px)">We capture <span class="accent">owned share</span> of the creator current &mdash; instead of leaking it.</p>
+        <div class="srcline" data-anim data-d="5"><b>Sources:</b> Goldman Sachs · Statista · H2GC. Gambling/streaming ranges directional; figures not summed.</div>
+      </div>
+    </section>
+
+    <!-- 13 · COMPETITION -->
+    <section class="slide topalign" id="competition">
+      <div class="inner">
+        <div class="micro" data-anim>THE WHITE SPACE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Everyone owns one tile. <span class="accent">No one owns the stack.</span></h2>
+        <div class="three-up" data-anim data-d="2" style="margin-top:20px;align-items:stretch">
+          <div class="panel readout" style="--ic:#4D4D4D"><div class="micro">MCNs · CREATOR FUNDS</div><div class="pdesc" style="margin-top:8px">Own talent relationships, take a cut. <b style="color:var(--text)">Rent the crowd; own no games.</b></div></div>
+          <div class="panel readout" style="--ic:#4D4D4D"><div class="micro">GAME STUDIOS</div><div class="pdesc" style="margin-top:8px">Own games, buy audience via paid CAC. <b style="color:var(--text)">No owned distribution.</b></div></div>
+          <div class="panel readout" style="--ic:#4D4D4D"><div class="micro">CASINO OPERATORS</div><div class="pdesc" style="margin-top:8px">Own deep monetization, depend on bought traffic + affiliates. <b style="color:var(--text)">No content engine.</b></div></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:22px;font-size:clamp(16px,2.1vw,27px)">AIGO is the only one turning an <span class="accent">owned media engine</span> into a low-CAC funnel for <span class="accent">games it owns.</span></p>
+      </div>
+    </section>
+
+    <!-- ============ ACT IV · ASK & VISION ============ -->
+
+    <!-- 14 · TEAM -->
+    <section class="slide stage-pure topalign" id="team">
+      <div class="inner">
+        <div class="micro" data-anim>THE TEAM · AIGO</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Operators who&rsquo;ve done <span class="accent">the parts.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:8px">A complementary team that has shipped together &mdash; <span class="tbd">25+ years combined</span> across iGaming, product, growth and fundraising.</p>
+        <div class="team" data-anim data-d="3" style="margin-top:16px">
+          <div class="person"><div class="mono" style="--ic:#BDFF5F">AN</div><div class="trole">CO-FOUNDER · COMMERCIAL &amp; STRATEGY</div><div class="tname">Andreea N&#259;ftic&#259;</div><div class="tmandate">10+ years driving commercial growth, product launches and market expansion across iGaming with Bet365 and Superbet.</div><div class="ttoken">Bet365 &middot; Superbet</div></div>
+          <div class="person"><div class="mono" style="--ic:#FF4627">GP</div><div class="trole">CO-FOUNDER · PRODUCT, DESIGN &amp; AI</div><div class="tname">George P&#259;tru</div><div class="tmandate">Product vision, game design, AI-native development, UX/UI and content.</div><div class="ttoken">15+ yrs &middot; product, design, AI, Web3</div></div>
+          <div class="person"><div class="mono" style="--ic:#E8C66B">RT</div><div class="trole">MARKETING EXPERT · PAID</div><div class="tname">Radu T&#259;nase</div><div class="tmandate">Performance marketing &amp; paid acquisition &mdash; runs the arm&rsquo;s-length paid control the engine measures against.</div><div class="ttoken">Owns NeoAds &middot; #1 Google Partner in Romania</div></div>
+          <div class="person"><div class="mono" style="--ic:#5BC8FF">JH</div><div class="trole">FUNDRAISING &amp; STRATEGIC ADVISOR</div><div class="tname">J.H.</div><div class="tmandate">Fundraising, investor relations and corporate strategy.</div><div class="ttoken">Strategic advisor</div></div>
+          <div class="person" style="border-color:rgba(255,70,39,.35)"><div class="mono" style="--ic:var(--accent)">+</div><div class="trole">PRIORITY SEED HIRE</div><div class="tname">Media &amp; talent lead</div><div class="tmandate">Content production + creator/athlete management &mdash; the engine&rsquo;s operating core.</div><div class="ttoken"><span class="tbd">To recruit</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 · THE RAISE -->
+    <section class="slide topalign" id="the-raise">
+      <div class="inner">
+        <div class="micro" data-anim>THE RAISE · MILESTONE-GATED</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Up to <span class="accent">€1.5M</span> &mdash; de-risked in two tranches.</h2>
+        <div class="two-up" data-anim data-d="2" style="margin-top:20px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">TRANCHE 1 · NOW</div>
+            <div class="bignum" style="font-size:clamp(40px,5vw,64px);color:var(--green);margin:6px 0 2px">€600K</div>
+            <div class="pdesc">Funds <b style="color:var(--text);font-weight:600">one proof</b>: owned distribution lowers our blended CAC below paid, measured on Hexark + Vault Run. The one number that matters.</div>
+          </div>
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">TRANCHE 2 · ON MILESTONES</div>
+            <div class="bignum" style="font-size:clamp(40px,5vw,64px);color:#5BC8FF;margin:6px 0 2px">€900K</div>
+            <div class="pdesc">Unlocked only once T1 proves the number &mdash; then we scale the engine. An <b style="color:var(--text);font-weight:600">option on scale</b>, not spend committed today.</div>
+          </div>
+        </div>
+        <div class="ask-r" data-anim data-d="3" style="margin-top:18px">
+          <h4>Use of funds <span class="tbd">confirm split</span></h4>
+          <div class="cacbar"><div class="cl"><span>Media engine (creators · content)</span><b>~40%</b></div><div class="ct"><i style="--w:100%;background:var(--accent)"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Hexark + Studios product</span><b>~30%</b></div><div class="ct"><i style="--w:75%;background:#5BC8FF"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Paid control + attribution</span><b>~18%</b></div><div class="ct"><i style="--w:45%;background:#BDFF5F"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Ops &amp; legal</span><b>~12%</b></div><div class="ct"><i style="--w:30%;background:#E8C66B"></i></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 16 · INVESTOR OPTIONS -->
+    <section class="slide stage-pure topalign" id="investor-options">
+      <div class="inner">
+        <div class="micro" data-anim>WAYS TO BACK THE ENGINE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(26px,3.4vw,44px)">Clear entry points.</h2>
+        <div class="optgrid" data-anim data-d="2">
+          <div class="opt" style="--nc:#BDFF5F"><div class="ok">Seed Partner</div><div class="otk">€25&ndash;50K</div><div class="oin">Post-money SAFE · via SPV</div><ul><li>Pooled allocation</li><li>Quarterly update</li></ul></div>
+          <div class="opt" style="--nc:#5BC8FF"><div class="ok">Engine Builder</div><div class="otk">€100&ndash;250K</div><div class="oin">SAFE · cap + discount · MFN</div><ul><li>Direct line</li><li>Advisory invite</li></ul></div>
+          <div class="opt lead" style="--nc:var(--accent)"><div class="ok">Lead</div><div class="otk">€300&ndash;600K</div><div class="oin">SAFE + pro-rata + board observer</div><ul><li>Sets terms · T1 anchor</li><li>Pro-rata into seed</li></ul></div>
+          <div class="opt" style="--nc:#8B5CFF"><div class="ok">Media-Engine</div><div class="otk">€100K+</div><div class="oin">By separate arrangement</div><ul><li>In the separate engine co.</li><li>Qualified investors only</li></ul></div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:18px;font-size:clamp(16px,2vw,26px)">Each tier buys <span class="accent">ownership of a compounding asset</span> &mdash; at a different entry point.</p>
+        <div class="caveat" data-anim data-d="4">Entry points differ by ticket, instrument and rights &mdash; not by any promised return. Illustrative return scenarios, if requested, are hypothetical, depend on stated assumptions, are not projections, forecasts or guarantees, and you may lose your entire investment. This is not an offer or solicitation and is not investment, legal or tax advice; any offer is made only to eligible investors via definitive documents. <span class="tbd">Securities-counsel review before circulating.</span></div>
+      </div>
+    </section>
+
+    <!-- 17 · ENGINE VISION (close) -->
+    <section class="slide stage-pure" id="engine-vision">
+      <svg class="star-bg" style="width:54vw;bottom:-20vh;left:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <div class="micro" data-anim>THE SOURCE</div>
+        <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,4vw,54px);text-align:center;margin-top:10px">An agency is a satellite you rent.<span class="nl">We built the <span class="accent">engine.</span></span></h2>
+        <div class="netviz" data-anim data-d="2">
+          <svg viewBox="0 0 440 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g class="nv-mesh"><path d="M62 54 L378 58"/><path d="M36 150 L74 246"/><path d="M404 150 L366 242"/><path d="M220 28 L62 54"/><path d="M220 28 L378 58"/></g>
+            <g class="nv-feeds">
+              <path class="nv-feed" d="M62 54 L220 150"/><path class="nv-feed" d="M378 58 L220 150"/><path class="nv-feed" d="M36 150 L220 150"/>
+              <path class="nv-feed" d="M404 150 L220 150"/><path class="nv-feed" d="M74 246 L220 150"/><path class="nv-feed" d="M366 242 L220 150"/><path class="nv-feed" d="M220 28 L220 150"/>
+            </g>
+            <g>
+              <circle class="nv-node" cx="62" cy="54" r="6" style="--nc:#BDFF5F"/><circle class="nv-node" cx="378" cy="58" r="6" style="--nc:#5BC8FF"/>
+              <circle class="nv-node" cx="36" cy="150" r="5" style="--nc:#8B5CFF"/><circle class="nv-node" cx="404" cy="150" r="6" style="--nc:#E8C66B"/>
+              <circle class="nv-node" cx="74" cy="246" r="5" style="--nc:#5BC8FF"/><circle class="nv-node" cx="366" cy="242" r="6" style="--nc:#BDFF5F"/>
+              <circle class="nv-node nv-born" cx="220" cy="28" r="6" style="--nc:#FF4627"/>
+            </g>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+        </div>
+        <p class="sub" data-anim data-d="3" style="margin:6px auto 0;text-align:center;max-width:64ch">Owned audiences, owned games. The engine feeds AIGO first &mdash; then powers other verticals. AIGO is the flowing water; everything else orbits it.</p>
+        <div class="tagline" data-anim data-d="4" style="margin-top:18px">AIGO &middot; We built the source</div>
+        <div class="urls" data-anim data-d="5"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io &nbsp;·&nbsp; <span class="tbd">contact / email</span></div>
+        <div data-anim data-d="5" style="margin-top:8px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FILM MODAL ============ -->
+  <div class="modal" id="film-modal" role="dialog" aria-modal="true" aria-label="AIGO Vault Run">
+    <div class="box">
+      <div class="close-x" data-film-close>CLOSE &times;</div>
+      <video id="film-video" controls playsinline preload="none" poster="assets/brand/star.png">
+        <source src="https://equwbgucibrtqpjzivhy.supabase.co/storage/v1/object/public/pitch/vaultrun-trailer-vo5.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script src="js/deck.js"></script>
+</body>
+</html>
