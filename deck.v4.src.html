@@ -53,9 +53,10 @@
   .ch-kicker{transition:letter-spacing .5s}
   #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:saturate(.4) brightness(.5)}
 
-  .ch-world{position:absolute;inset:0;z-index:0;opacity:.55;pointer-events:none;transition:opacity .55s}
+  .ch-world{position:absolute;inset:0;z-index:0;opacity:.62;pointer-events:none;transition:opacity .55s}
   .ch-world svg{width:100%;height:100%;display:block}
-  .ch-world-a .scan{animation:cflow 1.5s linear infinite}
+  .ch-world-a .scan{animation:cflow 3.4s linear infinite}
+  .ch-vig{position:absolute;inset:0;z-index:6;pointer-events:none;background:radial-gradient(125% 118% at 50% 47%,transparent 58%,rgba(0,0,0,0.5))}
   .ch-world-b .inflow{stroke-dasharray:3 22;animation:cflow 1.7s linear infinite}
   .ch-world-b .ripple{transform-box:fill-box;transform-origin:center;animation:ww-birth 4.5s ease-out infinite}
   #chooser.hot-b .ch-world-b .inflow{animation-duration:.85s}
@@ -64,7 +65,7 @@
   .ch-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
     display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;pointer-events:none;
     opacity:0;animation:chpop .9s var(--ease-spring) .1s forwards}
-  .ch-seam{position:absolute;left:50%;top:0;width:0;height:100vh;border-left:1px dashed var(--line-strong);opacity:.5;transform:translateX(-.5px)}
+  .ch-seam{position:absolute;left:50%;top:0;width:1px;height:100vh;transform:translateX(-.5px);background:linear-gradient(180deg,transparent,rgba(244,245,247,0.13) 30%,rgba(255,70,39,0.18) 50%,rgba(244,245,247,0.13) 70%,transparent);opacity:.85}
   .ch-core .chub{animation:float 6s var(--ease-standard) infinite}
   .ch-decide{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin-top:13px}
   .ch-rel b{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.5vw,32px);color:var(--text);display:block}
@@ -80,7 +81,7 @@
     .ch-studios{background:radial-gradient(130% 60% at 50% 80%,rgba(255,70,39,.13),transparent 65%)}
     .ch-engine{background:radial-gradient(130% 60% at 50% 20%,rgba(91,200,255,.13),transparent 65%)}
     #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:none}
-    .ch-seam{display:block;left:0;top:50%;width:100vw;height:0;border-left:none;border-top:1px dashed var(--line-strong);transform:translateY(-.5px)}
+    .ch-seam{display:block;left:0;top:50%;width:100vw;height:1px;border:none;transform:translateY(-.5px);background:linear-gradient(90deg,transparent,rgba(244,245,247,0.13) 30%,rgba(255,70,39,0.18) 50%,rgba(244,245,247,0.13) 70%,transparent)}
     .ch-core{gap:8px}.ch-rel b{font-size:18px}
     .ch-eyebrow{font-size:9px;letter-spacing:.12em}
     .ch-foot{white-space:normal;width:90%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.12em}
@@ -104,17 +105,20 @@
       <a class="ch-half ch-studios" href="/v4/studios/" style="--ic:var(--accent);--tc:var(--accent)">
         <div class="ch-world ch-world-a">
           <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" style="overflow:visible">
-            <g fill="none" stroke="var(--accent)" stroke-width="2" opacity=".45">
-              <rect x="40" y="130" width="18" height="340" rx="3"/><rect x="78" y="130" width="18" height="340" rx="3"/>
-              <rect x="116" y="130" width="18" height="340" rx="3"/><rect x="266" y="130" width="18" height="340" rx="3"/>
-              <rect x="304" y="130" width="18" height="340" rx="3"/><rect x="342" y="130" width="18" height="340" rx="3"/>
+            <g fill="none" stroke="var(--accent)" stroke-linecap="round">
+              <circle cx="206" cy="300" r="166" stroke-width="1.5" opacity=".24"/>
+              <circle cx="206" cy="300" r="121" stroke-width="1.5" opacity=".19"/>
+              <circle cx="206" cy="300" r="66" stroke-width="1.5" opacity=".32"/>
+              <g stroke-width="2" opacity=".30">
+                <line x1="206" y1="150" x2="206" y2="187"/><line x1="206" y1="413" x2="206" y2="450"/>
+                <line x1="56" y1="300" x2="93" y2="300"/><line x1="319" y1="300" x2="356" y2="300"/>
+                <line x1="100" y1="194" x2="127" y2="221"/><line x1="312" y1="194" x2="285" y2="221"/>
+                <line x1="100" y1="406" x2="127" y2="379"/><line x1="312" y1="406" x2="285" y2="379"/>
+              </g>
+              <circle class="scan" cx="206" cy="300" r="166" stroke-width="2.5" stroke-dasharray="3 27" opacity=".5"/>
             </g>
-            <rect x="158" y="96" width="84" height="430" rx="7" fill="none" stroke="var(--accent)" stroke-width="2.5" opacity=".75"/>
-            <rect class="scan" x="158" y="96" width="84" height="430" rx="7" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="6 18"/>
-            <g fill="var(--accent)">
-              <circle cx="49" cy="112" r="4"/><circle cx="87" cy="112" r="4"/><circle cx="125" cy="112" r="4"/>
-              <circle cx="200" cy="78" r="5"/><circle cx="275" cy="112" r="4"/><circle cx="313" cy="112" r="4"/><circle cx="351" cy="112" r="4"/>
-            </g>
+            <circle cx="206" cy="300" r="7.5" fill="var(--accent)" opacity=".9"/>
+            <circle cx="206" cy="300" r="19" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".45"/>
           </svg>
         </div>
         <div class="ch-meta">
@@ -152,6 +156,8 @@
         </div>
       </a>
     </div>
+
+    <div class="ch-vig" aria-hidden="true"></div>
 
     <!-- center seam + star + relationship -->
     <div class="ch-core">
