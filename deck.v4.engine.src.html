@@ -13,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.161.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/" } }</script>
+
   <link rel="stylesheet" href="css/style.css?v=4" />
   <link rel="icon" href="assets/brand/star.png" />
 
@@ -144,6 +147,20 @@
   .ds-seg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   @media(max-width:760px){.deckswitch{top:9px;left:10px;padding:3px;gap:2px;font-size:9px;letter-spacing:.10em}.ds-seg{padding:0 9px;height:22px}.ds-home{width:22px;height:22px}}
   @media print{.deckswitch{display:none!important}}
+  /* engine-core glyph replaces the AIGO star at every diagram hub (blue, spinning turbine) */
+  .chub .ecore{position:relative;width:64px;height:64px;display:block;filter:drop-shadow(0 0 13px rgba(91,200,255,0.6))}
+  .chub .ec-blades{fill:#5BC8FF;transform-origin:50% 50%;animation:cspin 15s linear infinite}
+  .chub .ec-hub{fill:#bfe8ff}
+  .chub .ec-hub2{fill:#ffffff}
+  .chub::before{background:radial-gradient(circle,rgba(91,200,255,0.26),transparent 65%)!important}
+  .chub::after{border-color:rgba(91,200,255,0.45)!important;box-shadow:inset 0 0 26px rgba(91,200,255,0.16)!important}
+  .chub .cring{border-color:rgba(91,200,255,0.34)!important}
+  @media(prefers-reduced-motion:reduce){.chub .ec-blades{animation:none}}
+  /* cover = particle turbofan engine (replaces the AIGO star hero); blue-only, no red residue */
+  #cover{position:relative;background:radial-gradient(120% 90% at 50% 0%,rgba(91,200,255,0.10),transparent 55%),#040507!important}
+  #cover #eng-gl{position:absolute;inset:0;z-index:0;width:100%;height:100%;display:block;pointer-events:none}
+  #cover .eng-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 46% 58% at 50% 50%,rgba(4,5,7,0.82) 0%,rgba(4,5,7,0.55) 40%,transparent 72%)}
+  #cover .inner{position:relative;z-index:2}
   </style>
 </head>
 <body data-here="engine">
@@ -164,10 +181,9 @@
 
     <!-- 1 · COVER -->
     <section class="slide stage-pure" id="cover">
-      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#5BC8FF"/></svg>
-      <svg class="star-bg" style="width:40vw;bottom:-22vh;left:-16vw;opacity:0.045" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#5BC8FF"/></svg>
+      <canvas id="eng-gl" aria-hidden="true"></canvas>
+      <div class="eng-scrim" aria-hidden="true"></div>
       <div class="inner">
-        <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
         <h1 class="display" data-anim data-d="1">Why pay the streamers for reach<span class="nl">when you can <span class="accent">be them?</span></span></h1>
         <div class="brandline" data-anim data-d="2">AIGO · MEDIA ENGINE</div>
         <p class="sub" data-anim data-d="3" style="text-align:center;max-width:68ch;margin:14px auto 0">AIGO already builds the games <b style="color:var(--text);font-weight:600">and</b> the content. The Media Engine is a <b style="color:var(--text);font-weight:600">separate company</b> building owned distribution &mdash; so we stop renting the crowd and start owning the source. Its first customer: our own studio.</p>
@@ -272,7 +288,7 @@
             <text class="sat-lbl" x="194" y="104" text-anchor="end">Reality formats</text>
             <text class="sat-lbl" x="332" y="26"  text-anchor="middle">Ad / affiliate</text>
           </svg>
-          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+          <div class="chub"><div class="cring"></div><svg class="ecore" viewBox="0 0 100 100" aria-hidden="true"><g class="ec-blades"><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(45 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(90 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(135 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(180 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(225 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(270 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(315 50 50)"/></g><circle class="ec-hub" cx="50" cy="50" r="9.5"/><circle class="ec-hub2" cx="50" cy="50" r="3.6"/></svg></div>
         </div>
         <div class="sat-list" data-anim data-d="2">
           <div class="sr"><span class="sd" style="--nc:#5BC8FF"></span>Streamers</div>
@@ -374,7 +390,7 @@
             <text class="fly-lbl" x="142" y="186" text-anchor="end">REINVEST</text>
             <text class="fly-sub" x="142" y="203" text-anchor="end">cheaper next loop</text>
           </svg>
-          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+          <div class="chub"><div class="cring"></div><svg class="ecore" viewBox="0 0 100 100" aria-hidden="true"><g class="ec-blades"><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(45 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(90 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(135 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(180 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(225 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(270 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(315 50 50)"/></g><circle class="ec-hub" cx="50" cy="50" r="9.5"/><circle class="ec-hub2" cx="50" cy="50" r="3.6"/></svg></div>
         </div>
         <div class="flyw-list" data-anim data-d="2">
           <div class="fr"><span class="fdot" style="--nc:#FF4627"></span><b>Media engine</b>&nbsp;<i>owned attention</i></div>
@@ -515,7 +531,6 @@
 
     <!-- 17 · ENGINE VISION (close) -->
     <section class="slide stage-pure" id="engine-vision">
-      <svg class="star-bg" style="width:54vw;bottom:-20vh;left:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#5BC8FF"/></svg>
       <div class="inner">
         <div class="micro" data-anim>THE SOURCE</div>
         <h2 class="headline" data-anim data-d="1" style="font-size:clamp(28px,4vw,54px);text-align:center;margin-top:10px">An agency is a satellite you rent.<span class="nl">We built the <span class="accent">engine.</span></span></h2>
@@ -533,7 +548,7 @@
               <circle class="nv-node nv-born" cx="220" cy="28" r="6" style="--nc:#FF4627"/>
             </g>
           </svg>
-          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+          <div class="chub"><div class="cring"></div><svg class="ecore" viewBox="0 0 100 100" aria-hidden="true"><g class="ec-blades"><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(45 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(90 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(135 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(180 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(225 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(270 50 50)"/><path d="M50 18C53.5 29 53.5 36 50 40 46.5 36 46.5 29 50 18Z" transform="rotate(315 50 50)"/></g><circle class="ec-hub" cx="50" cy="50" r="9.5"/><circle class="ec-hub2" cx="50" cy="50" r="3.6"/></svg></div>
         </div>
         <p class="sub" data-anim data-d="3" style="margin:6px auto 0;text-align:center;max-width:64ch">Owned audiences, owned games. The engine feeds AIGO first &mdash; then powers other verticals. AIGO is the flowing water; everything else orbits it.</p>
         <div class="tagline" data-anim data-d="4" style="margin-top:18px">AIGO &middot; We built the source</div>
@@ -555,5 +570,153 @@
   </div>
 
   <script src="js/deck.js?v=2"></script>
+
+  <!-- ============ COVER: PARTICLE TURBOFAN ENGINE ============ -->
+  <script type="module">
+  /* ONE particle Points = a running turbofan: bright HUB (the owned source) + 14 swept ROTOR blades
+     spinning past a FIXED stator/nacelle ring, INTAKE streams sucked in from the upper-left, COLLIMATED
+     EXHAUST beams fired into the lower-right, and a 3.1s combustion heartbeat. Off-center (right third)
+     so the centered cover copy stays legible. Deep-black, restrained bloom, graceful fallback. */
+  import * as THREE from 'three';
+  (async function () {
+    var canvas = document.getElementById('eng-gl');
+    var cover = document.getElementById('cover');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!canvas || !cover || !window.WebGLRenderingContext) return;
+    try {
+      var W = cover.clientWidth || innerWidth, H = cover.clientHeight || innerHeight, mobile = W < 760, FOV = 58;
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance', alpha: true });
+      renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setClearColor(0x040507, 1);
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(FOV, W / H, 0.1, 100); camera.position.set(0, 0, 14);
+
+      function disc() {
+        var c = document.createElement('canvas'); c.width = c.height = 64;
+        var g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+        gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.35, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = gr; g.fillRect(0, 0, 64, 64); var t = new THREE.Texture(c); t.needsUpdate = true; return t;
+      }
+      var dot = disc();
+
+      var N = mobile ? 4800 : 8200;
+      var nHub = Math.floor(N*0.10), nRot = Math.floor(N*0.50), nSta = Math.floor(N*0.10), nInt = Math.floor(N*0.16);
+      var iRot = nHub, iSta = iRot+nRot, iInt = iSta+nSta, iExh = iInt+nInt;   // exhaust runs iExh..N
+      var pos = new Float32Array(N*3), col = new Float32Array(N*3);
+      var bx = new Float32Array(N), by = new Float32Array(N), bz = new Float32Array(N);   // base local pos
+      var role = new Uint8Array(N), port = new Uint8Array(N);
+      var phase = new Float32Array(N), speed = new Float32Array(N);
+      var auxA = new Float32Array(N*3), auxB = new Float32Array(N*3);
+
+      var cW=new THREE.Color(0xffffff), cB=new THREE.Color(0x5BC8FF), cG=new THREE.Color(0xBDFF5F),
+          cGold=new THREE.Color(0xE8C66B), cPur=new THREE.Color(0x8B5CFF), cSl=new THREE.Color(0x6E8294), tmp=new THREE.Color();
+      var NB = mobile ? 4 : 5;
+      var portAng = [-58, -26, 14, 50, 86].map(function(d){ return d*Math.PI/180; });
+      var PT = [cB, cB, cB, cG, cGold];
+
+      for (var i=0;i<N;i++) { var i3=i*3;
+        if (i < iRot) {                                        // HUB — the owned source
+          role[i]=0; var rr=0.25+Math.random()*0.55, phi=Math.random()*Math.PI*2;
+          bx[i]=Math.cos(phi)*rr; by[i]=Math.sin(phi)*rr; bz[i]=0.35-rr*0.45;
+        } else if (i < iSta) {                                 // ROTOR — 14 swept blades
+          role[i]=1; var b=(i-iRot)%14, baseAng=b*(Math.PI*2/14), s=Math.random();
+          var rr2=0.7+s*2.4, ang=baseAng+s*0.45, ch=(Math.random()-0.5)*0.22*(1-0.5*s);
+          bx[i]=Math.cos(ang)*rr2 + (-Math.sin(ang))*ch; by[i]=Math.sin(ang)*rr2 + Math.cos(ang)*ch; bz[i]=(Math.random()-0.5)*0.12+Math.sin(s*Math.PI)*0.05;
+          tmp.copy(cB).lerp(cW, 0.15+s*0.45); if (b%7===0) tmp.lerp(cG, 0.12);
+          col[i3]=tmp.r; col[i3+1]=tmp.g; col[i3+2]=tmp.b;
+        } else if (i < iInt) {                                 // STATOR / nacelle — fixed frame
+          role[i]=2; var ang2, rr3;
+          if (Math.random()<0.64) { ang2=Math.random()*Math.PI*2; rr3=3.2+Math.random()*0.10; }   // crisp bright nacelle rim
+          else { ang2=Math.floor(Math.random()*24)/24*Math.PI*2 + (Math.random()-0.5)*0.035; rr3=2.3+Math.random()*0.6; }   // fixed guide-vanes
+          bx[i]=Math.cos(ang2)*rr3; by[i]=Math.sin(ang2)*rr3; bz[i]=-0.45;
+          tmp.copy(cB).multiplyScalar(1.0); if (((i-iSta)%8)===0) tmp.lerp(cGold, 0.14);
+          col[i3]=tmp.r; col[i3+1]=tmp.g; col[i3+2]=tmp.b;
+        } else if (i < iExh) {                                 // INTAKE — ingest from upper-left
+          role[i]=3; var stream=(i-iInt)%7, sAng=Math.PI*0.75+(stream-3)*0.16, dist=6.5+Math.random()*2.5, lat=(Math.random()-0.5)*2.4;
+          var Sx=Math.cos(sAng)*dist + Math.cos(sAng+Math.PI/2)*lat, Sy=Math.sin(sAng)*dist + Math.sin(sAng+Math.PI/2)*lat, Sz=-0.6-Math.random()*1.2;
+          auxA[i3]=Sx; auxA[i3+1]=Sy; auxA[i3+2]=Sz;
+          auxB[i3]=Sx*0.35; auxB[i3+1]=Sy*0.35; auxB[i3+2]=Sz*0.3+0.2;
+          phase[i]=Math.random(); speed[i]=0.25+Math.random()*0.20;
+        } else {                                               // EXHAUST — collimated emit beams
+          role[i]=4; var pj=(i-iExh)%NB; port[i]=pj;
+          auxA[i3]=Math.cos(portAng[pj]); auxA[i3+1]=Math.sin(portAng[pj]); auxA[i3+2]=0;
+          auxB[i3]=Math.random(); auxB[i3+1]=Math.random()*Math.PI*2; auxB[i3+2]=5.5;
+          phase[i]=Math.random(); speed[i]=0.35+Math.random()*0.25;
+        }
+      }
+
+      var geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+      geo.setAttribute('color', new THREE.BufferAttribute(col,3));
+      var pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: mobile?0.092:0.072, map: dot, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.97 }));
+      var group = new THREE.Group();
+      group.position.set(mobile?0:3.6, mobile?3.4:0, 0); group.scale.setScalar(mobile?0.62:1);
+      group.rotation.x = -0.48; group.rotation.z = 0.26;
+      group.add(pts); scene.add(group);
+
+      var composer=null, bloom=null;
+      try {
+        var pp = await Promise.all([ import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'), import('three/addons/postprocessing/UnrealBloomPass.js') ]);
+        composer = new pp[0].EffectComposer(renderer); composer.addPass(new pp[1].RenderPass(scene, camera));
+        bloom = new pp[2].UnrealBloomPass(new THREE.Vector2(W, H), 0.82, 0.5, 0.5); composer.addPass(bloom);
+      } catch (e) { composer = null; }
+
+      var clock = new THREE.Clock(); clock.elapsedTime = 0;
+      var camTarget = { x:0, y:0 }, fanAngle = 0, grow = 0;
+      addEventListener('pointermove', function (e) { var r=cover.getBoundingClientRect(); camTarget.x=Math.max(-0.8,Math.min(0.8,((e.clientX-r.left)/r.width-0.5)*1.6)); camTarget.y=Math.max(-0.5,Math.min(0.5,-((e.clientY-r.top)/r.height-0.5)*1.0)); }, { passive: true });
+
+      function frame(dt) {
+        var t = clock.elapsedTime;
+        grow += (1 - grow) * 0.06;
+        fanAngle += dt * 1.9; var cF=Math.cos(fanAngle), sF=Math.sin(fanAngle);
+        var hb = Math.pow(0.5 + 0.5*Math.sin(t*2*Math.PI/3.1), 6);
+        var pa = geo.attributes.position.array, ca = geo.attributes.color.array;
+        for (var i=0;i<N;i++) { var i3=i*3, rl=role[i], x,y,z;
+          if (rl===0) {                                        // hub (spins) + breath + combustion
+            x=bx[i]*cF-by[i]*sF; y=bx[i]*sF+by[i]*cF; z=bz[i];
+            var bm=1.7*(1+0.10*Math.sin(t*3))*(1+hb*0.6);
+            tmp.copy(cW).lerp(cB,0.25).multiplyScalar(bm); ca[i3]=tmp.r; ca[i3+1]=tmp.g; ca[i3+2]=tmp.b;
+          } else if (rl===1) {                                 // rotor blade (spins; static colour)
+            x=bx[i]*cF-by[i]*sF; y=bx[i]*sF+by[i]*cF; z=bz[i];
+          } else if (rl===2) {                                 // stator (fixed)
+            x=bx[i]; y=by[i]; z=bz[i];
+          } else if (rl===3) {                                 // intake bezier flow
+            var p=phase[i]+dt*speed[i]; if(p>1)p-=1; phase[i]=p; var omp=1-p, w0=omp*omp, w1=2*omp*p, w2=p*p;
+            x=w0*auxA[i3]+w1*auxB[i3]; y=w0*auxA[i3+1]+w1*auxB[i3+1]; z=w0*auxA[i3+2]+w1*auxB[i3+2]+w2*0.4;
+            tmp.copy(cSl).lerp(cB,p).multiplyScalar(0.55); ca[i3]=tmp.r; ca[i3+1]=tmp.g; ca[i3+2]=tmp.b;
+          } else {                                             // exhaust collimated beam
+            var pe=phase[i]+dt*speed[i]; if(pe>1)pe-=1; phase[i]=pe;
+            var curl=pe*0.22, cc=Math.cos(curl), ss=Math.sin(curl), dx=auxA[i3]*cc-auxA[i3+1]*ss, dy=auxA[i3]*ss+auxA[i3+1]*cc;
+            var r=pe*auxB[i3+2], sig=auxB[i3]*0.10*r, pm=Math.cos(auxB[i3+1])*sig, pz=Math.sin(auxB[i3+1])*sig;
+            x=dx*r + (-dy)*pm; y=dy*r + dx*pm; z=pz;
+            var br=1.0-pe*0.7; tmp.copy(cW).lerp(PT[port[i]],pe).multiplyScalar(br);
+            if (pe<0.2) { tmp.lerp(cPur, hb*0.5); tmp.multiplyScalar(1+hb*0.8); }
+            ca[i3]=tmp.r; ca[i3+1]=tmp.g; ca[i3+2]=tmp.b;
+          }
+          pa[i3]=x*grow; pa[i3+1]=y*grow; pa[i3+2]=z*grow;
+        }
+        geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true;
+        if (bloom) bloom.strength = 0.82 + hb*0.18;
+        camera.position.x += (camTarget.x - camera.position.x)*0.04; camera.position.y += (camTarget.y - camera.position.y)*0.04; camera.lookAt(0,0,0);
+        group.rotation.z = 0.26 + Math.sin(t*0.5)*0.014;
+        if (composer) composer.render(); else renderer.render(scene, camera);
+      }
+
+      var running = true, onScreen = true;
+      function active(){ return running && onScreen; }
+      document.addEventListener('visibilitychange', function () { running=!document.hidden; if(active()){ clock.getDelta(); loop(); } });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function(es){ onScreen=es[0].isIntersecting; if(active()){ clock.getDelta(); loop(); } }, { threshold: 0.02 }).observe(cover);
+      }
+      function loop(){ if(!active())return; var dt=Math.min(clock.getDelta(),0.05); clock.elapsedTime+=dt; frame(dt); requestAnimationFrame(loop); }
+      if (reduce) { grow=1; var n=0, iv=setInterval(function(){ frame(0.016); if(++n>12)clearInterval(iv); }, 150); } else { clock.start(); loop(); }
+
+      addEventListener('resize', function () {
+        W = cover.clientWidth || innerWidth; H = cover.clientHeight || innerHeight; camera.aspect=W/H; camera.updateProjectionMatrix();
+        renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+        if (composer) { composer.setSize(W, H); if (bloom) bloom.setSize(W, H); }
+      }, { passive: true });
+    } catch (e) { /* engine failed → cover copy remains on the dark blue fallback bg */ }
+  })();
+  </script>
 </body>
 </html>
