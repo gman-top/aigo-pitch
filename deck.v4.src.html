@@ -11,116 +11,87 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css?v=4" />
   <link rel="icon" href="assets/brand/star.png" />
 
   <style>
-  /* ===== CHOOSER (self-contained — no deck.js / no .in-view dependency) ===== */
-  #chooser{position:fixed;inset:0;overflow:hidden;background:var(--stage)}
+  /* ===== CHOOSER · WebGL engine intro (self-contained) ===== */
+  body{background:radial-gradient(125% 120% at 50% 44%,#0b0c0f,#060708 80%)}
+  #chooser{position:fixed;inset:0;overflow:hidden;background:transparent}
+  #ch-gl{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%}
+
   @keyframes chfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes chleft{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:none}}
   @keyframes chright{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
   @keyframes chpop{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+  @keyframes glin{from{opacity:0}to{opacity:1}}
+  #ch-gl{opacity:0;animation:glin 1.6s ease .2s forwards}
 
   .ch-eyebrow{position:absolute;top:clamp(20px,4.5vh,44px);left:50%;transform:translateX(-50%);z-index:7;
     font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--text-dim);
     opacity:0;animation:chfade .8s var(--ease-enter) .15s forwards;white-space:nowrap}
 
-  .ch-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:1}
+  .ch-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:2}
   .ch-half{position:relative;display:flex;flex-direction:column;justify-content:flex-end;
-    padding:clamp(26px,5vw,84px);padding-bottom:clamp(70px,14vh,150px);text-decoration:none;overflow:hidden;
-    transition:filter .55s,transform .55s;opacity:0}
-  .ch-studios{background:radial-gradient(120% 95% at 28% 72%,rgba(255,70,39,.12),transparent 62%);animation:chleft .9s var(--ease-enter) .35s forwards}
-  .ch-engine{background:radial-gradient(120% 95% at 74% 74%,rgba(91,200,255,.11),transparent 60%);animation:chright .9s var(--ease-enter) .5s forwards}
-  .ch-meta{position:relative;z-index:2;max-width:38ch}
-  .ch-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ic,var(--accent));margin-bottom:10px}
-  .ch-title{font-family:var(--display);font-weight:700;font-size:clamp(34px,5.2vw,80px);line-height:.98;
-    letter-spacing:-.02em;margin:0;transition:letter-spacing .5s,text-shadow .5s;color:var(--tc,var(--text))}
+    padding:clamp(26px,5vw,84px);padding-bottom:clamp(72px,15vh,156px);text-decoration:none;opacity:0}
+  .ch-studios{animation:chleft .9s var(--ease-enter) .4s forwards}
+  .ch-engine{animation:chright .9s var(--ease-enter) .55s forwards}
+  .ch-meta{position:relative;max-width:38ch;text-shadow:0 1px 24px rgba(0,0,0,0.6)}
+  .ch-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ic,var(--accent));margin-bottom:10px;transition:letter-spacing .5s}
+  .ch-title{position:relative;font-family:var(--display);font-weight:700;font-size:clamp(34px,5.2vw,80px);line-height:.98;
+    letter-spacing:-.02em;margin:0;color:var(--tc,var(--text));transition:letter-spacing .5s}
+  .ch-title::after{content:"";position:absolute;left:0;bottom:-9px;height:1px;width:46px;background:var(--tc,var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-enter)}
+  .ch-engine .ch-title::after{left:auto;right:0;transform-origin:right}
   .ch-sub{font-family:var(--body);color:var(--text-dim);max-width:34ch;margin:12px 0 0;font-size:clamp(14px,1.4vw,17px)}
   .ch-enter{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--mono);font-size:12px;
-    letter-spacing:.2em;text-transform:uppercase;color:var(--tc,var(--accent));opacity:.5;transform:translateY(8px);transition:.4s}
-  .ch-half:hover{transform:scale(1.012)}
+    letter-spacing:.2em;text-transform:uppercase;color:var(--tc,var(--accent));opacity:.55;transform:translateY(8px);transition:.4s}
   .ch-half:hover .ch-enter{opacity:1;transform:none}
   .ch-half:hover .ch-title{letter-spacing:-.005em}
   .ch-half:hover .ch-kicker{letter-spacing:.30em}
-  .ch-half:hover .ch-world{opacity:.95}
-  .ch-title{position:relative}
-  .ch-title::after{content:"";position:absolute;left:0;bottom:-9px;height:1px;width:46px;background:var(--tc,var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-enter)}
-  .ch-engine .ch-title::after{left:auto;right:0;transform-origin:right}
   .ch-half:hover .ch-title::after{transform:scaleX(1)}
-  .ch-kicker{transition:letter-spacing .5s}
-  #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:saturate(.4) brightness(.5)}
 
-  .ch-world{position:absolute;inset:0;z-index:0;opacity:.62;pointer-events:none;transition:opacity .55s}
-  .ch-world svg{width:100%;height:100%;display:block}
-  .ch-world-a .scan{animation:cflow 3.4s linear infinite}
-  .ch-vig{position:absolute;inset:0;z-index:6;pointer-events:none;background:radial-gradient(125% 118% at 50% 47%,transparent 58%,rgba(0,0,0,0.5))}
-  .ch-world-b .inflow{stroke-dasharray:3 22;animation:cflow 1.7s linear infinite}
-  .ch-world-b .ripple{transform-box:fill-box;transform-origin:center;animation:ww-birth 4.5s ease-out infinite}
-  #chooser.hot-b .ch-world-b .inflow{animation-duration:.85s}
+  .ch-vig{position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(125% 120% at 50% 46%,transparent 56%,rgba(0,0,0,0.55))}
 
-  /* center seam + star + relationship */
-  .ch-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
-    display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;pointer-events:none;
-    opacity:0;animation:chpop .9s var(--ease-spring) .1s forwards}
-  .ch-seam{position:absolute;left:50%;top:0;width:1px;height:100vh;transform:translateX(-.5px);background:linear-gradient(180deg,transparent,rgba(244,245,247,0.13) 30%,rgba(255,70,39,0.18) 50%,rgba(244,245,247,0.13) 70%,transparent);opacity:.85}
+  .ch-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:6;
+    display:flex;flex-direction:column;align-items:center;gap:15px;text-align:center;pointer-events:none;
+    opacity:0;animation:chpop 1s var(--ease-spring) .15s forwards}
+  .ch-core::before{content:"";position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:min(620px,82vw);height:340px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,rgba(5,6,8,0.82),rgba(5,6,8,0.45) 42%,transparent 72%);filter:blur(6px)}
   .ch-core .chub{animation:float 6s var(--ease-standard) infinite}
   .ch-decide{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin-top:13px}
-  .ch-rel b{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.5vw,32px);color:var(--text);display:block}
+  .ch-rel b{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.5vw,32px);color:var(--text);display:block;text-shadow:0 2px 30px rgba(0,0,0,.7)}
   .ch-rel span{display:block;font-family:var(--body);font-size:clamp(12px,1.3vw,15px);color:var(--text-dim);margin-top:7px;max-width:40ch}
 
   .ch-foot{position:absolute;bottom:clamp(16px,3vh,30px);left:50%;transform:translateX(-50%);z-index:7;
     font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint);
-    white-space:nowrap;opacity:0;animation:chfade .8s var(--ease-enter) .9s forwards}
+    white-space:nowrap;opacity:0;animation:chfade .8s var(--ease-enter) 1s forwards}
 
   @media(max-width:760px){
     .ch-split{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
-    .ch-half{min-height:50vh;padding-bottom:clamp(30px,6vh,60px);justify-content:flex-end}
-    .ch-studios{background:radial-gradient(130% 60% at 50% 80%,rgba(255,70,39,.13),transparent 65%)}
-    .ch-engine{background:radial-gradient(130% 60% at 50% 20%,rgba(91,200,255,.13),transparent 65%)}
-    #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:none}
-    .ch-seam{display:block;left:0;top:50%;width:100vw;height:1px;border:none;transform:translateY(-.5px);background:linear-gradient(90deg,transparent,rgba(244,245,247,0.13) 30%,rgba(255,70,39,0.18) 50%,rgba(244,245,247,0.13) 70%,transparent)}
-    .ch-core{gap:8px}.ch-rel b{font-size:18px}
+    .ch-half{min-height:50vh;padding-bottom:clamp(28px,6vh,56px);justify-content:flex-end}
+    .ch-core{gap:9px}.ch-rel b{font-size:18px}
     .ch-eyebrow{font-size:9px;letter-spacing:.12em}
     .ch-foot{white-space:normal;width:90%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.12em}
     .ch-meta{max-width:none}
+    .ch-engine .ch-meta{text-align:left !important}
+    .ch-engine .ch-sub{margin-left:0 !important}
   }
   @media(prefers-reduced-motion:reduce){
-    .ch-eyebrow,.ch-half,.ch-core,.ch-foot{animation:none;opacity:1}
-    .ch-seam,.ch-world-a .scan,.ch-world-b .inflow,.ch-world-b .ripple,.ch-core .chub{animation:none}
+    #ch-gl,.ch-eyebrow,.ch-half,.ch-core,.ch-foot{animation:none;opacity:1}
   }
-  /* return visit: skip the entrance fanfare */
-  body.seen .ch-eyebrow,body.seen .ch-half,body.seen .ch-core,body.seen .ch-foot{animation:none;opacity:1}
+  body.seen #ch-gl,body.seen .ch-eyebrow,body.seen .ch-half,body.seen .ch-core,body.seen .ch-foot{animation:none;opacity:1}
   </style>
 </head>
 <body>
+  <canvas id="ch-gl" aria-hidden="true"></canvas>
   <main>
   <section id="chooser">
     <div class="ch-eyebrow">AIGO · CHOOSE YOUR PATH</div>
 
     <div class="ch-split">
-      <!-- PATH A · AIGO STUDIOS -->
       <a class="ch-half ch-studios" href="/v4/studios/" style="--ic:var(--accent);--tc:var(--accent)">
-        <div class="ch-world ch-world-a">
-          <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" style="overflow:visible">
-            <g fill="none" stroke="var(--accent)" stroke-linecap="round">
-              <circle cx="206" cy="300" r="166" stroke-width="1.5" opacity=".24"/>
-              <circle cx="206" cy="300" r="121" stroke-width="1.5" opacity=".19"/>
-              <circle cx="206" cy="300" r="66" stroke-width="1.5" opacity=".32"/>
-              <g stroke-width="2" opacity=".30">
-                <line x1="206" y1="150" x2="206" y2="187"/><line x1="206" y1="413" x2="206" y2="450"/>
-                <line x1="56" y1="300" x2="93" y2="300"/><line x1="319" y1="300" x2="356" y2="300"/>
-                <line x1="100" y1="194" x2="127" y2="221"/><line x1="312" y1="194" x2="285" y2="221"/>
-                <line x1="100" y1="406" x2="127" y2="379"/><line x1="312" y1="406" x2="285" y2="379"/>
-              </g>
-              <circle class="scan" cx="206" cy="300" r="166" stroke-width="2.5" stroke-dasharray="3 27" opacity=".5"/>
-            </g>
-            <circle cx="206" cy="300" r="7.5" fill="var(--accent)" opacity=".9"/>
-            <circle cx="206" cy="300" r="19" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity=".45"/>
-          </svg>
-        </div>
         <div class="ch-meta">
           <div class="ch-kicker">CRYPTO GAMES</div>
           <h2 class="ch-title">AIGO STUDIOS</h2>
@@ -129,25 +100,7 @@
         </div>
       </a>
 
-      <!-- PATH B · MEDIA ENGINE -->
       <a class="ch-half ch-engine" href="/v4/engine/" style="--ic:#5BC8FF;--tc:#5BC8FF">
-        <div class="ch-world ch-world-b">
-          <svg viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" style="overflow:visible">
-            <g fill="none" stroke="#5BC8FF" stroke-width="1" opacity=".22">
-              <ellipse cx="0" cy="300" rx="150" ry="100"/><ellipse cx="0" cy="300" rx="250" ry="165"/><ellipse cx="0" cy="300" rx="350" ry="235"/>
-            </g>
-            <path class="inflow" d="M150,205 L0,300" fill="none" stroke="#5BC8FF" stroke-width="2"/>
-            <path class="inflow" d="M250,300 L0,300" fill="none" stroke="#5BC8FF" stroke-width="2"/>
-            <path class="inflow" d="M150,395 L0,300" fill="none" stroke="#BDFF5F" stroke-width="2"/>
-            <path class="inflow" d="M300,160 L0,300" fill="none" stroke="#8B5CFF" stroke-width="2"/>
-            <path class="inflow" d="M320,440 L0,300" fill="none" stroke="#E8C66B" stroke-width="2"/>
-            <g>
-              <circle cx="150" cy="205" r="6" fill="#5BC8FF"/><circle cx="250" cy="300" r="7" fill="#5BC8FF"/>
-              <circle cx="150" cy="395" r="6" fill="#BDFF5F"/><circle cx="300" cy="160" r="5" fill="#8B5CFF"/><circle cx="320" cy="440" r="6" fill="#E8C66B"/>
-            </g>
-            <circle class="ripple" cx="0" cy="300" r="44" fill="none" stroke="#BDFF5F" stroke-width="2"/>
-          </svg>
-        </div>
         <div class="ch-meta" style="text-align:right;margin-left:auto">
           <div class="ch-kicker">OWNED DISTRIBUTION</div>
           <h2 class="ch-title">MEDIA ENGINE</h2>
@@ -159,9 +112,7 @@
 
     <div class="ch-vig" aria-hidden="true"></div>
 
-    <!-- center seam + star + relationship -->
     <div class="ch-core">
-      <div class="ch-seam"></div>
       <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
       <div class="ch-rel">
         <b>Two companies. One source.</b>
@@ -175,25 +126,138 @@
   </main>
 
   <script>
-  (function(){
-    var ch=document.getElementById('chooser');
-    var a=ch.querySelector('.ch-studios'), b=ch.querySelector('.ch-engine');
-    /* return visit → skip the entrance fanfare */
-    try{ if(sessionStorage.getItem('aigo_seen_chooser')) document.body.classList.add('seen');
-         else sessionStorage.setItem('aigo_seen_chooser','1'); }catch(e){}
-    /* desktop: hover leans into a world */
-    a.addEventListener('mouseenter',function(){ch.classList.add('hot-a')});
-    a.addEventListener('mouseleave',function(){ch.classList.remove('hot-a')});
-    b.addEventListener('mouseenter',function(){ch.classList.add('hot-b')});
-    b.addEventListener('mouseleave',function(){ch.classList.remove('hot-b')});
-    /* mobile (no hover): the half you scroll to brightens */
-    if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches&&'IntersectionObserver'in window){
-      var io=new IntersectionObserver(function(es){es.forEach(function(e){
-        var k=e.target===a?'hot-a':'hot-b';
-        if(e.isIntersecting&&e.intersectionRatio>0.55)ch.classList.add(k);else ch.classList.remove(k);
-      });},{threshold:[0,0.55,1]});
-      io.observe(a);io.observe(b);
-    }
+  /* ---- hover + return-visit (works with or without WebGL) ---- */
+  var CH = (function () {
+    var ch = document.getElementById('chooser');
+    var a = ch.querySelector('.ch-studios'), b = ch.querySelector('.ch-engine');
+    var state = { hover: 0 }; // -1 studios, +1 engine, 0 none
+    try { if (sessionStorage.getItem('aigo_seen_chooser')) document.body.classList.add('seen');
+          else sessionStorage.setItem('aigo_seen_chooser', '1'); } catch (e) {}
+    a.addEventListener('mouseenter', function () { state.hover = -1; });
+    a.addEventListener('mouseleave', function () { state.hover = 0; });
+    b.addEventListener('mouseenter', function () { state.hover = 1; });
+    b.addEventListener('mouseleave', function () { state.hover = 0; });
+    return state;
+  })();
+
+  /* ---- WebGL particle engine (Three.js, dynamic import; graceful fallback) ---- */
+  (function () {
+    var canvas = document.getElementById('ch-gl');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!canvas || !window.WebGLRenderingContext) return;
+    import('https://unpkg.com/three@0.161.0/build/three.module.js').then(function (THREE) {
+      var W = innerWidth, H = innerHeight, mobile = W < 760;
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(58, W / H, 0.1, 100); camera.position.set(0, 0, 14);
+
+      /* soft round glow sprite texture */
+      function disc(soft) {
+        var c = document.createElement('canvas'); c.width = c.height = 64;
+        var g = c.getContext('2d'), grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+        grd.addColorStop(0, 'rgba(255,255,255,1)');
+        grd.addColorStop(soft ? 0.5 : 0.32, soft ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.6)');
+        grd.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
+        var t = new THREE.Texture(c); t.needsUpdate = true; return t;
+      }
+      var dot = disc(false);
+
+      /* ---- two swirling particle fields (the engine) ---- */
+      var N = mobile ? 2600 : 7000;
+      var WHITE = new THREE.Color(0xffffff);
+      function field(side) { // side -1 = left/studios/red, +1 = right/engine/blue-green
+        var pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
+        var P = [];
+        var hot = side < 0 ? new THREE.Color(0xFF4627) : new THREE.Color(0x5BC8FF);
+        var cool = side < 0 ? new THREE.Color(0xFFB070) : new THREE.Color(0xBDFF5F);
+        for (var i = 0; i < N; i++) {
+          var r = 1.3 + Math.pow(Math.random(), 1.6) * 8.9;            // dense, bright toward the core
+          // keep left field on the left (x<0), right on the right (x>0)
+          var a = side < 0 ? (Math.PI * 0.5 + Math.random() * Math.PI)
+                           : (-Math.PI * 0.5 + Math.random() * Math.PI);
+          var av = (0.05 + 0.5 / r) * (0.55 + Math.random() * 0.95);   // inner spins faster = turbine
+          var z = (Math.random() - 0.5) * 3.6;
+          P.push({ r: r, a: a, av: av, z: z, base: r });
+          var tt = Math.min(1, (r - 1.3) / 8.9);
+          var c = hot.clone().lerp(cool, tt * 0.8);
+          c.lerp(WHITE, (1 - tt) * 0.42);                               // white-hot near the source
+          col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+        }
+        var geo = new THREE.BufferGeometry();
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+        var mat = new THREE.PointsMaterial({ size: mobile ? 0.19 : 0.15, map: dot, vertexColors: true,
+          transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.95 });
+        var pts = new THREE.Points(geo, mat);
+        pts.userData = { P: P, pos: pos, side: side, speed: 1 };
+        scene.add(pts);
+        return pts;
+      }
+      var left = field(-1), right = field(1);
+
+      /* ---- the source core ---- */
+      var core = new THREE.Sprite(new THREE.SpriteMaterial({ map: disc(true), color: 0xffffff,
+        transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.9 }));
+      core.scale.set(3.6, 3.6, 1); scene.add(core);
+      var coreGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: disc(true), color: 0xFF6A3D,
+        transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.62 }));
+      coreGlow.scale.set(10, 10, 1); scene.add(coreGlow);
+
+      var clock = new THREE.Clock();
+      var camTarget = { x: 0, y: 0 };
+      addEventListener('pointermove', function (e) {
+        camTarget.x = (e.clientX / innerWidth - 0.5) * 2.2;
+        camTarget.y = -(e.clientY / innerHeight - 0.5) * 1.4;
+      }, { passive: true });
+
+      function step(grp, dt, boosted) {
+        grp.userData.speed += ((boosted ? 2.3 : 1) - grp.userData.speed) * Math.min(1, dt * 3);
+        var P = grp.userData.P, pos = grp.userData.pos, sp = grp.userData.speed;
+        for (var i = 0; i < P.length; i++) {
+          var p = P[i];
+          p.a += p.av * dt * sp;
+          p.r -= dt * 0.22 * sp;                                 // drift inward toward the source
+          if (p.r < 1.25) { p.r = 7.5 + Math.random() * 2.8; }   // respawn at the rim
+          pos[i * 3] = Math.cos(p.a) * p.r;
+          pos[i * 3 + 1] = Math.sin(p.a) * p.r * 0.6;            // flatten into an ellipse
+          pos[i * 3 + 2] = p.z;
+        }
+        grp.geometry.attributes.position.needsUpdate = true;
+        grp.material.opacity = 0.7 + (boosted ? 0.3 : 0) ;
+      }
+
+      var running = true;
+      document.addEventListener('visibilitychange', function () { running = !document.hidden; if (running) { clock.getDelta(); loop(); } });
+
+      function render() {
+        var t = clock.elapsedTime;
+        camera.position.x += (camTarget.x - camera.position.x) * 0.04;
+        camera.position.y += (camTarget.y - camera.position.y) * 0.04;
+        camera.lookAt(0, 0, 0);
+        core.scale.setScalar(2.9 + Math.sin(t * 1.3) * 0.4);
+        coreGlow.scale.setScalar(8.2 + Math.sin(t * 0.9) * 1.1);
+        renderer.render(scene, camera);
+      }
+      function loop() {
+        if (!running) return;
+        var dt = Math.min(clock.getDelta(), 0.05);
+        clock.elapsedTime += dt;
+        step(left, dt, CH.hover === -1);
+        step(right, dt, CH.hover === 1);
+        render();
+        requestAnimationFrame(loop);
+      }
+      clock.elapsedTime = 0;
+      if (reduce) { step(left, 1, false); step(right, 1, false); render(); }
+      else { clock.start(); loop(); }
+
+      addEventListener('resize', function () {
+        W = innerWidth; H = innerHeight; camera.aspect = W / H; camera.updateProjectionMatrix();
+        renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      }, { passive: true });
+    }).catch(function () { /* WebGL/import failed → CSS fallback bg + text/links remain */ });
   })();
   </script>
 </body>
