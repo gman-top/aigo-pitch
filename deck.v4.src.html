@@ -72,14 +72,28 @@
     white-space:nowrap;opacity:0;animation:chfade .8s var(--ease-enter) 1s forwards}
 
   @media(max-width:760px){
-    .ch-split{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
-    .ch-half{min-height:50vh;padding-bottom:clamp(28px,6vh,56px);justify-content:flex-end}
-    .ch-core{gap:9px}.ch-rel b{font-size:18px}
-    .ch-eyebrow{font-size:9px;letter-spacing:.12em}
-    .ch-foot{white-space:normal;width:90%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.12em}
-    .ch-meta{max-width:none}
-    .ch-engine .ch-meta{text-align:left !important}
-    .ch-engine .ch-sub{margin-left:0 !important}
+    /* mobile = one clean centered column: eyebrow · star · STUDIOS · divider · ENGINE · tagline · foot */
+    #chooser{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .ch-eyebrow{font-size:9px;letter-spacing:.16em;top:16px}
+    .ch-split{position:relative;inset:auto;display:flex;flex-direction:column;
+      padding:clamp(196px,32vh,280px) 24px 0}                 /* top space reserved for the star */
+    .ch-half{min-height:auto;justify-content:center;align-items:center;text-align:center;padding:28px 0}
+    .ch-half + .ch-half{border-top:1px solid rgba(255,255,255,.08)}
+    .ch-meta{max-width:32ch;margin:0 auto !important;text-align:center !important;
+      display:flex;flex-direction:column;align-items:center}
+    .ch-engine .ch-meta{text-align:center !important;margin:0 auto !important}
+    .ch-sub{max-width:30ch;margin:12px auto 0 !important}
+    .ch-engine .ch-sub{margin:12px auto 0 !important}
+    .ch-enter{margin-top:16px;opacity:1;transform:none}
+    .ch-title::after{left:50%;right:auto;transform:translateX(-50%) scaleX(1);transform-origin:center;bottom:-7px}
+    .ch-vig{background:radial-gradient(130% 70% at 50% 19%,transparent 22%,rgba(0,0,0,.5) 64%,rgba(0,0,0,.9))}
+    .ch-core{position:relative;inset:auto;left:auto;top:auto;transform:none;
+      margin:14px auto 0;padding:26px 24px 0;gap:8px;animation:chfade .8s ease .2s forwards;
+      border-top:1px solid rgba(255,255,255,.08);max-width:none}
+    .ch-core::before{display:none}
+    .ch-rel b{font-size:20px}
+    .ch-foot{position:relative;inset:auto;bottom:auto;left:auto;transform:none;
+      margin:22px auto 30px;white-space:normal;width:88%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.1em}
   }
   @media(prefers-reduced-motion:reduce){
     #ch-gl,.ch-eyebrow,.ch-half,.ch-core,.ch-foot{animation:none;opacity:1}
@@ -203,7 +217,7 @@
       geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
       geo.setAttribute('color', new THREE.BufferAttribute(col,3));
       var pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: mobile?0.085:0.064, map: dot, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.96 }));
-      var group = new THREE.Group(); group.position.y = 0.7; group.add(pts); scene.add(group);
+      var group = new THREE.Group(); group.position.y = mobile ? 4.5 : 0.7; group.add(pts); scene.add(group);
 
       /* ---- STAR target: EXACT logo sampled from star.png (warm) ---- */
       var simg = new Image(); simg.crossOrigin = 'anonymous';
@@ -262,7 +276,7 @@
         spin += dt * m * 1.3;                                          // only spins up as the engine
         group.rotation.y = spin + Math.sin(t*0.4)*0.30*(1-m);          // gentle wobble as star, turbine spin as engine
         group.rotation.x = Math.sin(t*0.3)*0.10*(1-m);
-        group.scale.setScalar(1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07);
+        group.scale.setScalar((mobile?0.58:1) * (1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07));
         seamMat.opacity = 0.08 + Math.abs(hov)*0.16;
         if (composer) composer.render(); else renderer.render(scene, camera);
       }
