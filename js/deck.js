@@ -136,4 +136,21 @@
     }, { threshold: 0.4 });
     hio.observe(hexVid);
   }
+
+  /* ---- cross-deck path switcher (only on decks with data-here: studios/engine) ---- */
+  (function () {
+    var here = (document.body.getAttribute("data-here") || "").toLowerCase();
+    if (!here) return;
+    var nav = document.createElement("nav");
+    nav.className = "deckswitch";
+    nav.setAttribute("aria-label", "Switch company");
+    nav.innerHTML =
+      '<a class="ds-home" href="/v4/" aria-label="Back to chooser" title="Separate companies · separate raises"><img src="assets/brand/star.png" alt="AIGO" /></a>'
+      + '<a class="ds-seg" data-deck="studios" href="/v4/studios/">Studios</a>'
+      + '<a class="ds-seg" data-deck="engine" href="/v4/engine/">Engine</a>';
+    document.body.appendChild(nav);
+    Array.prototype.slice.call(nav.querySelectorAll(".ds-seg")).forEach(function (a) {
+      if (a.getAttribute("data-deck") === here) a.setAttribute("aria-current", "page");
+    });
+  })();
 })();

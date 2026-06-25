@@ -33,7 +33,7 @@
     padding:clamp(26px,5vw,84px);padding-bottom:clamp(70px,14vh,150px);text-decoration:none;overflow:hidden;
     transition:filter .55s,transform .55s;opacity:0}
   .ch-studios{background:radial-gradient(120% 95% at 28% 72%,rgba(255,70,39,.12),transparent 62%);animation:chleft .9s var(--ease-enter) .35s forwards}
-  .ch-engine{background:radial-gradient(120% 95% at 72% 72%,rgba(91,200,255,.12),rgba(189,255,95,.05) 55%,transparent 66%);animation:chright .9s var(--ease-enter) .5s forwards}
+  .ch-engine{background:radial-gradient(120% 95% at 74% 74%,rgba(91,200,255,.11),transparent 60%);animation:chright .9s var(--ease-enter) .5s forwards}
   .ch-meta{position:relative;z-index:2;max-width:38ch}
   .ch-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ic,var(--accent));margin-bottom:10px}
   .ch-title{font-family:var(--display);font-weight:700;font-size:clamp(34px,5.2vw,80px);line-height:.98;
@@ -41,10 +41,16 @@
   .ch-sub{font-family:var(--body);color:var(--text-dim);max-width:34ch;margin:12px 0 0;font-size:clamp(14px,1.4vw,17px)}
   .ch-enter{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-family:var(--mono);font-size:12px;
     letter-spacing:.2em;text-transform:uppercase;color:var(--tc,var(--accent));opacity:.5;transform:translateY(8px);transition:.4s}
-  .ch-half:hover{transform:scale(1.015)}
+  .ch-half:hover{transform:scale(1.012)}
   .ch-half:hover .ch-enter{opacity:1;transform:none}
-  .ch-half:hover .ch-title{letter-spacing:-.01em;text-shadow:0 0 42px currentColor}
-  .ch-half:hover .ch-world{opacity:.92}
+  .ch-half:hover .ch-title{letter-spacing:-.005em}
+  .ch-half:hover .ch-kicker{letter-spacing:.30em}
+  .ch-half:hover .ch-world{opacity:.95}
+  .ch-title{position:relative}
+  .ch-title::after{content:"";position:absolute;left:0;bottom:-9px;height:1px;width:46px;background:var(--tc,var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-enter)}
+  .ch-engine .ch-title::after{left:auto;right:0;transform-origin:right}
+  .ch-half:hover .ch-title::after{transform:scaleX(1)}
+  .ch-kicker{transition:letter-spacing .5s}
   #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:saturate(.4) brightness(.5)}
 
   .ch-world{position:absolute;inset:0;z-index:0;opacity:.55;pointer-events:none;transition:opacity .55s}
@@ -58,10 +64,9 @@
   .ch-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
     display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;pointer-events:none;
     opacity:0;animation:chpop .9s var(--ease-spring) .1s forwards}
-  .ch-seam{position:absolute;left:50%;top:-48vh;width:0;height:44vh;border-left:2px dashed var(--accent);
-    opacity:.45;animation:cflow 1.6s linear infinite}
+  .ch-seam{position:absolute;left:50%;top:0;width:0;height:100vh;border-left:1px dashed var(--line-strong);opacity:.5;transform:translateX(-.5px)}
   .ch-core .chub{animation:float 6s var(--ease-standard) infinite}
-  .ch-decide{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-top:2px}
+  .ch-decide{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint);margin-top:13px}
   .ch-rel b{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.5vw,32px);color:var(--text);display:block}
   .ch-rel span{display:block;font-family:var(--body);font-size:clamp(12px,1.3vw,15px);color:var(--text-dim);margin-top:7px;max-width:40ch}
 
@@ -75,7 +80,7 @@
     .ch-studios{background:radial-gradient(130% 60% at 50% 80%,rgba(255,70,39,.13),transparent 65%)}
     .ch-engine{background:radial-gradient(130% 60% at 50% 20%,rgba(91,200,255,.13),transparent 65%)}
     #chooser.hot-a .ch-engine,#chooser.hot-b .ch-studios{filter:none}
-    .ch-seam{display:none}
+    .ch-seam{display:block;left:0;top:50%;width:100vw;height:0;border-left:none;border-top:1px dashed var(--line-strong);transform:translateY(-.5px)}
     .ch-core{gap:8px}.ch-rel b{font-size:18px}
     .ch-eyebrow{font-size:9px;letter-spacing:.12em}
     .ch-foot{white-space:normal;width:90%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.12em}
@@ -85,13 +90,13 @@
     .ch-eyebrow,.ch-half,.ch-core,.ch-foot{animation:none;opacity:1}
     .ch-seam,.ch-world-a .scan,.ch-world-b .inflow,.ch-world-b .ripple,.ch-core .chub{animation:none}
   }
+  /* return visit: skip the entrance fanfare */
+  body.seen .ch-eyebrow,body.seen .ch-half,body.seen .ch-core,body.seen .ch-foot{animation:none;opacity:1}
   </style>
 </head>
 <body>
   <main>
   <section id="chooser">
-    <svg class="star-bg" style="width:46vw;top:-18vh;right:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
-
     <div class="ch-eyebrow">AIGO · CHOOSE YOUR PATH</div>
 
     <div class="ch-split">
@@ -116,7 +121,7 @@
           <div class="ch-kicker">CRYPTO GAMES</div>
           <h2 class="ch-title">AIGO STUDIOS</h2>
           <p class="ch-sub">7 live games + Vault Run. We own the IP and the players.</p>
-          <span class="ch-enter">Enter &rarr;</span>
+          <span class="ch-enter">Own the IP &rarr;</span>
         </div>
       </a>
 
@@ -143,7 +148,7 @@
           <div class="ch-kicker">OWNED DISTRIBUTION</div>
           <h2 class="ch-title">MEDIA ENGINE</h2>
           <p class="ch-sub" style="margin-left:auto">We don&rsquo;t rent the crowd. We build the source.</p>
-          <span class="ch-enter">Enter &rarr;</span>
+          <span class="ch-enter">Own the source &rarr;</span>
         </div>
       </a>
     </div>
@@ -152,11 +157,11 @@
     <div class="ch-core">
       <div class="ch-seam"></div>
       <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
-      <div class="ch-decide">Two companies · two raises · pick one to back — or ask about both</div>
       <div class="ch-rel">
         <b>Two companies. One source.</b>
         <span>The studio makes what people want. The engine makes the people.</span>
       </div>
+      <div class="ch-decide">Two raises · back one — or both</div>
     </div>
 
     <div class="ch-foot">CONFIDENTIAL · TWO COMPANIES · TWO SEPARATE RAISES</div>
@@ -167,10 +172,22 @@
   (function(){
     var ch=document.getElementById('chooser');
     var a=ch.querySelector('.ch-studios'), b=ch.querySelector('.ch-engine');
+    /* return visit → skip the entrance fanfare */
+    try{ if(sessionStorage.getItem('aigo_seen_chooser')) document.body.classList.add('seen');
+         else sessionStorage.setItem('aigo_seen_chooser','1'); }catch(e){}
+    /* desktop: hover leans into a world */
     a.addEventListener('mouseenter',function(){ch.classList.add('hot-a')});
     a.addEventListener('mouseleave',function(){ch.classList.remove('hot-a')});
     b.addEventListener('mouseenter',function(){ch.classList.add('hot-b')});
     b.addEventListener('mouseleave',function(){ch.classList.remove('hot-b')});
+    /* mobile (no hover): the half you scroll to brightens */
+    if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches&&'IntersectionObserver'in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        var k=e.target===a?'hot-a':'hot-b';
+        if(e.isIntersecting&&e.intersectionRatio>0.55)ch.classList.add(k);else ch.classList.remove(k);
+      });},{threshold:[0,0.55,1]});
+      io.observe(a);io.observe(b);
+    }
   })();
   </script>
 </body>

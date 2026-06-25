@@ -59,15 +59,25 @@
   #ask .ask-r h4,#the-raise .ask-r h4{grid-column:1/-1;margin-bottom:6px}
   #ask .anchor-note,#the-raise .anchor-note{margin-top:10px}
   @media(max-width:760px){#ask .ask-r,#the-raise .ask-r{grid-template-columns:1fr}}
+  /* cross-deck path switcher (active pill auto-colours via --accent) */
+  .deckswitch{position:fixed;top:14px;left:18px;z-index:56;display:inline-flex;align-items:center;gap:3px;padding:4px;border-radius:999px;background:rgba(14,15,18,0.74);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .ds-home{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;transition:background .25s}
+  .ds-home img{width:15px;height:15px;display:block}
+  .ds-home:hover{background:rgba(255,255,255,0.06)}
+  .ds-seg{display:inline-flex;align-items:center;height:24px;padding:0 12px;border-radius:999px;color:var(--text-dim);white-space:nowrap;text-decoration:none;transition:color .25s,background .25s,box-shadow .25s}
+  .ds-seg:hover{color:var(--text)}
+  .ds-seg[aria-current="page"]{color:var(--text);background:var(--accent-soft);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent)}
+  .ds-seg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media(max-width:760px){.deckswitch{top:9px;left:10px;padding:3px;gap:2px;font-size:9px;letter-spacing:.10em}.ds-seg{padding:0 9px;height:22px}.ds-home{width:22px;height:22px}}
+  @media print{.deckswitch{display:none!important}}
   </style>
 </head>
-<body>
+<body data-here="studios">
 
   <!-- ============ HUD ============ -->
   <div class="progress" id="progress"></div>
   <div class="hud" aria-hidden="true">
-    <div class="hud-label hud-tl">AIGO STUDIOS // CRYPTO GAMES</div>
-    <div class="hud-label hud-tr"><span class="dot"></span>PRE-SEED · €750K</div>
+    <div class="hud-label hud-tr"><span class="dot"></span>RAISING · €750K</div>
     <div class="hud-label hud-bl">CREATOR-LED CRYPTO GAMING</div>
     <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
   </div>
@@ -569,6 +579,6 @@
     </div>
   </div>
 
-  <script src="js/deck.js"></script>
+  <script src="js/deck.js?v=2"></script>
 </body>
 </html>
