@@ -23,6 +23,7 @@
   <style>
   /* ===== CHOOSER · WebGL engine intro (self-contained) ===== */
   body{background:radial-gradient(125% 120% at 50% 44%,#040404,#010101 80%)}
+  body::before{display:none!important}   /* kill the shared 64px grid texture — chooser stays clean black */
   #chooser{position:fixed;inset:0;overflow:hidden;background:transparent}
   #ch-gl{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%}
 
@@ -72,12 +73,13 @@
     white-space:nowrap;opacity:0;animation:chfade .8s var(--ease-enter) 1s forwards}
 
   @media(max-width:760px){
-    /* mobile = one clean centered column: eyebrow · star · STUDIOS · divider · ENGINE · tagline · foot */
+    /* mobile = star in a TOP BAND, then a clean centered column: STUDIOS · divider · ENGINE · tagline · foot */
     #chooser{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    #ch-gl{inset:0 0 auto 0;height:30vh}                        /* canvas = top band only; renderer sizes to it → star always at top, never on the text */
     .ch-eyebrow{font-size:9px;letter-spacing:.16em;top:16px}
     .ch-split{position:relative;inset:auto;display:flex;flex-direction:column;
-      padding:clamp(196px,32vh,280px) 24px 0}                 /* top space reserved for the star */
-    .ch-half{min-height:auto;justify-content:center;align-items:center;text-align:center;padding:28px 0}
+      padding:calc(30vh + 10px) 22px 0}
+    .ch-half{min-height:auto;justify-content:center;align-items:center;text-align:center;padding:24px 0}
     .ch-half + .ch-half{border-top:1px solid rgba(255,255,255,.08)}
     .ch-meta{max-width:32ch;margin:0 auto !important;text-align:center !important;
       display:flex;flex-direction:column;align-items:center}
@@ -91,9 +93,9 @@
       margin:14px auto 0;padding:26px 24px 0;gap:8px;animation:chfade .8s ease .2s forwards;
       border-top:1px solid rgba(255,255,255,.08);max-width:none}
     .ch-core::before{display:none}
-    .ch-rel b{font-size:19px}
+    .ch-rel b{font-size:15px;letter-spacing:.01em}             /* smaller tagline so the split dominates */
     .ch-rel span{display:none}                                 /* drop the long line on mobile — less text at the bottom */
-    .ch-decide{margin-top:9px}
+    .ch-decide{margin-top:8px;font-size:9px}
     .ch-foot{position:relative;inset:auto;bottom:auto;left:auto;transform:none;
       margin:22px auto 30px;white-space:normal;width:88%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.1em}
   }
@@ -173,7 +175,9 @@
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!canvas || !window.WebGLRenderingContext) return;
     try {
-      var W = innerWidth, H = innerHeight, mobile = W < 760, FOV = 58;
+      var mobile = innerWidth < 760, FOV = 58;
+      var cr0 = canvas.getBoundingClientRect();
+      var W = Math.max(2, Math.round(cr0.width)) || innerWidth, H = Math.max(2, Math.round(cr0.height)) || innerHeight;
       var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
       renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setClearColor(0x010101, 1);
       var scene = new THREE.Scene();
@@ -223,7 +227,7 @@
       geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
       geo.setAttribute('color', new THREE.BufferAttribute(col,3));
       var pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: mobile?0.085:0.064, map: dot, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.96 }));
-      var group = new THREE.Group(); group.position.y = mobile ? 4.5 : 0.7; group.add(pts); scene.add(group);
+      var group = new THREE.Group(); group.position.y = 0.7; group.add(pts); scene.add(group);   // centered in its canvas box (full-screen desktop / top band mobile)
 
       /* ---- STAR target: EXACT logo sampled from star.png (warm) ---- */
       var simg = new Image(); simg.crossOrigin = 'anonymous';
@@ -282,7 +286,7 @@
         spin += dt * m * 1.3;                                          // only spins up as the engine
         group.rotation.y = spin + Math.sin(t*0.4)*0.30*(1-m);          // gentle wobble as star, turbine spin as engine
         group.rotation.x = Math.sin(t*0.3)*0.10*(1-m);
-        group.scale.setScalar((mobile?0.58:1) * (1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07));
+        group.scale.setScalar((mobile?1.25:1) * (1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07));
         seamMat.opacity = 0.08 + Math.abs(hov)*0.16;
         if (composer) composer.render(); else renderer.render(scene, camera);
       }
@@ -292,7 +296,8 @@
       if (reduce) { var n=0, iv=setInterval(function(){ frame(0); if (++n>12) clearInterval(iv); }, 150); } else { clock.start(); loop(); }
 
       addEventListener('resize', function () {
-        W = innerWidth; H = innerHeight; camera.aspect = W/H; camera.updateProjectionMatrix();
+        var cr = canvas.getBoundingClientRect(); W = Math.max(2, Math.round(cr.width)); H = Math.max(2, Math.round(cr.height));
+        camera.aspect = W/H; camera.updateProjectionMatrix();
         renderer.setSize(W, H); renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
         if (composer) { composer.setSize(W, H); if (bloom) bloom.setSize(W, H); }
       }, { passive: true });
