@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AIGO Studios — Crypto Games</title>
+  <meta name="description" content="AIGO Studios — Building the Future of Creator-Led Crypto Gaming." />
+  <meta name="theme-color" content="#08090B" />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="icon" href="assets/brand/star.png" />
+
+  <style>
+  /* ---- V2-only additions (inline so V1 / style.css stay untouched) ---- */
+  .ph{position:relative;border:1.5px dashed rgba(255,70,39,.55);border-radius:14px;background:rgba(255,70,39,.045);padding:22px 24px}
+  .ph::before{content:"PLACEHOLDER · WE ADD THE REAL DATA";position:absolute;top:-10px;left:18px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);background:var(--stage);padding:3px 10px;border-radius:100px;border:1px solid rgba(255,70,39,.4)}
+  .tbd{font-family:var(--mono);color:var(--accent);font-size:.82em;letter-spacing:.06em;border:1px dashed rgba(255,70,39,.55);border-radius:6px;padding:1px 7px;white-space:nowrap}
+
+  /* competition matrix */
+  .cmwrap{margin-top:22px;overflow-x:auto}
+  .cmatrix{width:100%;border-collapse:collapse;font-family:var(--body);min-width:680px}
+  .cmatrix th,.cmatrix td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);font-size:clamp(12px,1.1vw,15px);vertical-align:middle}
+  .cmatrix thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-dim);border-bottom:1px solid var(--line-strong)}
+  .cmatrix .row-aigo{background:rgba(255,70,39,.07)}
+  .cmatrix .row-aigo td,.cmatrix .row-aigo th{border-bottom:1px solid rgba(255,70,39,.28)}
+  .cmatrix .yes{color:var(--green);font-weight:600}
+  .cmatrix .no{color:var(--text-faint)}
+  .cmx-name{font-weight:600;color:var(--text)}
+  .cmx-sub{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--text-faint);margin-top:3px;text-transform:none}
+
+  /* financial outlook table */
+  .finwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .fin{width:100%;border-collapse:collapse;font-family:var(--body);min-width:560px}
+  .fin th,.fin td{text-align:right;padding:12px 14px;border-bottom:1px solid var(--line);font-size:clamp(12px,1.1vw,15px)}
+  .fin th:first-child,.fin td:first-child{text-align:left}
+  .fin thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-dim)}
+  .fin tbody td{font-family:var(--mono);color:var(--text-dim)}
+  .fin .metric{font-family:var(--body);color:var(--text);font-weight:500}
+  .fin .dash{color:var(--accent);font-weight:600}
+
+  /* tiny status pill reused on revenue/traction */
+  .spill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid var(--line)}
+  .spill.live{color:var(--green);border-color:rgba(189,255,95,.4)}
+  .spill.soon{color:var(--text-dim)}
+  .spill .sd{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+
+  /* appendix divider hint */
+  .apx{font-family:var(--mono);font-size:11px;letter-spacing:.24em;color:var(--text-faint);text-transform:uppercase}
+  /* compact ask/raise so the closing note never clips */
+  #ask .two-up,#the-raise .two-up{margin-top:12px}
+  #ask .bignum,#the-raise .bignum{font-size:clamp(30px,3.6vw,48px)!important}
+  #ask .ask-r,#the-raise .ask-r{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;align-items:start;margin-top:10px}
+  #ask .ask-r h4,#the-raise .ask-r h4{grid-column:1/-1;margin-bottom:6px}
+  #ask .anchor-note,#the-raise .anchor-note{margin-top:10px}
+  @media(max-width:760px){#ask .ask-r,#the-raise .ask-r{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <!-- ============ HUD ============ -->
+  <div class="progress" id="progress"></div>
+  <div class="hud" aria-hidden="true">
+    <div class="hud-label hud-tl">AIGO STUDIOS // CRYPTO GAMES</div>
+    <div class="hud-label hud-tr"><span class="dot"></span>PRE-SEED · €750K</div>
+    <div class="hud-label hud-bl">CREATOR-LED CRYPTO GAMING</div>
+    <div class="hud-label hud-br" id="counter"><span class="cur">01</span> / <span class="tot">00</span></div>
+  </div>
+  <nav class="dots hud" id="dots" aria-label="Slide navigation"></nav>
+  <button id="pdf-btn" type="button" onclick="window.print()" aria-label="Download as PDF"><span>&#8595;</span> Download PDF</button>
+
+  <main class="deck">
+
+    <!-- 1 · COVER -->
+    <section class="slide stage-pure" id="cover">
+      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-hero" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <h1 class="display" data-anim data-d="1">Building the Future of<span class="nl">Creator-Led <span class="accent">Crypto Gaming</span></span></h1>
+        <div class="brandline" data-anim data-d="2">AIGO STUDIOS</div>
+        <p class="sub" data-anim data-d="2" style="text-align:center;max-width:62ch;margin:10px auto 0">The studio that makes the games. <span style="color:var(--text-dim)">(Its sister company, the Media Engine, makes the audience — a separate deck, a separate raise.)</span></p>
+        <div class="boot" data-anim data-d="3">
+          <span>CONFIDENTIAL INVESTOR PRESENTATION</span><span class="sep">·</span>
+          <span>RAISING €750K PRE-SEED</span>
+        </div>
+        <div data-anim data-d="4" style="margin-top:6px">
+          <button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch the trailer · 0:30</button>
+        </div>
+        <div class="cover-cta" data-anim data-d="5">
+          <span>NAVIGATE</span>
+          <span class="kbd">&larr;</span><span class="kbd">&rarr;</span>
+          <span class="kbd">SPACE</span>
+          <span>OR SCROLL</span>
+        </div>
+      </div>
+      <div class="scroll-hint">SCROLL TO BEGIN &darr;</div>
+    </section>
+
+    <!-- 2 · THE PROBLEM -->
+    <section class="slide stage-pure topalign" id="problem">
+      <div class="inner">
+        <div class="micro" data-anim>THE PROBLEM</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:16px;font-size:clamp(28px,3.8vw,52px)">Online gaming has a <span class="accent">distribution problem.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:14px">The largest operators spend hundreds of millions acquiring traffic &mdash; rising affiliate costs, increasing CPA, influencer inflation, weak retention, limited differentiation. The industry competes for the same users through the same channels. Acquisition has become the most expensive part of the business.</p>
+        <div class="pstats" data-anim data-d="3">
+          <div class="phero">
+            <div class="pn">$250&ndash;650</div>
+            <div class="pl">to acquire one depositing player · paid channels</div>
+          </div>
+          <div class="prest">
+            <div class="stat"><div class="num">~33%</div><div class="lbl">of DraftKings revenue spent on marketing · 2023</div></div>
+            <div class="stat"><div class="num"><span class="u">#1</span></div><div class="lbl">acquisition is the largest cost in online gaming</div></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:32px;font-size:clamp(19px,2.5vw,32px)">Everyone is buying the same players.<span class="nl"><span class="accent">Nobody is building the audience.</span></span></p>
+        <div class="srcline" data-anim data-d="5"><b>Sources:</b> Blask / Scaleo (iGaming CAC band) &middot; DraftKings 10-K, SEC (2023).</div>
+      </div>
+    </section>
+
+    <!-- 3 · THE THESIS (honest framing + hypothesis/test) -->
+    <section class="slide topalign" id="thesis">
+      <div class="inner">
+        <div class="micro" data-anim>OUR THESIS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,50px)">Win the audience before you<span class="nl">monetize the <span class="accent">player.</span></span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:14px;max-width:92ch">AIGO is a creator-led gaming company. The monetization engine underneath is a crypto casino &mdash; we&rsquo;re not hiding that. But our edge isn&rsquo;t another casino: it&rsquo;s <b style="color:var(--text);font-weight:600">how we acquire</b>. Instead of buying traffic, we build audiences through creator-led entertainment. If that lowers the cost of a player the way we believe, the economics of online gaming change.</p>
+        <div class="two-up" data-anim data-d="3" style="margin-top:24px;align-items:stretch">
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">THE HYPOTHESIS</div>
+            <h3 style="font-size:clamp(18px,2vw,26px);margin:10px 0 8px">Creator communities acquire players cheaper &mdash; and keep them.</h3>
+            <div class="pdesc">Audience-first distribution should beat the $250&ndash;650 paid CAC and build retention a casino can&rsquo;t buy on ad platforms.</div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">HOW WE PROVE IT</div>
+            <h3 style="font-size:clamp(18px,2vw,26px);margin:10px 0 8px">One pilot season, measured against the paid benchmark.</h3>
+            <div class="pdesc">Launch Vault Run with <span class="tbd">N creators</span>, then compare our cost-per-depositing-player to the paid CAC band. <b style="color:var(--text);font-weight:600">This round funds that proof.</b></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="4" style="margin-top:24px;font-size:clamp(17px,2.2vw,28px)">We&rsquo;re not asking you to believe a claim.<span class="nl">We&rsquo;re asking you to fund the <span class="accent">test.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 4 · VAULT RUN (the product, brief) -->
+    <section class="slide vault-slide stage-pure topalign" id="product">
+      <div class="inner">
+        <div class="micro" data-anim>THE PRODUCT · OUR FIRST FORMAT</div>
+        <img class="vrun-hero" src="assets/brand/vault-run-badge.png" alt="Vault Run" data-anim data-d="1" />
+        <p class="sub" data-anim data-d="2" style="margin:0 auto 14px;text-align:center;max-width:70ch">A creator enters a virtual vault &mdash; and the audience controls the journey. Every decision is voted on live. The prize pool rises with every door survived; one wrong choice loses it all. <span class="accent" style="font-weight:600">Every run becomes content the community shares.</span></p>
+        <div class="chips lit" data-anim data-d="3" style="justify-content:center;max-width:820px;margin:0 auto 14px">
+          <span class="chip">Mystery doors</span>
+          <span class="chip">Audience votes</span>
+          <span class="chip">Rising multipliers</span>
+          <span class="chip">Creator battles</span>
+          <span class="chip">Jackpot chambers</span>
+        </div>
+        <div class="vault-hero-shot" data-anim data-d="4">
+          <img src="assets/vault-doors.jpg" alt="Vault Run — the live door moment: SAFE, GREED, MYSTERY" loading="lazy" />
+        </div>
+        <div class="anchor-note" data-anim data-d="5" style="margin-top:14px;text-align:center">Full game mechanics live in the <b style="color:var(--text);font-weight:600">product appendix</b> &mdash; or watch the 30-second trailer above. This deck stays on the business.</div>
+      </div>
+    </section>
+
+    <!-- 5 · WHY WE WIN (owned vs rented audience) -->
+    <section class="slide topalign" id="why-we-win">
+      <div class="inner">
+        <div class="micro" data-anim>WHY WE WIN · DISTRIBUTION BEFORE GAMING</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">We create audiences <span class="accent">before we create customers.</span></h2>
+        <div class="two-up vcompare" data-anim data-d="2" style="margin-top:24px">
+          <div class="panel cmp readout" style="--ic:#4D4D4D">
+            <div class="micro">TRADITIONAL GAMING</div>
+            <div class="cmptag">Rented audience</div>
+            <div class="flow" style="margin-top:16px">
+              <div class="fstep"><span class="fnum">1</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3-5.5 7-5.5s7 1.9 7 5.5"/></svg></span><span class="ftext">Acquire players</span></div>
+              <div class="fconn"></div>
+              <div class="fstep"><span class="fnum">2</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/><path d="M5 11.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/></svg></span><span class="ftext">Monetize</span></div>
+            </div>
+            <div class="cmpfoot bad">&#10007; Pay for traffic up front · <b>CAC $250&ndash;650</b></div>
+          </div>
+          <div class="panel cmp accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">AIGO</div>
+            <div class="cmptag good">Owned audience</div>
+            <div class="flow aigo" style="margin-top:16px">
+              <div class="fstep"><span class="fnum">1</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg></span><span class="ftext">Create entertainment</span></div>
+              <div class="fconn"></div>
+              <div class="fstep"><span class="fnum">2</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c0-3.3 2.5-5 5.5-5s5.5 1.7 5.5 5"/><path d="M15.5 5.3a3 3 0 0 1 0 5.4M19.8 19c0-2.4-1.1-3.9-2.8-4.6"/></svg></span><span class="ftext">Build community</span></div>
+              <div class="fconn"></div>
+              <div class="fstep"><span class="fnum">3</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4a1 1 0 0 0 1 1h2.5L11 19V5L6.5 9H4a1 1 0 0 0-1 1z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/></svg></span><span class="ftext">Create audience</span></div>
+              <div class="fconn"></div>
+              <div class="fstep win"><span class="fnum">4</span><span class="ficon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/><path d="M5 11.5v5c0 1.66 3.13 3 7 3s7-1.34 7-3v-5"/></svg></span><span class="ftext">Monetize</span></div>
+            </div>
+            <div class="cmpfoot good">&#10003; The audience is earned, then owned</div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:26px;font-size:clamp(18px,2.4vw,30px)">Stake is a destination. <span class="accent">AIGO is the network that comes before it.</span></p>
+      </div>
+    </section>
+
+    <!-- 6 · COMPETITION (NEW) -->
+    <section class="slide stage-pure topalign" id="competition">
+      <div class="inner">
+        <div class="micro" data-anim>COMPETITIVE LANDSCAPE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">Everyone competes for the player.<span class="nl">We compete for the <span class="accent">audience.</span></span></h2>
+        <div class="cmwrap" data-anim data-d="2">
+          <table class="cmatrix">
+            <thead>
+              <tr>
+                <th>Who</th>
+                <th>How they acquire</th>
+                <th>Owns the audience</th>
+                <th>Creator-native</th>
+                <th>Original format / IP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cmx-name">Crypto casinos</span><span class="cmx-sub">Stake · BC.Game · Roobet</span></td>
+                <td>Paid ads + affiliates</td>
+                <td class="no">Rented</td>
+                <td class="no">Sponsorships only</td>
+                <td class="no">Generic casino</td>
+              </tr>
+              <tr>
+                <td><span class="cmx-name">Licensed operators</span><span class="cmx-sub">Bet365 · DraftKings</span></td>
+                <td>Brand + paid</td>
+                <td class="no">Rented</td>
+                <td class="no">No</td>
+                <td class="no">Sportsbook + casino</td>
+              </tr>
+              <tr>
+                <td><span class="cmx-name">Social / sweepstakes</span><span class="cmx-sub">Stake.us · Chumba</span></td>
+                <td>Paid</td>
+                <td class="no">Partial</td>
+                <td class="no">No</td>
+                <td class="no">Casino (coins)</td>
+              </tr>
+              <tr>
+                <td><span class="cmx-name">Crash / game-show formats</span><span class="cmx-sub">Aviator · Crazy Time</span></td>
+                <td>B2B &mdash; via operators</td>
+                <td class="no">No</td>
+                <td class="no">No</td>
+                <td>Single game</td>
+              </tr>
+              <tr class="row-aigo">
+                <td><span class="cmx-name accent">AIGO</span><span class="cmx-sub">Vault Run</span></td>
+                <td><b style="color:var(--text)">Creator-led · owned</b></td>
+                <td class="yes">Yes</td>
+                <td class="yes">Yes &mdash; core</td>
+                <td class="yes">Vault Run IP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.3vw,29px)">No one is building the <span class="accent">acquisition network</span> that sits in front of the casino.</p>
+        <div class="srcline" data-anim data-d="4"><b>Note:</b> landscape simplified for clarity. <span class="tbd">Deeper competitor analysis + sources to add with George.</span></div>
+      </div>
+    </section>
+
+    <!-- 7 · MARKET OPPORTUNITY (five markets) -->
+    <section class="slide topalign" id="market">
+      <div class="inner">
+        <div class="micro" data-anim>MARKET OPPORTUNITY</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:16px;font-size:clamp(28px,3.8vw,50px)">We sit at the intersection of <span class="accent">five markets.</span></h2>
+        <div class="cvg cvg5" data-anim data-d="2">
+          <div class="cvg-left">
+            <div class="cnode" style="--ic:#8B5CFF">
+              <div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+              <div><div class="cname">Creator Economy</div><div class="cval">$250B+</div><div class="cdesc">Audiences follow people, not logos.</div></div>
+            </div>
+            <div class="cnode" style="--ic:#5BC8FF">
+              <div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg></div>
+              <div><div class="cname">Live Streaming</div><div class="cval">1B+ viewers</div><div class="cdesc">Watching games played is the biggest spectator activity on earth.</div></div>
+            </div>
+            <div class="cnode" style="--ic:#BDFF5F">
+              <div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg></div>
+              <div><div class="cname">Social Gaming</div><div class="cval">$8B+</div><div class="cdesc">People already pay to play games that are free.</div></div>
+            </div>
+            <div class="cnode" style="--ic:#FF4627">
+              <div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18A14 14 0 0 1 12 3"/></svg></div>
+              <div><div class="cname">Online Gaming</div><div class="cval">$100B+ GGR</div><div class="cdesc">The monetization is proven, high-margin and global.</div></div>
+            </div>
+            <div class="cnode" style="--ic:#E8C66B">
+              <div class="cicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5l2 2 4-4.5"/><rect x="3" y="4" width="18" height="16" rx="3"/></svg></div>
+              <div><div class="cname">Interactive Entertainment</div><div class="cval">The format</div><div class="cdesc">Polls, votes, missions &mdash; participation, not passivity.</div></div>
+            </div>
+          </div>
+          <div class="cvg-conv" aria-hidden="true">
+            <svg viewBox="0 0 460 420" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="ov-a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8B5CFF" stop-opacity="0"/><stop offset="0.18" stop-color="#8B5CFF" stop-opacity="0.6"/><stop offset="1" stop-color="#FF4627" stop-opacity="0.95"/></linearGradient>
+                <linearGradient id="ov-b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5BC8FF" stop-opacity="0"/><stop offset="0.18" stop-color="#5BC8FF" stop-opacity="0.6"/><stop offset="1" stop-color="#FF4627" stop-opacity="0.95"/></linearGradient>
+                <linearGradient id="ov-c" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#BDFF5F" stop-opacity="0"/><stop offset="0.18" stop-color="#BDFF5F" stop-opacity="0.6"/><stop offset="1" stop-color="#FF4627" stop-opacity="0.95"/></linearGradient>
+                <linearGradient id="ov-d" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF4627" stop-opacity="0.25"/><stop offset="1" stop-color="#FF4627" stop-opacity="0.95"/></linearGradient>
+                <linearGradient id="ov-e" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E8C66B" stop-opacity="0"/><stop offset="0.18" stop-color="#E8C66B" stop-opacity="0.6"/><stop offset="1" stop-color="#FF4627" stop-opacity="0.95"/></linearGradient>
+              </defs>
+              <g class="cflow">
+                <path d="M0,42 C220,42 300,210 416,210" fill="none" stroke="url(#ov-a)" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M0,126 C220,126 300,210 416,210" fill="none" stroke="url(#ov-b)" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M0,210 L416,210" fill="none" stroke="url(#ov-c)" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M0,294 C220,294 300,210 416,210" fill="none" stroke="url(#ov-d)" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M0,378 C220,378 300,210 416,210" fill="none" stroke="url(#ov-e)" stroke-width="1.7" stroke-linecap="round"/>
+              </g>
+            </svg>
+            <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
+          </div>
+        </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:26px;font-size:clamp(18px,2.4vw,30px)"><span class="micro" style="display:block;margin-bottom:6px">OUR BET</span>We don&rsquo;t win by taking existing players.<span class="nl">We win by <span class="accent">bringing new audiences into gaming.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 8 · THE ATTENTION (proof) -->
+    <section class="slide stage-pure topalign" id="attention">
+      <div class="inner">
+        <div class="micro" data-anim>WHY THIS FORMAT · THE ATTENTION</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(24px,3.2vw,42px)">The world&rsquo;s biggest audience is watching games being played.</h2>
+        <div class="stats s3" data-anim data-d="2" style="margin-top:28px">
+          <div class="stat"><div class="num">20.8B</div><div class="lbl"><span class="plogo" style="color:#9146FF"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg></span>Twitch hours watched · 2024</div></div>
+          <div class="stat"><div class="num">4.5B</div><div class="lbl"><span class="plogo" style="color:#BDFF5F"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg></span>Kick hours · +131% YoY</div></div>
+          <div class="stat"><div class="num"><span class="u">Top 3</span></div><div class="lbl"><span class="plogo" style="color:#BDFF5F"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z"/></svg></span>Kick category: Slots &amp; Casino</div></div>
+        </div>
+        <div class="hero2" data-anim data-d="3">
+          <div class="h2l">
+            <div class="hv">1,165,140</div>
+            <div class="hxt">people once played one game together &mdash; the most participatory event in streaming history.</div>
+            <div class="hxs">Twitch Plays Pokémon · Guinness World Record, 2014</div>
+          </div>
+          <div class="h2r">
+            <div class="stmt">Crowd-controlled play set a world record.<span class="nl">Vault Run makes it a <span class="accent">format.</span></span></div>
+            <div class="h2rtag">The same loop &mdash; now on stream, with the crowd voting the doors</div>
+          </div>
+        </div>
+        <div class="srcline" data-anim data-d="4" style="margin-top:24px"><b>Sources:</b> TwitchTracker / Business of Apps (2024) &middot; Stream Hatchet / Streams Charts (Kick, 2025) &middot; Guinness World Records (2014)</div>
+      </div>
+    </section>
+
+    <!-- 9 · BUSINESS MODEL / REVENUE STREAMS -->
+    <section class="slide topalign" id="model">
+      <div class="inner">
+        <div class="micro" data-anim>BUSINESS MODEL · REVENUE STREAMS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(26px,3.4vw,46px)">Many ways to monetize one audience.</h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px">Today we earn casino revenue (NGR) from 7 live games. As Vault Run launches, the same audience unlocks five more streams &mdash; without buying more traffic.</p>
+        <div class="three-up" data-anim data-d="3" style="margin-top:18px">
+          <div class="readout rev" style="--ic:var(--accent)">
+            <div class="rnum">01</div>
+            <div class="micro">CASINO · NGR</div>
+            <h3>Pay-to-play games</h3>
+            <div class="pdesc">Our 7 live games on AIGO &mdash; the real-money, high-margin engine.</div>
+            <div class="pfoot"><span class="spill live"><span class="sd"></span>Live today</span></div>
+          </div>
+          <div class="readout rev" style="--ic:var(--green)">
+            <div class="rnum">02</div>
+            <div class="micro green">SUBSCRIPTIONS</div>
+            <h3>PRO status</h3>
+            <div class="pdesc">Some prizes drop for everyone; the biggest go only to PRO members. Recurring revenue.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>As Vault Run launches</span></div>
+          </div>
+          <div class="readout rev" style="--ic:var(--green)">
+            <div class="rnum">03</div>
+            <div class="micro green">SPONSORSHIPS</div>
+            <h3>Brands fund the rewards</h3>
+            <div class="pdesc">Prizes, the rewards exchange and full seasons funded by brands and partners.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>As Vault Run launches</span></div>
+          </div>
+          <div class="readout rev" style="--ic:#5BC8FF">
+            <div class="rnum">04</div>
+            <div class="micro" style="color:#5BC8FF">OWNED DATA</div>
+            <h3>First-party database</h3>
+            <div class="pdesc">Login + email are required to watch and vote &mdash; a database that compounds in value.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>As Vault Run launches</span></div>
+          </div>
+          <div class="readout rev" style="--ic:#5BC8FF">
+            <div class="rnum">05</div>
+            <div class="micro" style="color:#5BC8FF">PREMIUM FORMAT</div>
+            <h3>Vault Run Gaming</h3>
+            <div class="pdesc">The premium pay-to-play version of the format, once it&rsquo;s globally strong.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>Future</span></div>
+          </div>
+          <div class="readout rev" style="--ic:#E8C66B">
+            <div class="rnum">06</div>
+            <div class="micro" style="color:#E8C66B">LICENSING</div>
+            <h3>Every casino wants it</h3>
+            <div class="pdesc">License Vault Run to other casinos &mdash; recurring B2B revenue on top.</div>
+            <div class="pfoot"><span class="spill soon"><span class="sd"></span>Future</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · TRACTION / WHAT'S LIVE TODAY (honest) -->
+    <section class="slide stage-pure topalign" id="traction">
+      <div class="inner">
+        <div class="micro" data-anim>TRACTION · WHERE WE ARE TODAY</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">What&rsquo;s built, what&rsquo;s next &mdash; <span class="accent">honestly.</span></h2>
+        <div class="three-up" data-anim data-d="2" style="margin-top:22px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">BUILT &amp; PLAYABLE</div>
+            <h3 style="margin:10px 0 12px">Product foundation</h3>
+            <div class="pdesc" style="margin-bottom:12px">7 casino games on AIGO &middot; Hexark free-to-play platform &middot; brand &amp; tech stack.</div>
+            <div class="status"><span class="sd"></span>Shipped &mdash; built, not yet revenue-proven</div>
+          </div>
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">IN BUILD</div>
+            <h3 style="margin:10px 0 12px">Vault Run MVP</h3>
+            <div class="pdesc" style="margin-bottom:12px">Audience voting, creator battles, leaderboards &mdash; the format itself.</div>
+            <div class="status"><span class="sd"></span>In development</div>
+          </div>
+          <div class="panel accent-p readout" style="--ic:var(--accent)">
+            <div class="micro">NOT YET TESTED</div>
+            <h3 style="margin:10px 0 12px">Creator-led acquisition</h3>
+            <div class="pdesc" style="margin-bottom:12px">First creator pilot season &amp; first sponsor / operator client &mdash; targeted for <span class="tbd">Q_ 2026</span>.</div>
+            <div class="status"><span class="sd"></span>This is what the round funds</div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="3" style="margin-top:24px">We have a product. <b style="color:var(--text);font-weight:600">We have not yet proven creator-led acquisition at scale</b> &mdash; and we&rsquo;re not pretending we have. Proving it is the entire purpose of this round. <span class="tbd">Early metrics (users, games played, waitlist) to add here.</span></div>
+      </div>
+    </section>
+
+    <!-- 11 · THE PLAN / HOW WE TEST -->
+    <section class="slide topalign" id="plan">
+      <div class="inner">
+        <div class="micro" data-anim>THE PLAN · PROVE THE THESIS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">One pilot season. <span class="accent">One number to prove.</span></h2>
+        <div class="three-up" data-anim data-d="2" style="margin-top:22px">
+          <div class="panel readout" style="padding:22px 24px;--ic:var(--green)">
+            <div class="micro green">STEP 1 · LAUNCH</div>
+            <h3 style="font-size:clamp(19px,2.1vw,26px);margin:10px 0 10px"><span class="tbd">50&ndash;100</span> creators</h3>
+            <div class="pdesc">Recruit a launch cohort across gambling, crypto, gaming and entertainment.</div>
+          </div>
+          <div class="panel readout" style="padding:22px 24px;--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">STEP 2 · RUN</div>
+            <h3 style="font-size:clamp(19px,2.1vw,26px);margin:10px 0 10px">A <span class="tbd">_-week</span> season</h3>
+            <div class="pdesc">Weekly Vault Runs, creator battles and community challenges &mdash; a repeatable cadence.</div>
+          </div>
+          <div class="panel accent-p readout" style="padding:22px 24px;--ic:var(--accent)">
+            <div class="micro">STEP 3 · MEASURE</div>
+            <h3 style="font-size:clamp(19px,2.1vw,26px);margin:10px 0 10px">CAC vs the benchmark</h3>
+            <div class="pdesc">Cost per registered &amp; per depositing player vs the $250&ndash;650 paid band &mdash; plus retention.</div>
+          </div>
+        </div>
+        <div class="anchor-note" data-anim data-d="3" style="margin-top:22px"><span class="accent" style="font-weight:600">The proof point:</span> if creator-led CAC comes in materially below paid CAC &mdash; target <span class="tbd">&lt; $___</span> per depositing player &mdash; we raise the seed to scale, and convert the first sponsor and the first operator licensing deal.</div>
+      </div>
+    </section>
+
+    <!-- 12 · FINANCIAL OUTLOOK (placeholder) -->
+    <section class="slide stage-pure topalign" id="financials">
+      <div class="inner">
+        <div class="micro" data-anim>FINANCIAL OUTLOOK · ILLUSTRATIVE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(26px,3.4vw,46px)">The model scales with the format.</h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:10px">Five-year revenue depends on whether Vault Run becomes a repeatable hit &mdash; so we&rsquo;ll model it properly <b style="color:var(--text);font-weight:600">after the pilot validates CAC and conversion.</b> The shape is the point: one owned audience, monetized across multiple streams.</p>
+        <div class="ph" data-anim data-d="3" style="margin-top:26px">
+          <div class="finwrap">
+          <table class="fin">
+            <thead>
+              <tr><th>Metric</th><th>Today</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Year 5</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="metric">Registered users</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+              <tr><td class="metric">Active participants</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+              <tr><td class="metric">Paying users</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+              <tr><td class="metric">Annual revenue (NGR + subs)</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td><td class="dash">—</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="srcline" data-anim data-d="4" style="margin-top:18px"><b>Note:</b> projections intentionally left blank &mdash; <span class="tbd">George + team to fill after the pilot</span>. We&rsquo;d rather show a real model than a fantasy one.</div>
+      </div>
+    </section>
+
+    <!-- 13 · TEAM -->
+    <section class="slide topalign" id="team">
+      <div class="inner">
+        <div class="micro" data-anim>THE TEAM · AIGO</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">A complementary team that has <span class="accent">shipped together.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin-top:8px">Operators and builders from Bet365, Superbet and NeoAds &mdash; <span class="tbd">25+ years combined</span> across iGaming, product, growth and fundraising.</p>
+        <div class="team" data-anim data-d="3" style="margin-top:16px">
+          <div class="person">
+            <div class="mono" style="--ic:#BDFF5F">AN</div>
+            <div class="trole">CO-FOUNDER · COMMERCIAL &amp; STRATEGY</div>
+            <div class="tname">Andreea N&#259;ftic&#259;</div>
+            <div class="tmandate">10+ years driving commercial growth, product launches, and market expansion across iGaming with Bet365 and Superbet.</div>
+            <div class="ttoken">Bet365 &middot; Superbet</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#FF4627">GP</div>
+            <div class="trole">CO-FOUNDER · PRODUCT, DESIGN &amp; AI</div>
+            <div class="tname">George P&#259;tru</div>
+            <div class="tmandate">Product vision, game design, AI-native development, UX/UI and content.</div>
+            <div class="ttoken">15+ yrs &middot; product, design, AI-enablement, Web3 &middot; crypto iGaming</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#E8C66B">RT</div>
+            <div class="trole">MARKETING EXPERT</div>
+            <div class="tname">Radu T&#259;nase</div>
+            <div class="tmandate">Performance marketing, paid acquisition and growth across AIGO &amp; Hexark.</div>
+            <div class="ttoken">Owns NeoAds &middot; #1 Google Partner in Romania</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#5BC8FF">JH</div>
+            <div class="trole">FUNDRAISING &amp; STRATEGIC ADVISOR</div>
+            <div class="tname">J.H.</div>
+            <div class="tmandate">Fundraising, investor relations and corporate strategy.</div>
+            <div class="ttoken">Strategic advisor</div>
+          </div>
+          <div class="person">
+            <div class="mono" style="--ic:#8B5CFF">SV</div>
+            <div class="trole">BUSINESS DEVELOPMENT</div>
+            <div class="tname">S.V.</div>
+            <div class="tmandate">Creator partnerships, strategic relationships and community growth.</div>
+            <div class="ttoken">Business development</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 · THE ASK (€500K) -->
+    <section class="slide topalign" id="ask">
+      <div class="inner">
+        <div class="micro" data-anim>THE ASK</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,48px)">Raising <span class="accent">€750K</span> pre-seed &mdash; de-risked in two tranches.</h2>
+        <div class="two-up" data-anim data-d="2" style="margin-top:18px;align-items:stretch">
+          <div class="panel green-p readout" style="--ic:var(--green)">
+            <div class="micro green">TRANCHE 1 · NOW</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(40px,5vw,64px);color:var(--green);line-height:.95;margin:6px 0 2px">€400K</div>
+            <div class="pdesc">Funds <b style="color:var(--text);font-weight:600">one proof</b>: one Vault Run creator-led season that shows our CAC comes in materially below the $250&ndash;650 paid band per depositing player.</div>
+          </div>
+          <div class="panel readout" style="--ic:#5BC8FF">
+            <div class="micro" style="color:#5BC8FF">TRANCHE 2 · ON MILESTONES</div>
+            <div style="font-family:var(--display);font-weight:700;font-size:clamp(40px,5vw,64px);color:#5BC8FF;line-height:.95;margin:6px 0 2px">€350K</div>
+            <div class="pdesc">Unlocked once T1 proves the CAC number &mdash; then scale the format. An <b style="color:var(--text);font-weight:600">option on scale</b>, not spend committed today.</div>
+          </div>
+        </div>
+        <div class="ask-r" data-anim data-d="3" style="margin-top:16px">
+          <h4>Use of funds <span class="tbd">confirm split</span></h4>
+          <div class="cacbar"><div class="cl"><span>Creator pilot &amp; acquisition</span><b>45%</b></div><div class="ct"><i style="--w:100%;background:var(--accent)"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Product &middot; Vault Run MVP</span><b>25%</b></div><div class="ct"><i style="--w:56%;background:#5BC8FF"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Content &amp; community</span><b>15%</b></div><div class="ct"><i style="--w:33%;background:#BDFF5F"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Marketing</span><b>10%</b></div><div class="ct"><i style="--w:22%;background:#E8C66B"></i></div></div>
+          <div class="cacbar"><div class="cl"><span>Operations &amp; legal</span><b>5%</b></div><div class="ct"><i style="--w:11%;background:#8B5CFF"></i></div></div>
+        </div>
+        <div class="anchor-note" data-anim data-d="4">Once creator-led CAC is validated, we raise a <b style="color:var(--text);font-weight:600">€4&ndash;6M seed</b> to scale. The real-money casino is a <b style="color:var(--text);font-weight:600">separately licensed entity</b> &mdash; AIGO Studios licenses its game IP to it and never holds the gambling licence itself. <span class="tbd">Licensing jurisdiction + counsel to confirm.</span></div>
+      </div>
+    </section>
+
+    <!-- 15 · CLOSE / CTA -->
+    <section class="slide stage-pure" id="close">
+      <svg class="star-bg" style="width:50vw;bottom:-18vh;left:-12vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <div class="inner">
+        <img class="star-close" src="assets/brand/star.png" alt="AIGO star" data-anim />
+        <h2 class="headline" data-anim data-d="1" style="font-size:clamp(30px,4.4vw,60px);text-align:center">Let&rsquo;s prove it <span class="accent">together.</span></h2>
+        <p class="sub" data-anim data-d="2" style="margin:16px auto 0;text-align:center;max-width:70ch">We&rsquo;re raising <b style="color:var(--text);font-weight:600">€750K</b> to run the first creator-led season and prove the unit economics. If it works, we scale a new category of crypto gaming &mdash; and the seed that follows.</p>
+        <div class="tagline" data-anim data-d="3" style="margin-top:26px">AIGO Studios &middot; Building the future of creator-led crypto gaming</div>
+        <div class="urls" data-anim data-d="4"><span class="accent">aigostudios.com</span> &nbsp;·&nbsp; hexark.io &nbsp;·&nbsp; <span class="tbd">contact / email</span></div>
+        <div data-anim data-d="4" style="margin-top:6px"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch the trailer · 0:30</button></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FILM MODAL ============ -->
+  <div class="modal" id="film-modal" role="dialog" aria-modal="true" aria-label="AIGO pitch film">
+    <div class="box">
+      <div class="close-x" data-film-close>CLOSE &times;</div>
+      <video id="film-video" controls playsinline preload="none" poster="assets/brand/star.png">
+        <source src="https://equwbgucibrtqpjzivhy.supabase.co/storage/v1/object/public/pitch/vaultrun-trailer-vo5.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+
+  <script src="js/deck.js"></script>
+</body>
+</html>
