@@ -68,36 +68,30 @@
   .ch-rel b{font-family:var(--display);font-weight:700;font-size:clamp(19px,2.5vw,32px);color:var(--text);display:block;text-shadow:0 2px 30px rgba(0,0,0,.7)}
   .ch-rel span{display:block;font-family:var(--body);font-size:clamp(12px,1.3vw,15px);color:var(--text-dim);margin-top:7px;max-width:40ch}
 
+  .ch-seam-star{display:none}
   .ch-foot{position:absolute;bottom:clamp(16px,3vh,30px);left:50%;transform:translateX(-50%);z-index:7;
     font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint);
     white-space:nowrap;opacity:0;animation:chfade .8s var(--ease-enter) 1s forwards}
 
   @media(max-width:760px){
-    /* mobile = star in a TOP BAND, then a clean centered column: STUDIOS · divider · ENGINE · tagline · foot */
-    #chooser{overflow-y:auto;-webkit-overflow-scrolling:touch}
-    #ch-gl{inset:0 0 auto 0;height:30vh}                        /* canvas = top band only; renderer sizes to it → star always at top, never on the text */
-    .ch-eyebrow{font-size:9px;letter-spacing:.16em;top:16px}
-    .ch-split{position:relative;inset:auto;display:flex;flex-direction:column;
-      padding:calc(30vh + 10px) 22px 0}
-    .ch-half{min-height:auto;justify-content:center;align-items:center;text-align:center;padding:24px 0}
-    .ch-half + .ch-half{border-top:1px solid rgba(255,255,255,.08)}
-    .ch-meta{max-width:32ch;margin:0 auto !important;text-align:center !important;
-      display:flex;flex-direction:column;align-items:center}
+    /* mobile = a true FULL SPLIT SCREEN: two tappable halves (top STUDIOS · bottom ENGINE), star badge on the seam */
+    #chooser{overflow:hidden}
+    #ch-gl{display:none}                                        /* no WebGL on mobile */
+    .ch-seam-star{display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:auto;z-index:5;pointer-events:none;filter:drop-shadow(0 0 20px rgba(255,150,80,.5))}
+    .ch-eyebrow{font-size:9px;letter-spacing:.16em;top:14px;z-index:7}
+    .ch-split{position:absolute;inset:0;display:grid;grid-template-columns:1fr;grid-template-rows:1fr 1fr;z-index:2}
+    .ch-half{min-height:0;justify-content:center;align-items:center;text-align:center;padding:30px 26px}
+    .ch-studios{background:radial-gradient(120% 88% at 50% 44%,rgba(255,70,39,.11),transparent 64%)}
+    .ch-engine{background:radial-gradient(120% 88% at 50% 56%,rgba(91,200,255,.12),transparent 64%);border-top:1px solid rgba(255,255,255,.10)}
+    .ch-meta{max-width:30ch;margin:0 auto !important;text-align:center !important;display:flex;flex-direction:column;align-items:center}
     .ch-engine .ch-meta{text-align:center !important;margin:0 auto !important}
-    .ch-sub{max-width:30ch;margin:12px auto 0 !important}
-    .ch-engine .ch-sub{margin:12px auto 0 !important}
-    .ch-enter{margin-top:16px;opacity:1;transform:none}
+    .ch-title{font-size:clamp(28px,7.8vw,38px)}
     .ch-title::after{left:50%;right:auto;transform:translateX(-50%) scaleX(1);transform-origin:center;bottom:-7px}
-    .ch-vig{background:radial-gradient(130% 70% at 50% 19%,transparent 22%,rgba(0,0,0,.5) 64%,rgba(0,0,0,.9))}
-    .ch-core{position:relative;inset:auto;left:auto;top:auto;transform:none;
-      margin:14px auto 0;padding:26px 24px 0;gap:8px;animation:chfade .8s ease .2s forwards;
-      border-top:1px solid rgba(255,255,255,.08);max-width:none}
-    .ch-core::before{display:none}
-    .ch-rel b{font-size:15px;letter-spacing:.01em}             /* smaller tagline so the split dominates */
-    .ch-rel span{display:none}                                 /* drop the long line on mobile — less text at the bottom */
-    .ch-decide{margin-top:8px;font-size:9px}
-    .ch-foot{position:relative;inset:auto;bottom:auto;left:auto;transform:none;
-      margin:22px auto 30px;white-space:normal;width:88%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.1em}
+    .ch-sub,.ch-engine .ch-sub{max-width:27ch;margin:11px auto 0 !important}
+    .ch-enter{margin-top:14px;opacity:1;transform:none}
+    .ch-vig{display:none}
+    .ch-core{display:none}                                      /* drop the bottom "two companies / two raises" cluster */
+    .ch-foot{bottom:8px;font-size:8px;letter-spacing:.1em;white-space:nowrap;width:auto;opacity:.5;pointer-events:none}
   }
   @media(prefers-reduced-motion:reduce){
     #ch-gl,.ch-eyebrow,.ch-half,.ch-core,.ch-foot{animation:none;opacity:1}
@@ -132,6 +126,7 @@
     </div>
 
     <div class="ch-vig" aria-hidden="true"></div>
+    <img class="ch-seam-star" src="assets/brand/star.png" alt="" aria-hidden="true" />
 
     <div class="ch-core">
       <div class="ch-rel">
@@ -176,6 +171,7 @@
     if (!canvas || !window.WebGLRenderingContext) return;
     try {
       var mobile = innerWidth < 760, FOV = 58;
+      if (mobile) return;                       // mobile = full split + a static star badge; no WebGL (robust, no projection issues)
       var cr0 = canvas.getBoundingClientRect();
       var W = Math.max(2, Math.round(cr0.width)) || innerWidth, H = Math.max(2, Math.round(cr0.height)) || innerHeight;
       var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
@@ -227,7 +223,7 @@
       geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
       geo.setAttribute('color', new THREE.BufferAttribute(col,3));
       var pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: mobile?0.085:0.064, map: dot, vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true, opacity: 0.96 }));
-      var group = new THREE.Group(); group.position.y = 0.7; group.add(pts); scene.add(group);   // centered in its canvas box (full-screen desktop / top band mobile)
+      var group = new THREE.Group(); group.position.y = mobile ? 0.5 : 0.7; group.add(pts); scene.add(group);   // centered in its canvas box (full-screen desktop / small badge mobile)
 
       /* ---- STAR target: EXACT logo sampled from star.png (warm) ---- */
       var simg = new Image(); simg.crossOrigin = 'anonymous';
@@ -251,7 +247,7 @@
 
       /* subtle seam — a faint hairline, not a beam */
       var seamMat = new THREE.MeshBasicMaterial({ color: 0x8C95A6, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.1 });
-      var seam = new THREE.Mesh(new THREE.PlaneGeometry(0.05, 17), seamMat); seam.position.z = -2.2; if (mobile) seam.rotation.z = Math.PI/2; scene.add(seam);
+      var seam = new THREE.Mesh(new THREE.PlaneGeometry(0.05, 17), seamMat); seam.position.z = -2.2; seam.visible = !mobile; scene.add(seam);   // no seam inside the small mobile star badge
 
       /* restrained bloom */
       var composer = null, bloom = null;
@@ -286,7 +282,7 @@
         spin += dt * m * 1.3;                                          // only spins up as the engine
         group.rotation.y = spin + Math.sin(t*0.4)*0.30*(1-m);          // gentle wobble as star, turbine spin as engine
         group.rotation.x = Math.sin(t*0.3)*0.10*(1-m);
-        group.scale.setScalar((mobile?1.25:1) * (1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07));
+        group.scale.setScalar((mobile?1.7:1) * (1 + Math.sin(t*1.2)*0.025 + m*0.05 + glow*0.07));
         seamMat.opacity = 0.08 + Math.abs(hov)*0.16;
         if (composer) composer.render(); else renderer.render(scene, camera);
       }
