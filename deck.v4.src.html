@@ -91,7 +91,9 @@
       margin:14px auto 0;padding:26px 24px 0;gap:8px;animation:chfade .8s ease .2s forwards;
       border-top:1px solid rgba(255,255,255,.08);max-width:none}
     .ch-core::before{display:none}
-    .ch-rel b{font-size:20px}
+    .ch-rel b{font-size:19px}
+    .ch-rel span{display:none}                                 /* drop the long line on mobile — less text at the bottom */
+    .ch-decide{margin-top:9px}
     .ch-foot{position:relative;inset:auto;bottom:auto;left:auto;transform:none;
       margin:22px auto 30px;white-space:normal;width:88%;text-align:center;line-height:1.7;font-size:9px;letter-spacing:.1em}
   }
@@ -149,10 +151,14 @@
     var state = { hover: 0 }; // -1 studios, +1 engine, 0 none
     try { if (sessionStorage.getItem('aigo_seen_chooser')) document.body.classList.add('seen');
           else sessionStorage.setItem('aigo_seen_chooser', '1'); } catch (e) {}
-    a.addEventListener('mouseenter', function () { state.hover = -1; });
-    a.addEventListener('mouseleave', function () { state.hover = 0; });
-    b.addEventListener('mouseenter', function () { state.hover = 1; });
-    b.addEventListener('mouseleave', function () { state.hover = 0; });
+    /* hover-morph only on real pointing devices — never on touch (a tap must NOT morph the star into the engine) */
+    var canHover = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (canHover) {
+      a.addEventListener('mouseenter', function () { state.hover = -1; });
+      a.addEventListener('mouseleave', function () { state.hover = 0; });
+      b.addEventListener('mouseenter', function () { state.hover = 1; });
+      b.addEventListener('mouseleave', function () { state.hover = 0; });
+    }
     return state;
   })();
 
