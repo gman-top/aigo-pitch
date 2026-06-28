@@ -374,12 +374,13 @@
   .hyp2{ display:grid; grid-template-columns:.82fr 1.18fr; gap:40px; align-items:center; margin-top:24px; }
   .cacchart{ display:flex; flex-direction:column; gap:26px; }
   .ccrow .ccl{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); margin-bottom:11px; }
-  .cctrack{ position:relative; height:26px; border-radius:7px; background:rgba(255,255,255,.05); box-shadow:inset 0 2px 14px rgba(0,0,0,.5); }
-  .ccfill{ height:100%; border-radius:7px; }
-  .ccfill.paid{ background:linear-gradient(90deg,rgba(255,106,77,.78),rgba(255,106,77,.4)); }
-  .ccfill.aigo{ background:linear-gradient(90deg,rgba(189,255,95,.95),rgba(189,255,95,.55)); box-shadow:0 0 24px rgba(189,255,95,.5); }
-  .ccgap{ position:absolute; top:-4px; bottom:-4px; left:68%; right:0; border-left:1px dashed rgba(189,255,95,.6); display:flex; align-items:center; justify-content:center; }
-  .ccgap span{ font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; color:var(--own); background:var(--stage); padding:1px 7px; }
+  .cctrack{ position:relative; height:30px; border-radius:8px; background:rgba(255,255,255,.04); box-shadow:inset 0 1px 3px rgba(0,0,0,.55); }
+  .ccfill{ height:100%; border-radius:8px; position:relative; }
+  /* clean, solid brand fills with a subtle top sheen — no muddy fade */
+  .ccfill.paid{ background:linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,0) 55%), var(--accent); box-shadow:0 3px 16px rgba(255,70,39,.20); }
+  .ccfill.aigo{ background:linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,0) 55%), var(--own); box-shadow:0 0 20px rgba(189,255,95,.26), 0 3px 14px rgba(189,255,95,.14); }
+  .ccgap{ position:absolute; top:0; bottom:0; left:68%; right:0; border-radius:0 8px 8px 0; border-left:1px dashed rgba(189,255,95,.5); background:repeating-linear-gradient(135deg, rgba(189,255,95,.07) 0 5px, transparent 5px 11px); display:flex; align-items:center; justify-content:center; }
+  .ccgap span{ font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; color:var(--own); background:rgba(8,9,11,.82); padding:2px 10px; border-radius:100px; border:1px solid rgba(189,255,95,.32); }
   .cacstrip{ margin-top:26px; border:1px solid var(--line); border-radius:12px; background:radial-gradient(135% 100% at 50% -12%, rgba(255,255,255,.05), transparent 56%), var(--stage2); box-shadow:inset 0 1px 0 rgba(255,255,255,.06); padding:15px 22px; font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--text-dim); line-height:1.7; }
   .cacstrip b{ color:var(--accent); } .cacstrip .div{ color:var(--own); } .cacstrip .op{ color:var(--text-faint); }
   .hyp2 .bn{ font-family:var(--display); font-weight:700; font-size:clamp(64px,11vw,150px); line-height:.84; letter-spacing:-.03em; }
