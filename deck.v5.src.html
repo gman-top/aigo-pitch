@@ -274,8 +274,16 @@
   .bighero .bl{ font-family:var(--body); font-size:15px; color:var(--text); margin-top:16px; line-height:1.55; max-width:38ch; }
   .bighero .bl span{ display:block; margin-top:10px; padding-top:10px; border-top:1px solid rgba(189,255,95,.25); font-size:12.5px; }
   @media(max-width:860px){ .bighero{ grid-template-columns:1fr; gap:20px; } }
-  /* circular glowing avatars (V3 team) */
-  .tcard .tav{ border-radius:50% !important; background:radial-gradient(circle at 50% 34%, rgba(255,70,39,.24), rgba(255,70,39,.05)) !important; box-shadow:0 0 20px -2px rgba(255,70,39,.55), inset 0 0 0 1px rgba(255,70,39,.55) !important; border:none !important; }
+  /* circular monogram — true gradient hairline ring + glow; tier brightness ramp (no photos) */
+  .tcard .tav{ width:54px; height:54px; border-radius:50%; display:grid; place-items:center; position:relative; margin-bottom:18px; font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.02em; color:var(--accent); background:radial-gradient(circle at 50% 30%, rgba(255,70,39,.20), rgba(255,70,39,.03) 70%), var(--stage); }
+  .tcard .tav::before{ content:""; position:absolute; inset:-1px; border-radius:50%; padding:1px; background:conic-gradient(from 220deg, rgba(255,70,39,.9), rgba(255,70,39,.15) 45%, rgba(255,70,39,.55) 75%, rgba(255,70,39,.9)); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+  .tcard .tav::after{ content:""; position:absolute; inset:0; border-radius:50%; box-shadow:0 0 22px -3px rgba(255,70,39,.5); }
+  .tcard.founder .tav{ color:#fff; background:radial-gradient(circle at 50% 28%, rgba(255,70,39,.34), rgba(255,70,39,.05) 72%), var(--stage); }
+  .tcard.founder .tav::after{ box-shadow:0 0 30px -2px rgba(255,70,39,.7); }
+  .tcard.advisor .tav{ color:var(--text); background:radial-gradient(circle at 50% 30%, rgba(255,70,39,.10), rgba(255,70,39,.02) 70%), var(--stage); }
+  .tcard.advisor .tav::before{ background:conic-gradient(from 220deg, rgba(255,70,39,.5), rgba(255,255,255,.06) 50%, rgba(255,70,39,.3)); }
+  .tcard.advisor .tav::after{ box-shadow:0 0 16px -4px rgba(255,70,39,.32); }
+  .tcard.founder .tav .ftick{ position:absolute; top:3px; right:3px; width:6px; height:6px; border-radius:2px; background:var(--own); box-shadow:0 0 8px rgba(189,255,95,.75); }
   /* ecosystem green sum = glowing core */
   .esum{ box-shadow:0 0 42px -8px rgba(189,255,95,.45), inset 0 0 0 1px rgba(189,255,95,.5); }
   /* engine core star (slide 13) */
@@ -305,15 +313,21 @@
   /* broadcast tower glyph (slide 2) */
   .twr{ width:30px; height:30px; opacity:.65; stroke:var(--text-dim); fill:none; stroke-width:1.4; }
   /* team */
-  .teamgrid{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:22px; }
-  .tcard{ flex:1 1 232px; max-width:300px; border:1px solid var(--line); border-radius:16px; background:var(--stage2); padding:20px; }
-  .tcard .tav{ width:46px; height:46px; border-radius:12px; background:rgba(255,70,39,.12); border:1px solid rgba(255,70,39,.3); display:grid; place-items:center; font-family:var(--display); font-weight:700; color:var(--accent); margin-bottom:14px; letter-spacing:.02em; }
-  .tcard h4{ font-family:var(--display); font-weight:600; font-size:18px; }
-  .tcard .trole{ font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--text-dim); margin:5px 0 10px; }
-  .tcard .tproof{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
-  .tcard .ttoken{ font-family:var(--mono); font-size:10px; letter-spacing:.03em; color:var(--accent); margin-top:auto; border-top:1px solid var(--line); padding-top:10px; line-height:1.5; }
-  .tcard .tproof{ min-height:3em; }
-  @media(max-width:760px){ .tcard{ flex:1 1 100%; max-width:none; } }
+  .teamgrid{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:32px; align-items:stretch; }
+  .tcard{ display:flex; flex-direction:column; min-height:300px; padding:24px 22px 0; border:1px solid var(--line); border-radius:18px; position:relative; transition:transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s, box-shadow .35s; }
+  .tcard .chip{ position:absolute; top:16px; right:16px; font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); padding:3px 9px; border-radius:100px; border:1px solid var(--line); line-height:1; }
+  .tcard.founder .chip{ color:var(--accent); border-color:rgba(255,70,39,.35); }
+  .tcard.team .chip{ color:var(--text-dim); border-color:var(--line-strong); }
+  .tcard h4{ font-family:var(--display); font-weight:600; font-size:18px; line-height:1.2; letter-spacing:-.01em; }
+  .tcard .trole{ font-family:var(--mono); font-size:10px; letter-spacing:.10em; text-transform:uppercase; color:var(--text-dim); margin:6px 0 12px; line-height:1.5; min-height:2.6em; }
+  .tcard .tproof{ font-family:var(--body); font-size:13px; color:var(--text-dim); line-height:1.55; flex:1 1 auto; }
+  .tcard .ttoken{ font-family:var(--mono); font-size:10px; letter-spacing:.02em; line-height:1.5; color:var(--accent); border-top:1px solid var(--line); margin-top:16px; padding:12px 0 20px; min-height:3.4em; display:flex; align-items:flex-start; gap:8px; }
+  .tcard .ttoken::before{ content:""; flex:0 0 5px; width:5px; height:5px; border-radius:50%; margin-top:5px; background:var(--accent); box-shadow:0 0 7px rgba(255,70,39,.8); }
+  .tcard.advisor .ttoken{ color:var(--text-dim); }
+  .tcard.advisor .ttoken::before{ background:var(--text-faint); box-shadow:none; }
+  .tcard:hover{ transform:translateY(-4px); border-color:var(--line-strong); box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 40px 80px -40px rgba(0,0,0,.95), 0 0 0 1px rgba(255,70,39,.12); }
+  @media(max-width:920px){ .teamgrid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .teamgrid{ grid-template-columns:1fr; } }
   /* competition / why-us */
   .threat{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:24px; }
   .tcol{ border:1px solid var(--line); border-radius:16px; background:var(--stage2); padding:22px; }
@@ -754,11 +768,11 @@
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">A complementary team that has <span class="accent">shipped together.</span></h2>
         <p class="sub lead-sub" data-anim data-d="2" style="max-width:74ch">Operators and builders from Bet365, Superbet and NeoAds &mdash; people who have both made the content and bought the users.</p>
         <div class="teamgrid" data-anim data-d="3">
-          <div class="tcard"><div class="tav">AN</div><h4>Andreea N&#259;ftic&#259;</h4><div class="trole">Co-founder · Commercial &amp; Strategy</div><div class="tproof">10+ yrs driving commercial growth, product launches and market expansion across iGaming.</div><div class="ttoken">Bet365 · Superbet</div></div>
-          <div class="tcard"><div class="tav">GP</div><h4>George P&#259;tru</h4><div class="trole">Co-founder · Product, Design &amp; AI</div><div class="tproof">Product vision, game design, AI-native development, UX/UI and content.</div><div class="ttoken">15+ yrs · product · design · AI · Web3</div></div>
-          <div class="tcard"><div class="tav">RT</div><h4>Radu T&#259;nase</h4><div class="trole">Marketing &amp; Acquisition</div><div class="tproof">Performance marketing, paid acquisition and growth across AIGO &amp; Hexark.</div><div class="ttoken">Owns NeoAds · #1 Google Partner in Romania</div></div>
-          <div class="tcard"><div class="tav">JH</div><h4>J.H.</h4><div class="trole">Fundraising &amp; Strategic Advisor</div><div class="tproof">Fundraising, investor relations and corporate strategy.</div><div class="ttoken">Strategic advisor</div></div>
-          <div class="tcard"><div class="tav">SV</div><h4>S.V.</h4><div class="trole">Business Development</div><div class="tproof">Creator partnerships, strategic relationships and community growth.</div><div class="ttoken">Business development</div></div>
+          <div class="tcard founder"><span class="chip">Co-founder</span><div class="tav">AN<i class="ftick"></i></div><h4>Andreea N&#259;ftic&#259;</h4><div class="trole">Commercial &amp; Strategy</div><div class="tproof">10+ yrs driving commercial growth, product launches and market expansion across iGaming.</div><div class="ttoken">Bet365 · Superbet</div></div>
+          <div class="tcard founder"><span class="chip">Co-founder</span><div class="tav">GP<i class="ftick"></i></div><h4>George P&#259;tru</h4><div class="trole">Product, Design &amp; AI</div><div class="tproof">Product vision, game design, AI-native development, UX/UI and content.</div><div class="ttoken">15+ yrs · product · design · AI · Web3</div></div>
+          <div class="tcard team"><span class="chip">Team</span><div class="tav">RT</div><h4>Radu T&#259;nase</h4><div class="trole">Marketing &amp; Acquisition</div><div class="tproof">Performance marketing, paid acquisition and growth across AIGO &amp; Hexark.</div><div class="ttoken">Owns NeoAds · #1 Google Partner in Romania</div></div>
+          <div class="tcard advisor"><span class="chip">Advisor</span><div class="tav">JH</div><h4>J.H.</h4><div class="trole">Fundraising &amp; Strategy</div><div class="tproof">Fundraising, investor relations and corporate strategy.</div><div class="ttoken">Strategic advisor</div></div>
+          <div class="tcard team"><span class="chip">Team</span><div class="tav">SV</div><h4>S.V.</h4><div class="trole">Business Development</div><div class="tproof">Creator partnerships, strategic relationships and community growth.</div><div class="ttoken">Business development</div></div>
         </div>
       </div>
     </section>
