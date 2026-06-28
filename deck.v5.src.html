@@ -319,9 +319,12 @@
   /* 12 hook — radial engine fan */
   .engfan{ width:100%; margin-top:6px; }
   .engfan svg{ width:100%; height:auto; display:block; overflow:visible; }
-  .ef-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:2 9; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.6s linear infinite; }
-  @media(prefers-reduced-motion:reduce){ .ef-flow{ animation:none; } }
-  .ef-onode{ fill:#0d0a07; stroke:var(--own); stroke-width:2.5; filter:drop-shadow(0 0 8px rgba(189,255,95,.8)); }
+  .ef-base{ fill:none; stroke:rgba(255,70,39,.16); stroke-width:2; }
+  .ef-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:3 11; opacity:.9; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.8s linear infinite; }
+  .ef-halo{ animation:ahpulse 4.5s ease-in-out infinite; }
+  .ef-ring{ fill:none; stroke:rgba(255,70,39,.4); stroke-width:1.5; stroke-dasharray:4 12; animation:cflow 3s linear infinite; }
+  @media(prefers-reduced-motion:reduce){ .ef-flow,.ef-halo,.ef-ring{ animation:none; } }
+  .ef-onode{ fill:#0d0a07; stroke:var(--own); stroke-width:2.5; filter:drop-shadow(0 0 9px rgba(189,255,95,.85)); }
   .ef-fmt{ font-family:var(--display); font-weight:600; font-size:17px; fill:var(--text); }
   .ef-out{ font-family:var(--mono); font-size:13px; fill:var(--own); }
   /* 18 monetisation — connecting progression line behind the 3 cards + ghost numbers */
@@ -350,7 +353,8 @@
   .ah-glow{ animation:ahpulse 4.5s ease-in-out infinite; }
   @keyframes ahpulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
   .ah-ring{ fill:none; stroke:rgba(255,70,39,.4); stroke-width:1.5; stroke-dasharray:4 12; animation:cflow 3s linear infinite; }
-  .ah-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:2 10; opacity:.6; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.8s linear infinite; }
+  .ah-base{ fill:none; stroke:rgba(255,70,39,.16); stroke-width:2; }
+  .ah-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:3 11; opacity:.85; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.8s linear infinite; }
   .ah-pnode{ fill:#0d0a07; stroke:var(--accent); stroke-width:2; filter:drop-shadow(0 0 10px rgba(255,70,39,.7)); }
   .ah-picon{ stroke:var(--accent); stroke-width:1.5; fill:none; }
   .ah-plbl{ font-family:var(--display); font-weight:600; font-size:17px; fill:var(--text); }
@@ -552,10 +556,14 @@
           <svg viewBox="0 0 940 420" aria-hidden="true">
             <defs><radialGradient id="ahg"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.6"/><stop offset="42%" stop-color="#FF4627" stop-opacity="0.13"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
             <!-- flows: capabilities feed the engine -->
-            <path class="ah-flow" d="M400 165 Q300 118 236 96"/>
-            <path class="ah-flow" d="M540 165 Q640 118 704 96"/>
-            <path class="ah-flow" d="M400 255 Q300 302 236 324"/>
-            <path class="ah-flow" d="M540 255 Q640 302 704 324"/>
+            <path class="ah-base" d="M412 172 C340 138 280 110 230 96"/>
+            <path class="ah-base" d="M528 172 C600 138 660 110 710 96"/>
+            <path class="ah-base" d="M412 248 C340 282 280 310 230 324"/>
+            <path class="ah-base" d="M528 248 C600 282 660 310 710 324"/>
+            <path class="ah-flow" d="M412 172 C340 138 280 110 230 96"/>
+            <path class="ah-flow" d="M528 172 C600 138 660 110 710 96"/>
+            <path class="ah-flow" d="M412 248 C340 282 280 310 230 324"/>
+            <path class="ah-flow" d="M528 248 C600 282 660 310 710 324"/>
             <!-- engine core: the AIGO star -->
             <circle class="ah-glow" cx="470" cy="210" r="165" fill="url(#ahg)"/>
             <circle class="ah-ring" cx="470" cy="210" r="120"/>
@@ -678,16 +686,22 @@
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">The hook is adaptable.<span class="nl">The <span class="k-blue">engine</span> stays the same.</span></h2>
         <div class="engfan" data-anim data-d="2">
           <svg viewBox="0 0 1000 460" aria-hidden="true">
-            <defs><radialGradient id="efg"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.5"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
-            <path class="ef-flow" d="M250 230 Q480 150 712 72"/>
-            <path class="ef-flow" d="M255 230 Q480 192 712 151"/>
-            <path class="ef-flow" d="M258 230 L712 230"/>
-            <path class="ef-flow" d="M255 230 Q480 268 712 309"/>
-            <path class="ef-flow" d="M250 230 Q480 310 712 388"/>
-            <circle cx="185" cy="230" r="98" fill="url(#efg)"/>
-            <circle cx="185" cy="230" r="72" fill="#08090B" stroke="rgba(255,70,39,.45)"/>
-            <image href="assets/brand/star.png" x="150" y="180" width="70" height="70"/>
-            <text x="185" y="348" text-anchor="middle" fill="#9aa0a8" style="font-family:var(--mono);font-size:11px;letter-spacing:2px">AIGO · ATTENTION ENGINE</text>
+            <defs><radialGradient id="efg"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.6"/><stop offset="42%" stop-color="#FF4627" stop-opacity="0.13"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
+            <path class="ef-base" d="M300 198 C440 138 560 92 706 74"/>
+            <path class="ef-base" d="M308 216 C450 192 560 158 706 152"/>
+            <path class="ef-base" d="M316 230 C470 230 560 230 706 230"/>
+            <path class="ef-base" d="M308 244 C450 268 560 302 706 308"/>
+            <path class="ef-base" d="M300 262 C440 322 560 368 706 386"/>
+            <path class="ef-flow" d="M300 198 C440 138 560 92 706 74"/>
+            <path class="ef-flow" d="M308 216 C450 192 560 158 706 152"/>
+            <path class="ef-flow" d="M316 230 C470 230 560 230 706 230"/>
+            <path class="ef-flow" d="M308 244 C450 268 560 302 706 308"/>
+            <path class="ef-flow" d="M300 262 C440 322 560 368 706 386"/>
+            <circle class="ef-halo" cx="205" cy="230" r="140" fill="url(#efg)"/>
+            <circle class="ef-ring" cx="205" cy="230" r="100"/>
+            <image href="assets/brand/star.png" x="137" y="162" width="136" height="136"/>
+            <text x="205" y="352" text-anchor="middle" fill="#c7ccd3" style="font-family:var(--mono);font-size:12px;letter-spacing:3px">AIGO</text>
+            <text x="205" y="370" text-anchor="middle" fill="#7a8089" style="font-family:var(--mono);font-size:9px;letter-spacing:2px">ATTENTION ENGINE</text>
             <circle class="ef-onode" cx="718" cy="72" r="7"/><text class="ef-fmt" x="742" y="68">Vault Run</text><text class="ef-out" x="742" y="89">&rarr; casino registrations</text>
             <circle class="ef-onode" cx="718" cy="151" r="7"/><text class="ef-fmt" x="742" y="147">Football challenge</text><text class="ef-out" x="742" y="168">&rarr; sportsbook engagement</text>
             <circle class="ef-onode" cx="718" cy="230" r="7"/><text class="ef-fmt" x="742" y="226">Vehicle challenge series</text><text class="ef-out" x="742" y="247">&rarr; test-drive leads (e.g. BYD)</text>
