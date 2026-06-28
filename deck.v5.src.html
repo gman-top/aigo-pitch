@@ -360,6 +360,25 @@
   .ah-plbl{ font-family:var(--display); font-weight:600; font-size:17px; fill:var(--text); }
   @media(prefers-reduced-motion:reduce){ .ah-glow,.ah-ring,.ah-flow{ animation:none; } }
 
+  /* ===== real imagery (awwwards) ===== */
+  /* full-bleed cinematic image slide */
+  .vbleed{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .vbleed-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(4,4,6,.97), rgba(4,4,6,.74) 42%, rgba(4,4,6,.32) 72%, rgba(4,4,6,.6)); }
+  .vbleed-scrim.b{ background:linear-gradient(0deg, rgba(4,4,6,.92), transparent 55%), linear-gradient(90deg, rgba(4,4,6,.9), rgba(4,4,6,.4) 60%, transparent); }
+  .vstrip{ display:flex; flex-wrap:wrap; gap:10px 20px; align-items:center; margin-top:22px; font-family:var(--mono); font-size:12.5px; letter-spacing:.05em; color:var(--text); }
+  .vstrip b{ color:var(--accent); font-weight:600; } .vstrip .live{ color:var(--green); } .vstrip .sep{ color:var(--text-faint); }
+  /* games portfolio wall */
+  .gwall{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
+  .gcard{ position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:16/10; box-shadow:0 22px 56px -34px rgba(0,0,0,.95); }
+  .gcard img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease-standard); }
+  .gcard:hover img{ transform:scale(1.05); }
+  .gcard .gscrim{ position:absolute; inset:0; background:linear-gradient(180deg,transparent 38%,rgba(4,4,6,.9)); }
+  .gcard .gname{ position:absolute; left:15px; bottom:12px; z-index:2; font-family:var(--display); font-weight:600; font-size:16px; }
+  .gcard .gtag{ position:absolute; left:15px; top:13px; z-index:2; font-family:var(--mono); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); background:rgba(4,4,6,.55); border:1px solid rgba(189,255,95,.35); padding:3px 8px; border-radius:100px; }
+  .gcard .gtopline{ position:absolute; top:0; left:0; right:0; height:3px; background:var(--accent); z-index:3; opacity:0; transition:opacity .4s; }
+  .gcard:hover .gtopline{ opacity:1; box-shadow:0 0 12px var(--accent); }
+  @media(max-width:760px){ .gwall{ grid-template-columns:1fr 1fr; } }
+
   /* mobile: keep footnotes & cards within the slide; calmer spacing */
   @media(max-width:760px){
     main.deck .slide{ padding-top:60px; padding-bottom:78px; }
@@ -656,26 +675,31 @@
     </section>
 
     <!-- 11 · VAULT RUN = FIRST HOOK -->
-    <section class="slide topalign vault-slide" id="vaultrun">
-      <div class="inner">
+    <section class="slide" id="vaultrun" style="overflow:hidden">
+      <img class="vbleed" src="assets/vault-doors-art.jpg" alt="Vault Run" data-anim />
+      <div class="vbleed-scrim"></div>
+      <div class="inner" style="position:relative;z-index:2">
         <div class="micro" data-anim>THE FIRST HOOK</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Vault Run is the first <span class="accent">hook</span> the engine builds.</h2>
-        <div class="vault">
-          <div class="doors5" data-anim data-d="2">
-            <div class="door5"><span class="dn">I</span></div>
-            <div class="door5 hot"><span class="dn">II</span></div>
-            <div class="door5"><span class="dn">III</span></div>
-          </div>
-          <div class="vside" data-anim data-d="3">
-            <div class="seg" style="color:var(--gold)">Live prize pool <span style="color:var(--text-faint)">· illustrative</span></div>
-            <div class="prize">€ 24,500 ▲</div>
-            <div class="vrow2" style="margin-top:14px"><span>Audience vote · which door?</span><b>62% &middot; II</b></div>
-            <div class="pollbar"><i style="width:62%"></i></div>
-            <div class="vrow2"><span>Cash out</span><b>or continue ↑</b></div>
-            <div class="vrow2"><span>Community watching</span><b>● 8,140 live</b></div>
-          </div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(32px,4.4vw,62px);max-width:16ch">Vault Run is the first <span class="accent">hook</span> the engine builds.</h2>
+        <div class="vstrip" data-anim data-d="2"><span class="live">● LIVE</span><span class="sep">·</span><span><b>2,376</b> players</span><span class="sep">·</span><span><b>€184.7k</b> prize pool</span><span class="sep">·</span><span>7 in the vault</span></div>
+        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.3vw,30px);max-width:28ch">The tension creates content. The audience creates participation.<span class="nl"><span class="accent">Season One is exactly what this raise funds.</span></span></p>
+      </div>
+    </section>
+
+    <!-- THE PRODUCT — real live games -->
+    <section class="slide stage-pure topalign" id="games">
+      <div class="inner">
+        <div class="micro" data-anim>THE PRODUCT · ALREADY LIVE</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">We don&rsquo;t just pitch the engine.<span class="nl">We already <span class="k-green">ship the games.</span></span></h2>
+        <div class="gwall" data-anim data-d="2">
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/vault-run.jpg" alt="Vault Run" /><div class="gscrim"></div><div class="gtag">flagship</div><div class="gname">Vault Run</div></div>
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/uncrossable-rush.jpg" alt="Uncrossable Rush" /><div class="gscrim"></div><div class="gname">Uncrossable Rush</div></div>
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/plinko.jpg" alt="Plinko" /><div class="gscrim"></div><div class="gname">Plinko</div></div>
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/mine-game.jpg" alt="Mines" /><div class="gscrim"></div><div class="gname">Mines</div></div>
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/temple-of-xibalba.jpg" alt="Temple of Xibalba" /><div class="gscrim"></div><div class="gname">Temple of Xibalba</div></div>
+          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/banana-hustlers.jpg" alt="Banana Hustlers" /><div class="gscrim"></div><div class="gname">Banana Hustlers</div></div>
         </div>
-        <p class="punch" data-anim data-d="4" style="margin-top:26px;font-size:clamp(17px,2.2vw,28px)">The tension creates content. The audience creates participation &mdash; and a reason to return.<span class="nl"><span class="accent">Season One is exactly what this raise funds.</span></span></p>
+        <p class="note-soft" data-anim data-d="3">Seven live titles plus Vault Run. Real product, real players &mdash; the beachhead isn&rsquo;t a slide, it&rsquo;s shipping.</p>
       </div>
     </section>
 
