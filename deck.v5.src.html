@@ -344,6 +344,17 @@
   .cta-hero{ display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-size:13px; letter-spacing:.16em; text-transform:uppercase; border-radius:100px; padding:16px 30px; color:#180600; background:var(--accent); font-weight:600; box-shadow:0 0 50px -8px rgba(255,70,39,.7); border:none; cursor:pointer; transition:transform .3s; }
   .cta-hero:hover{ transform:translateY(-2px); }
   .cta-hero .tri{ font-size:10px; }
+  /* 07 Meet AIGO — the star as a glowing engine, 4 capabilities feeding it */
+  .aigohero{ width:100%; max-width:940px; margin:8px auto 0; }
+  .aigohero svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .ah-glow{ animation:ahpulse 4.5s ease-in-out infinite; }
+  @keyframes ahpulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+  .ah-ring{ fill:none; stroke:rgba(255,70,39,.4); stroke-width:1.5; stroke-dasharray:4 12; animation:cflow 3s linear infinite; }
+  .ah-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:2 10; opacity:.6; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.8s linear infinite; }
+  .ah-pnode{ fill:#0d0a07; stroke:var(--accent); stroke-width:2; filter:drop-shadow(0 0 10px rgba(255,70,39,.7)); }
+  .ah-picon{ stroke:var(--accent); stroke-width:1.5; fill:none; }
+  .ah-plbl{ font-family:var(--display); font-weight:600; font-size:17px; fill:var(--text); }
+  @media(prefers-reduced-motion:reduce){ .ah-glow,.ah-ring,.ah-flow{ animation:none; } }
 
   /* mobile: keep footnotes & cards within the slide; calmer spacing */
   @media(max-width:760px){
@@ -537,14 +548,36 @@
       <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center">
         <div class="micro" data-anim>MEET AIGO</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px);max-width:24ch">We build media ecosystems that create attention &mdash; and direct it to <span class="k-green">measurable outcomes.</span></h2>
-        <div class="quad" data-anim data-d="2" style="margin-top:30px">
-          <div class="qc c1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10.5h18M8 6l-2 4.5M13 6l-2 4.5M18 6l-2 4.5"/></svg><div class="qt">Original Entertainment</div></div>
-          <div class="qc c2"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="1.6"/><path d="M9 10a4.5 4.5 0 000 6M15 10a4.5 4.5 0 010 6M6.5 7.5a8 8 0 000 11M17.5 7.5a8 8 0 010 11"/></svg><div class="qt">Modern Distribution</div></div>
-          <div class="qc c3"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3.5 19a5.5 5.5 0 0111 0M14.5 19a4.2 4.2 0 016 -3.6"/></svg><div class="qt">Community</div></div>
-          <div class="qc c4"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2"/></svg><div class="qt">Commercial Outcomes</div></div>
-          <div class="qcenter">AIGO</div>
+        <div class="aigohero" data-anim data-d="2">
+          <svg viewBox="0 0 940 420" aria-hidden="true">
+            <defs><radialGradient id="ahg"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.6"/><stop offset="42%" stop-color="#FF4627" stop-opacity="0.13"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
+            <!-- flows: capabilities feed the engine -->
+            <path class="ah-flow" d="M400 165 Q300 118 236 96"/>
+            <path class="ah-flow" d="M540 165 Q640 118 704 96"/>
+            <path class="ah-flow" d="M400 255 Q300 302 236 324"/>
+            <path class="ah-flow" d="M540 255 Q640 302 704 324"/>
+            <!-- engine core: the AIGO star -->
+            <circle class="ah-glow" cx="470" cy="210" r="165" fill="url(#ahg)"/>
+            <circle class="ah-ring" cx="470" cy="210" r="120"/>
+            <image href="assets/brand/star.png" x="392" y="132" width="156" height="156"/>
+            <text x="470" y="338" text-anchor="middle" fill="#c7ccd3" style="font-family:var(--mono);font-size:12px;letter-spacing:4px">AIGO</text>
+            <text x="470" y="356" text-anchor="middle" fill="#7a8089" style="font-family:var(--mono);font-size:9.5px;letter-spacing:2.5px">ATTENTION INFRASTRUCTURE</text>
+            <!-- 4 capability nodes -->
+            <circle class="ah-pnode" cx="208" cy="92" r="24"/>
+            <g class="ah-picon" transform="translate(208 92) scale(1.35) translate(-12 -12)"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10.5h18M8 6l-2 4.5M13 6l-2 4.5M18 6l-2 4.5"/></g>
+            <text class="ah-plbl" x="208" y="46" text-anchor="middle">Original Entertainment</text>
+            <circle class="ah-pnode" cx="732" cy="92" r="24"/>
+            <g class="ah-picon" transform="translate(732 92) scale(1.35) translate(-12 -12)"><circle cx="12" cy="13" r="1.6"/><path d="M9 10a4.5 4.5 0 000 6M15 10a4.5 4.5 0 010 6M6.5 7.5a8 8 0 000 11M17.5 7.5a8 8 0 010 11"/></g>
+            <text class="ah-plbl" x="732" y="46" text-anchor="middle">Modern Distribution</text>
+            <circle class="ah-pnode" cx="208" cy="328" r="24"/>
+            <g class="ah-picon" transform="translate(208 328) scale(1.35) translate(-12 -12)"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2"/></g>
+            <text class="ah-plbl" x="208" y="384" text-anchor="middle">Commercial Outcomes</text>
+            <circle class="ah-pnode" cx="732" cy="328" r="24"/>
+            <g class="ah-picon" transform="translate(732 328) scale(1.35) translate(-12 -12)"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3.5 19a5.5 5.5 0 0111 0M14.5 19a4.2 4.2 0 016 -3.6"/></g>
+            <text class="ah-plbl" x="732" y="384" text-anchor="middle">Community</text>
+          </svg>
         </div>
-        <p class="punch" data-anim data-d="3" style="margin-top:30px;font-size:clamp(17px,2.2vw,26px)">Creators are an ingredient.<span class="accent"> Not the whole model.</span></p>
+        <p class="punch" data-anim data-d="3" style="margin-top:20px;font-size:clamp(17px,2.2vw,26px)">Creators are an ingredient.<span class="accent"> Not the whole model.</span></p>
       </div>
     </section>
 
