@@ -386,6 +386,28 @@
   @media(max-width:860px){ .hyp2{ grid-template-columns:1fr; gap:24px; } }
   .vstrip{ display:flex; flex-wrap:wrap; gap:10px 20px; align-items:center; margin-top:22px; font-family:var(--mono); font-size:12.5px; letter-spacing:.05em; color:var(--text); }
   .vstrip b{ color:var(--accent); font-weight:600; } .vstrip .live{ color:var(--green); } .vstrip .sep{ color:var(--text-faint); }
+
+  /* Vault Run mechanic — editorial step-rail (Nafti: define the game + casino x-sell). No box/card; image stays dominant. */
+  .vbleed-scrim.vr{ background:linear-gradient(90deg, rgba(4,4,6,.97), rgba(4,4,6,.82) 36%, rgba(4,4,6,.34) 56%, transparent 64%); }
+  #vaultrun .punch{ max-width:26ch; }
+  .vr-steps{ list-style:none; margin:18px 0 0; padding:0; max-width:37ch; }
+  .vr-step{ display:grid; grid-template-columns:78px 1fr; gap:16px; align-items:start; padding:10px 0; border-top:1px solid var(--line); }
+  .vr-step:first-child{ border-top:1px solid var(--line-strong); }
+  .vr-n{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); padding-top:3px; white-space:nowrap; }
+  .vr-step.hot .vr-n{ color:var(--accent); }
+  .vr-step.win .vr-n{ color:var(--own); }
+  .vr-t{ font-family:var(--body); font-size:13.5px; line-height:1.45; color:var(--text-dim); }
+  .vr-t .accent{ color:var(--accent); font-weight:600; }
+  .vr-t .lime{ color:var(--own); font-weight:600; }
+  .vr-xsell{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); max-width:44ch; font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; line-height:1.6; color:var(--text-dim); }
+  .vr-xsell b{ color:var(--text); font-weight:600; }
+  /* legal must be legibly visible (compliance) — quiet but readable on the dark gutter, never crossing the doors */
+  .vr-legal{ margin-top:11px; max-width:50ch; font-family:var(--mono); font-size:11px; letter-spacing:.03em; line-height:1.55; color:var(--text-dim); }
+  @media (max-width:860px){
+    .vbleed-scrim.vr{ background:linear-gradient(0deg, rgba(4,4,6,.95), rgba(4,4,6,.78) 60%, rgba(4,4,6,.5)); }
+    .vr-step{ grid-template-columns:58px 1fr; gap:12px; }
+    .vr-steps, #vaultrun .punch, .vr-xsell, .vr-legal{ max-width:100%; }
+  }
   /* games portfolio wall */
   .gwall{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
   .gcard{ position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--line); aspect-ratio:16/10; box-shadow:0 22px 56px -34px rgba(0,0,0,.95); }
@@ -725,12 +747,20 @@
     <!-- 11 · VAULT RUN = FIRST HOOK -->
     <section class="slide" id="vaultrun" style="overflow:hidden">
       <img class="vbleed" src="assets/vault-doors-art.jpg" alt="Vault Run" data-anim />
-      <div class="vbleed-scrim"></div>
+      <div class="vbleed-scrim vr"></div>
       <div class="inner" style="position:relative;z-index:2">
         <div class="micro" data-anim>THE FIRST HOOK</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(32px,4.4vw,62px);max-width:16ch">Vault Run is the first <span class="accent">hook</span> the engine builds.</h2>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(28px,3.6vw,52px);max-width:19ch">Vault Run is the first <span class="accent">hook</span> the engine builds.</h2>
         <div class="vstrip" data-anim data-d="2"><span class="live">● LIVE</span><span class="sep">·</span><span><b>2,376</b> players</span><span class="sep">·</span><span><b>€184.7k</b> prize pool</span><span class="sep">·</span><span>7 in the vault</span></div>
-        <p class="punch" data-anim data-d="3" style="margin-top:24px;font-size:clamp(17px,2.3vw,30px);max-width:28ch">The tension creates content. The audience creates participation.<span class="nl"><span class="accent">Season One is exactly what this raise funds.</span></span></p>
+        <p class="punch" data-anim data-d="3" style="margin-top:16px;font-size:clamp(15px,1.8vw,21px);max-width:26ch">The tension creates content. The audience creates participation.</p>
+        <ol class="vr-steps" data-anim data-d="4">
+          <li class="vr-step"><span class="vr-n">01 / Watch</span><span class="vr-t">A creator runs the vault live &mdash; three doors: Safe, Greed, Mystery.</span></li>
+          <li class="vr-step"><span class="vr-n">02 / Vote</span><span class="vr-t">The audience doesn&rsquo;t spectate &mdash; they vote the next door to open.</span></li>
+          <li class="vr-step hot"><span class="vr-n">03 / Drop</span><span class="vr-t">Clear a door and the creator <span class="accent">wins for everyone</span> &mdash; 10 free spins drop to every viewer who voted.</span></li>
+          <li class="vr-step win"><span class="vr-n">04 / Play</span><span class="vr-t">Those spins land on one casino game &mdash; voters become players. The operator (e.g. Superbet) is <span class="lime">the main beneficiary</span>.</span></li>
+        </ol>
+        <div class="vr-xsell" data-anim data-d="5">The operator <b>funds the drops and acquires the player</b> &mdash; attention doing the work of ad spend.</div>
+        <p class="vr-legal" data-anim data-d="6">Prize drops (e.g. 10 free spins) subject to local marketing &amp; gaming rules. Operator shown is illustrative &mdash; not a confirmed partner. No returns implied.</p>
       </div>
     </section>
 
@@ -751,8 +781,8 @@
                 <defs><linearGradient id="crfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF4627" stop-opacity=".38"/><stop offset="1" stop-color="#FF4627" stop-opacity="0"/></linearGradient></defs>
                 <path d="M16 142 C 96 138, 156 122, 214 70 S 284 24, 302 15 L302 142 Z" fill="url(#crfill)"/>
                 <path class="ef-flow" d="M16 142 C 96 138, 156 122, 214 70 S 284 24, 302 15" fill="none" stroke="#FF4627" stroke-width="3" stroke-linecap="round"/>
+                <circle class="ef-halo" cx="302" cy="15" r="13" fill="none" stroke="#FF4627" stroke-opacity=".45" stroke-width="1.5"/>
                 <circle cx="302" cy="15" r="5.5" fill="#FF4627"/>
-                <text x="40" y="56" fill="#FF8a6f" style="font-family:var(--display);font-weight:700;font-size:26px">&times;12.4</text>
               </svg>
               <div class="crtag">in the making</div>
             </div>
