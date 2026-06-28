@@ -303,6 +303,46 @@
   @media(max-width:760px){ .threat{ grid-template-columns:1fr; } }
   /* disclaimer */
   .disclaimer{ font-family:var(--mono); font-size:9px; letter-spacing:.03em; color:var(--text-faint); line-height:1.6; max-width:86ch; margin-top:14px; }
+  /* ===== "wow" centerpiece upgrades ===== */
+  /* 17 transition — ascending ownership ramp (area chart) */
+  .ramp{ width:100%; margin-top:18px; }
+  .ramp svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .ramp .r-line{ fill:none; stroke:var(--own); stroke-width:3.5; filter:drop-shadow(0 0 10px rgba(189,255,95,.75)); }
+  .ramp .r-dot{ fill:#0a0d05; stroke:var(--own); stroke-width:3; filter:drop-shadow(0 0 10px rgba(189,255,95,.9)); }
+  .ramp .r-pct{ font-family:var(--display); font-weight:700; font-size:40px; fill:var(--own); }
+  .ramp .r-x{ font-family:var(--mono); font-size:13px; letter-spacing:.12em; fill:var(--text); }
+  .ramp .r-cap{ font-family:var(--body); font-size:12.5px; fill:var(--text-dim); }
+  .ramp .r-base{ stroke:var(--line-strong); stroke-width:1; }
+  .ramp .r-grid{ stroke:rgba(255,255,255,.05); stroke-width:1; stroke-dasharray:2 6; }
+  /* 12 hook — radial engine fan */
+  .engfan{ width:100%; margin-top:6px; }
+  .engfan svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .ef-flow{ fill:none; stroke:var(--accent); stroke-width:2; stroke-dasharray:2 9; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.6s linear infinite; }
+  @media(prefers-reduced-motion:reduce){ .ef-flow{ animation:none; } }
+  .ef-onode{ fill:#0d0a07; stroke:var(--own); stroke-width:2.5; filter:drop-shadow(0 0 8px rgba(189,255,95,.8)); }
+  .ef-fmt{ font-family:var(--display); font-weight:600; font-size:17px; fill:var(--text); }
+  .ef-out{ font-family:var(--mono); font-size:13px; fill:var(--own); }
+  /* 18 monetisation — connecting progression line behind the 3 cards + ghost numbers */
+  .revwrap{ position:relative; }
+  .revwrap .revline{ position:absolute; top:50%; left:8%; right:8%; height:2px; z-index:0; background:linear-gradient(90deg,var(--text-dim),var(--accent),var(--own)); opacity:.45; }
+  .step{ position:relative; z-index:1; overflow:hidden; }
+  .step .ghost{ position:absolute; right:14px; bottom:-18px; font-family:var(--display); font-weight:700; font-size:120px; line-height:1; color:rgba(255,255,255,.035); pointer-events:none; }
+  /* 19 why — dramatised: strike the old, ignite AIGO, arrow between */
+  .vsx{ display:grid; grid-template-columns:1fr 56px 1fr; gap:0 14px; align-items:center; margin-top:26px; }
+  .vsx .vcol{ margin:0; }
+  .vsx .xarrow{ font-family:var(--display); font-weight:700; font-size:30px; color:var(--accent); text-align:center; filter:drop-shadow(0 0 10px rgba(255,70,39,.6)); }
+  .vcol.dim .vli{ text-decoration:line-through; text-decoration-color:rgba(255,255,255,.25); }
+  @media(max-width:760px){ .vsx{ grid-template-columns:1fr; } .vsx .xarrow{ transform:rotate(90deg); padding:6px 0; } }
+  /* redbull — glowing node chain */
+  .flowcard .fnode{ position:relative; padding-left:22px; }
+  .flowcard .fnode::before{ content:""; position:absolute; left:0; top:50%; transform:translateY(-50%); width:8px; height:8px; border-radius:50%; background:var(--text-dim); }
+  .flowcard.aigo .fnode::before{ background:var(--accent); box-shadow:0 0 10px rgba(255,70,39,.8); }
+  /* close — cinematic finale */
+  .close-star{ width:clamp(86px,11vw,140px); filter:drop-shadow(0 0 50px rgba(255,70,39,.7)); animation:float 6s var(--ease-standard) infinite; }
+  .cta-hero{ display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-size:13px; letter-spacing:.16em; text-transform:uppercase; border-radius:100px; padding:16px 30px; color:#180600; background:var(--accent); font-weight:600; box-shadow:0 0 50px -8px rgba(255,70,39,.7); border:none; cursor:pointer; transition:transform .3s; }
+  .cta-hero:hover{ transform:translateY(-2px); }
+  .cta-hero .tri{ font-size:10px; }
+
   /* mobile: keep footnotes & cards within the slide; calmer spacing */
   @media(max-width:760px){
     main.deck .slide{ padding-top:60px; padding-bottom:78px; }
@@ -600,15 +640,24 @@
       <div class="inner">
         <div class="micro" data-anim>CONFIGURABLE</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">The hook is adaptable.<span class="nl">The <span class="k-blue">engine</span> stays the same.</span></h2>
-        <div class="engmap">
-          <div class="engcore" data-anim data-d="2"><img class="ecstar" src="assets/brand/star.png" alt="" />AIGO<span class="nl" style="font-size:11px;font-weight:500;color:var(--text-dim);letter-spacing:.1em">ATTENTION ENGINE</span></div>
-          <div class="outlist" data-anim data-d="3">
-            <div class="outrow"><span class="of">Vault Run</span><span class="oarr">→</span><span class="oo">casino registrations</span></div>
-            <div class="outrow"><span class="of">Football challenge</span><span class="oarr">→</span><span class="oo">sportsbook engagement</span></div>
-            <div class="outrow"><span class="of">Vehicle challenge series</span><span class="oarr">→</span><span class="oo">test-drive leads (e.g. BYD)</span></div>
-            <div class="outrow"><span class="of">Game tournament</span><span class="oarr">→</span><span class="oo">downloads</span></div>
-            <div class="outrow"><span class="of">Branded show</span><span class="oarr">→</span><span class="oo">awareness &amp; sponsorship</span></div>
-          </div>
+        <div class="engfan" data-anim data-d="2">
+          <svg viewBox="0 0 1000 460" aria-hidden="true">
+            <defs><radialGradient id="efg"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.5"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
+            <path class="ef-flow" d="M250 230 Q480 150 712 72"/>
+            <path class="ef-flow" d="M255 230 Q480 192 712 151"/>
+            <path class="ef-flow" d="M258 230 L712 230"/>
+            <path class="ef-flow" d="M255 230 Q480 268 712 309"/>
+            <path class="ef-flow" d="M250 230 Q480 310 712 388"/>
+            <circle cx="185" cy="230" r="98" fill="url(#efg)"/>
+            <circle cx="185" cy="230" r="72" fill="#08090B" stroke="rgba(255,70,39,.45)"/>
+            <image href="assets/brand/star.png" x="150" y="180" width="70" height="70"/>
+            <text x="185" y="348" text-anchor="middle" fill="#9aa0a8" style="font-family:var(--mono);font-size:11px;letter-spacing:2px">AIGO · ATTENTION ENGINE</text>
+            <circle class="ef-onode" cx="718" cy="72" r="7"/><text class="ef-fmt" x="742" y="68">Vault Run</text><text class="ef-out" x="742" y="89">&rarr; casino registrations</text>
+            <circle class="ef-onode" cx="718" cy="151" r="7"/><text class="ef-fmt" x="742" y="147">Football challenge</text><text class="ef-out" x="742" y="168">&rarr; sportsbook engagement</text>
+            <circle class="ef-onode" cx="718" cy="230" r="7"/><text class="ef-fmt" x="742" y="226">Vehicle challenge series</text><text class="ef-out" x="742" y="247">&rarr; test-drive leads (e.g. BYD)</text>
+            <circle class="ef-onode" cx="718" cy="309" r="7"/><text class="ef-fmt" x="742" y="305">Game tournament</text><text class="ef-out" x="742" y="326">&rarr; downloads</text>
+            <circle class="ef-onode" cx="718" cy="388" r="7"/><text class="ef-fmt" x="742" y="384">Branded show</text><text class="ef-out" x="742" y="405">&rarr; awareness &amp; sponsorship</text>
+          </svg>
         </div>
         <p class="note-soft" data-anim data-d="4">The format changes. The objective changes. The attention engine remains. <b style="color:var(--text-dim)">Rewards &amp; promotions are always subject to local marketing and gaming rules.</b></p>
       </div>
@@ -741,12 +790,24 @@
       <div class="inner">
         <div class="micro" data-anim>THE TRANSITION</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">We begin with reach.<span class="nl">We end with <span class="k-green">ownership.</span></span></h2>
-        <div class="ybars" data-anim data-d="2">
-          <div class="yb"><div class="ypct">~20%</div><div class="ystack"><div class="ext" style="flex-basis:80%"></div><div class="owned" style="height:20%"></div></div><div class="yk">YEAR 1</div><div class="yd">owned · 80% partner reach</div></div>
-          <div class="yb"><div class="ypct">~50%</div><div class="ystack"><div class="ext" style="flex-basis:50%"></div><div class="owned" style="height:50%"></div></div><div class="yk">YEAR 3</div><div class="yd">owned ecosystem</div></div>
-          <div class="yb"><div class="ypct">~80%</div><div class="ystack"><div class="ext" style="flex-basis:20%"></div><div class="owned" style="height:80%"></div></div><div class="yk">YEAR 5</div><div class="yd">predominantly owned formats, channels, communities &amp; IP</div></div>
+        <div class="ramp" data-anim data-d="2">
+          <svg viewBox="0 0 1000 360" aria-hidden="true">
+            <defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BDFF5F" stop-opacity="0.5"/><stop offset="1" stop-color="#BDFF5F" stop-opacity="0.03"/></linearGradient></defs>
+            <line class="r-grid" x1="160" y1="300" x2="160" y2="120"/><line class="r-grid" x1="500" y1="300" x2="500" y2="120"/><line class="r-grid" x1="840" y1="300" x2="840" y2="120"/>
+            <line class="r-base" x1="110" y1="300" x2="890" y2="300"/>
+            <path d="M160 300 L160 252 L500 180 L840 108 L840 300 Z" fill="url(#rg)"/>
+            <path class="r-line" d="M160 252 L500 180 L840 108"/>
+            <circle class="r-dot" cx="160" cy="252" r="8"/><circle class="r-dot" cx="500" cy="180" r="8"/><circle class="r-dot" cx="840" cy="108" r="8"/>
+            <text class="r-pct" x="160" y="230" text-anchor="middle">~20%</text>
+            <text class="r-pct" x="500" y="158" text-anchor="middle">~50%</text>
+            <text class="r-pct" x="840" y="86" text-anchor="middle">~80%</text>
+            <text class="r-x" x="160" y="328" text-anchor="middle">YEAR 1</text><text class="r-x" x="500" y="328" text-anchor="middle">YEAR 3</text><text class="r-x" x="840" y="328" text-anchor="middle">YEAR 5</text>
+            <text class="r-cap" x="160" y="347" text-anchor="middle">owned · 80% partner reach</text>
+            <text class="r-cap" x="500" y="347" text-anchor="middle">owned ecosystem</text>
+            <text class="r-cap" x="840" y="347" text-anchor="middle">predominantly owned IP &amp; channels</text>
+          </svg>
         </div>
-        <div class="legend" data-anim data-d="3"><span><i style="background:rgba(189,255,95,.85)"></i>Owned ecosystem</span><span><i style="background:rgba(255,255,255,.3)"></i>Partner / external distribution</span><span style="color:var(--text-faint)">Illustrative target trajectory</span></div>
+        <div class="legend" data-anim data-d="3"><span><i style="background:rgba(189,255,95,.85)"></i>Owned ecosystem (the rising area)</span><span style="color:var(--text-faint)">Illustrative target trajectory</span></div>
         <p class="note-soft" data-anim data-d="4">We don&rsquo;t eliminate partners &mdash; we reduce dependency. External creators stay valuable; AIGO&rsquo;s own assets become the compounding one.</p>
       </div>
     </section>
@@ -756,10 +817,13 @@
       <div class="inner">
         <div class="micro" data-anim>MONETISATION ARCHITECTURE</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">The same attention, monetised <span class="k-gold">repeatedly.</span></h2>
-        <div class="stair" data-anim data-d="2">
-          <div class="step s1"><div class="sk">01 · Near term</div><h4>Earn on reach</h4><p>Sponsored formats · brand integrations · acquisition-as-a-service · performance partnerships</p></div>
-          <div class="step s2"><div class="sk">02 · Medium term</div><h4>Own the IP</h4><p>Licensing · media rights · live experiences · commerce · branded entertainment</p></div>
-          <div class="step s3"><div class="sk">03 · Long term</div><h4>Own the products</h4><p>Original games · gaming platform · white-label · prediction / betting products · data &amp; distribution</p></div>
+        <div class="revwrap" data-anim data-d="2">
+          <div class="revline"></div>
+          <div class="stair">
+            <div class="step s1"><div class="ghost">01</div><div class="sk">Near term</div><h4>Earn on reach</h4><p>Sponsored formats · brand integrations · acquisition-as-a-service · performance partnerships</p></div>
+            <div class="step s2"><div class="ghost">02</div><div class="sk">Medium term</div><h4>Own the IP</h4><p>Licensing · media rights · live experiences · commerce · branded entertainment</p></div>
+            <div class="step s3"><div class="ghost">03</div><div class="sk">Long term</div><h4>Own the products</h4><p>Original games · gaming platform · white-label · prediction / betting products · data &amp; distribution</p></div>
+          </div>
         </div>
         <p class="note-soft" data-anim data-d="3">No single revenue source. The gaming product isn&rsquo;t the only stream &mdash; it&rsquo;s one of the highest-value outcomes of an audience we already own.</p>
       </div>
@@ -770,7 +834,7 @@
       <div class="inner">
         <div class="micro" data-anim>WHY AIGO CAN WIN</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Others buy reach.<span class="nl">We design the system that <span class="accent">creates</span> it.</span></h2>
-        <div class="vs2" data-anim data-d="2">
+        <div class="vsx" data-anim data-d="2">
           <div class="vcol dim">
             <div class="vk">The traditional model</div>
             <div class="vli">Campaign</div>
@@ -779,6 +843,7 @@
             <div class="vli">One client outcome</div>
             <div class="vli">Resets every month</div>
           </div>
+          <div class="xarrow">&rarr;</div>
           <div class="vcol win">
             <div class="vk">AIGO</div>
             <div class="vli">Franchise</div>
@@ -809,7 +874,8 @@
     <!-- 20 · CLOSING -->
     <section class="slide stage-pure" id="close">
       <svg class="star-bg" style="width:50vw;top:-18vh;right:-14vw;opacity:0.055" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
-      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;position:relative;z-index:2">
+      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;z-index:2">
+        <img class="close-star" src="assets/brand/star.png" alt="AIGO" data-anim />
         <div class="micro" data-anim>THE FUTURE</div>
         <h2 class="qbig" data-anim data-d="1">We build attention<span class="nl">that <span class="green-t">moves people.</span></span></h2>
         <div class="seg" data-anim data-d="2" style="line-height:2.1">
@@ -817,8 +883,8 @@
         </div>
         <p class="sub" data-anim data-d="3" style="max-width:60ch;text-align:center">Building the company brands will turn to when they no longer want to rent attention &mdash; and start owning an audience asset of their own.</p>
         <div class="boot" data-anim data-d="4" style="margin-top:6px"><span>CONFIDENTIAL</span><span class="sep">·</span><span>RAISING €500K PILOT</span><span class="sep">·</span><a href="mailto:hello@aigostudios.com" style="color:var(--accent)">hello@aigostudios.com</a></div>
-        <div data-anim data-d="5"><button class="film-btn" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
-        <div class="disclaimer" data-anim data-d="6" style="text-align:center;margin-top:18px">Confidential. Not an offer or solicitation to buy or sell securities. Contains forward-looking statements and targets that may not be achieved; figures are unaudited unless a source is cited.</div>
+        <div data-anim data-d="5" style="margin-top:4px"><button class="cta-hero" data-film-open><span class="tri">&#9654;</span> Watch a Vault Run · 0:30</button></div>
+        <div class="disclaimer" data-anim data-d="6" style="text-align:center;margin-top:14px">Confidential. Not an offer or solicitation to buy or sell securities. Contains forward-looking statements and targets that may not be achieved; figures are unaudited unless a source is cited.</div>
       </div>
     </section>
 
