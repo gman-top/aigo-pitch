@@ -172,15 +172,18 @@
   .flowcard.aigo .fdash{ background:linear-gradient(180deg,rgba(255,70,39,.7),rgba(255,70,39,.2)); }
   @media(max-width:760px){ .rbflow{ grid-template-columns:1fr; } }
 
-  /* === S14 — flywheel === */
-  .flyw5{ position:relative; width:min(520px,86vw); aspect-ratio:1; margin:6px auto 0; }
-  .flyw5 svg{ width:100%; height:100%; overflow:visible; }
-  .fw-track{ fill:none; stroke:var(--line); stroke-width:1.5; }
-  .fw-flow{ fill:none; stroke:var(--own); stroke-width:2.5; stroke-dasharray:4 22; filter:drop-shadow(0 0 5px rgba(189,255,95,.5)); animation:cflow 1.5s linear infinite; }
-  @media(prefers-reduced-motion:reduce){ .fw-flow{ animation:none; } }
-  .fw-node{ fill:var(--stage2); stroke:var(--line-strong); stroke-width:1; }
-  .fw-lbl{ font-family:var(--mono); font-size:11px; fill:var(--text); }
-  .fw-c{ font-family:var(--display); font-weight:700; }
+  /* === S14 — flywheel (ported from V3: glowing nodes + dotted orbit + arrows + centre AIGO star) === */
+  .flyw{ position:relative; width:min(640px,94vw); aspect-ratio:680/470; margin:8px auto 2px; }
+  .flyw svg{ width:100%; height:100%; overflow:visible; display:block; }
+  .fly-track{ fill:none; stroke:var(--line); stroke-width:1.5; }
+  .fly-flow{ fill:none; stroke:var(--accent); stroke-width:2.5; stroke-dasharray:3 25; filter:drop-shadow(0 0 5px rgba(255,70,39,.6)); animation:cflow 1.4s linear infinite; }
+  @media(prefers-reduced-motion:reduce){ .fly-flow{ animation:none; } }
+  .fly-spoke{ stroke:color-mix(in srgb,var(--accent) 13%,transparent); stroke-width:1; }
+  .fly-node{ fill:var(--nc,#FF4627); filter:drop-shadow(0 0 8px color-mix(in srgb,var(--nc,#FF4627) 80%,transparent)); }
+  .fly-arrow{ fill:var(--accent); filter:drop-shadow(0 0 4px rgba(255,70,39,.55)); }
+  .fly-lbl{ font-family:var(--mono); font-size:12px; letter-spacing:.04em; fill:var(--text); font-weight:600; }
+  .fly-sub{ font-family:var(--mono); font-size:10.5px; fill:var(--text-dim); }
+  .flyw .chub{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); }
 
   /* === S15 — hypothesis / CAC === */
   .hyp{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:24px; }
@@ -233,6 +236,36 @@
   #cover .inner{ position:relative; z-index:2; }
 
   .note-soft{ font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:.04em; margin-top:18px; line-height:1.6; }
+
+  /* ===== visual depth lift (port of V2/V3 panel feel) — cards get top-highlight + soft inner gradient + drop shadow ===== */
+  .scard,.step,.vcol,.tcol,.tcard,.cacbox,.treadmill,.flowcard,.engcore,.tl,.hypbox,.access{
+    background:radial-gradient(135% 100% at 50% -12%, rgba(255,255,255,.05), transparent 56%), var(--stage2) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 26px 64px -36px rgba(0,0,0,.92); }
+  .layer{ box-shadow: inset 0 1px 0 rgba(255,255,255,.045); }
+  /* giant-number hero (V2 02-problem) */
+  .bighero{ display:grid; grid-template-columns:1.1fr 1fr; gap:34px; align-items:center; margin-top:30px; }
+  .bighero .bn{ font-family:var(--display); font-weight:700; font-size:clamp(60px,10.5vw,148px); line-height:.86; letter-spacing:-.03em; }
+  .bighero .bn.g{ color:var(--own);} .bighero .bn.a{ color:var(--accent);}
+  .bighero .bl{ font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-dim); margin-top:16px; line-height:1.6; max-width:34ch; }
+  @media(max-width:860px){ .bighero{ grid-template-columns:1fr; gap:20px; } }
+  /* circular glowing avatars (V3 team) */
+  .tcard .tav{ border-radius:50% !important; background:radial-gradient(circle at 50% 34%, rgba(255,70,39,.24), rgba(255,70,39,.05)) !important; box-shadow:0 0 20px -2px rgba(255,70,39,.55), inset 0 0 0 1px rgba(255,70,39,.55) !important; border:none !important; }
+  /* ecosystem green sum = glowing core */
+  .esum{ box-shadow:0 0 42px -8px rgba(189,255,95,.45), inset 0 0 0 1px rgba(189,255,95,.5); }
+  /* engine core star (slide 13) */
+  .engcore .ecstar{ width:40%; filter:drop-shadow(0 0 16px rgba(255,70,39,.75)); margin-bottom:8px; }
+  /* why — two contrasting panels */
+  .vcol.dim{ opacity:.58; }
+  .vcol.win{ border-color:rgba(255,70,39,.5); box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 0 56px -16px rgba(255,70,39,.42); }
+  .vcol.win .vk{ color:var(--accent); }
+  .vcol.win .vli{ color:var(--text); }
+  .vcol.win .vli::before{ content:"▲"; color:var(--accent); font-size:10px; }
+  /* monetisation: coloured top-edge per term */
+  #monetisation .step{ position:relative; overflow:hidden; }
+  #monetisation .step::before{ content:""; position:absolute; top:0; left:0; right:0; height:3px; }
+  #monetisation .step.s1::before{ background:var(--text-dim); }
+  #monetisation .step.s2::before{ background:var(--accent); }
+  #monetisation .step.s3::before{ background:var(--own); }
 
   /* ===== review-pass fixes ===== */
   .slide.topalign{ align-items:safe center; }                      /* centred content */
@@ -364,7 +397,9 @@
               <text class="o-lbl" x="260" y="336" text-anchor="middle">Group chat</text>
               <text class="o-lbl" x="150" y="320" text-anchor="middle">Meme</text>
               <text class="o-lbl" x="370" y="320" text-anchor="middle">Podcast</text>
-              <circle cx="260" cy="190" r="44" fill="#08090B" stroke="rgba(255,255,255,.16)"/>
+              <defs><radialGradient id="augl"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.55"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
+              <circle cx="260" cy="190" r="74" fill="url(#augl)"/>
+              <circle cx="260" cy="190" r="44" fill="#08090B" stroke="rgba(255,70,39,.4)"/>
               <text class="o-core" x="260" y="195" text-anchor="middle" fill="#F4F5F7" font-size="16">Audience</text>
             </svg>
           </div>
@@ -438,7 +473,8 @@
     <!-- 6 · THE QUESTION -->
     <section class="slide stage-pure" id="question">
       <svg class="star-bg" style="width:44vw;bottom:-18vh;left:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
-      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;position:relative;z-index:2">
+      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;z-index:2">
+        <div class="chub" data-anim style="margin-bottom:2px"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
         <div class="micro dim" data-anim>THE QUESTION</div>
         <h2 class="qbig" data-anim data-d="1">Why <span class="accent">rent</span> attention forever<span class="nl">when you can build an ecosystem that</span><span class="nl"><span class="green-t">creates and owns</span> it?</span></h2>
         <p class="punch" data-anim data-d="2" style="margin-top:10px;font-size:clamp(16px,2vw,26px);max-width:30ch">Not a marketing department. Not an agency. Not a campaign machine.<span class="nl"><span class="accent">An attention infrastructure company.</span></span></p>
@@ -558,7 +594,7 @@
         <div class="micro" data-anim>CONFIGURABLE</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">The hook is adaptable.<span class="nl">The <span class="k-blue">engine</span> stays the same.</span></h2>
         <div class="engmap">
-          <div class="engcore" data-anim data-d="2">AIGO<span class="nl" style="font-size:11px;font-weight:500;color:var(--text-dim);letter-spacing:.1em">ATTENTION ENGINE</span></div>
+          <div class="engcore" data-anim data-d="2"><img class="ecstar" src="assets/brand/star.png" alt="" />AIGO<span class="nl" style="font-size:11px;font-weight:500;color:var(--text-dim);letter-spacing:.1em">ATTENTION ENGINE</span></div>
           <div class="outlist" data-anim data-d="3">
             <div class="outrow"><span class="of">Vault Run</span><span class="oarr">→</span><span class="oo">casino registrations</span></div>
             <div class="outrow"><span class="of">Football challenge</span><span class="oarr">→</span><span class="oo">sportsbook engagement</span></div>
@@ -602,38 +638,44 @@
 
     <!-- 14 · THE FLYWHEEL -->
     <section class="slide stage-pure topalign" id="flywheel">
-      <div class="inner">
-        <div class="micro" data-anim>THE FLYWHEEL</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Paid acquisition resets.<span class="nl">This <span class="k-green">compounds.</span></span></h2>
-        <div style="display:grid;grid-template-columns:1fr .85fr;gap:24px;align-items:center" class="fwwrap">
-          <div class="flyw5" data-anim data-d="2">
-            <svg viewBox="0 0 440 440" aria-hidden="true">
-              <circle class="fw-track" cx="220" cy="220" r="170"/>
-              <circle class="fw-flow" cx="220" cy="220" r="170"/>
-              <!-- 7 nodes around the circle -->
-              <g>
-                <circle class="fw-node" cx="220" cy="50" r="7"/><text class="fw-lbl" x="220" y="34" text-anchor="middle">Capital</text>
-                <circle class="fw-node" cx="367" cy="135" r="7"/><text class="fw-lbl" x="386" y="130" text-anchor="start">IP &amp; Talent</text>
-                <circle class="fw-node" cx="367" cy="305" r="7"/><text class="fw-lbl" x="386" y="310" text-anchor="start">Content</text>
-                <circle class="fw-node" cx="220" cy="390" r="7"/><text class="fw-lbl" x="220" y="412" text-anchor="middle">Audience</text>
-                <circle class="fw-node" cx="73" cy="305" r="7"/><text class="fw-lbl" x="54" y="310" text-anchor="end">Community</text>
-                <circle class="fw-node" cx="73" cy="135" r="7"/><text class="fw-lbl" x="54" y="130" text-anchor="end">Outcomes</text>
-                <circle class="fw-node" cx="146" cy="74" r="7"/><text class="fw-lbl" x="120" y="64" text-anchor="end">Revenue + Data</text>
-              </g>
-              <circle cx="220" cy="220" r="52" fill="#08090B" stroke="rgba(255,255,255,.16)"/>
-              <text class="fw-c" x="220" y="216" text-anchor="middle" fill="#BDFF5F" font-size="16">FLY-</text>
-              <text class="fw-c" x="220" y="236" text-anchor="middle" fill="#BDFF5F" font-size="16">WHEEL</text>
-            </svg>
-          </div>
-          <div data-anim data-d="3">
-            <p class="sub">A successful format means more audience, more data, more proof for sponsors, more leverage with talent &mdash; and lower marginal cost for the next launch.</p>
-            <div style="margin-top:18px;display:flex;flex-direction:column;gap:10px">
-              <div class="vli" style="border:none;color:var(--text)">Every format reduces the cost of the next</div>
-              <div class="vli" style="border:none;color:var(--text)">Every audience strengthens future launches</div>
-              <div class="vli" style="border:none;color:var(--text)">Every community becomes reusable distribution</div>
-            </div>
-          </div>
+      <div class="inner" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div class="micro" data-anim>THE FLYWHEEL · WHY IT COMPOUNDS</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:12px;font-size:clamp(28px,3.8vw,50px)">Paid acquisition resets. This <span class="k-green">compounds.</span></h2>
+        <div class="flyw" data-anim data-d="2">
+          <svg viewBox="0 0 680 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <circle class="fly-track" cx="340" cy="250" r="175"/>
+            <g class="fly-spokes">
+              <line class="fly-spoke" x1="340" y1="250" x2="340" y2="75"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="477" y2="141"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="511" y2="289"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="416" y2="408"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="264" y2="408"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="169" y2="289"/>
+              <line class="fly-spoke" x1="340" y1="250" x2="203" y2="141"/>
+            </g>
+            <circle class="fly-flow" cx="340" cy="250" r="175"/>
+            <path class="fly-arrow" transform="translate(506,168) rotate(58)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <path class="fly-arrow" transform="translate(174,332) rotate(238)" d="M-6 -5 L9 0 L-6 5 Z"/>
+            <g class="fly-nodes">
+              <circle class="fly-node" cx="340" cy="75" r="7" style="--nc:#FF4627"/>
+              <circle class="fly-node" cx="477" cy="141" r="6" style="--nc:#FF4627"/>
+              <circle class="fly-node" cx="511" cy="289" r="6" style="--nc:#FF4627"/>
+              <circle class="fly-node" cx="416" cy="408" r="6" style="--nc:#BDFF5F"/>
+              <circle class="fly-node" cx="264" cy="408" r="6" style="--nc:#BDFF5F"/>
+              <circle class="fly-node" cx="169" cy="289" r="6" style="--nc:#BDFF5F"/>
+              <circle class="fly-node" cx="203" cy="141" r="6" style="--nc:#FF4627"/>
+            </g>
+            <text class="fly-lbl" x="340" y="55" text-anchor="middle">CAPITAL</text>
+            <text class="fly-lbl" x="500" y="137" text-anchor="start">IP &amp; TALENT</text>
+            <text class="fly-lbl" x="535" y="293" text-anchor="start">CONTENT</text>
+            <text class="fly-lbl" x="438" y="430" text-anchor="start">AUDIENCE</text>
+            <text class="fly-lbl" x="242" y="430" text-anchor="end">COMMUNITY</text>
+            <text class="fly-lbl" x="145" y="293" text-anchor="end">OUTCOMES</text>
+            <text class="fly-lbl" x="178" y="137" text-anchor="end">REVENUE + DATA</text>
+          </svg>
+          <div class="chub"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
         </div>
+        <p class="punch" data-anim data-d="3" style="margin-top:4px;font-size:clamp(16px,2.1vw,26px);max-width:46ch">Every format reduces the cost of the next. Every audience strengthens future launches.<span class="nl"><span class="accent">Every community becomes reusable distribution.</span></span></p>
       </div>
     </section>
 
@@ -642,11 +684,10 @@
       <div class="inner">
         <div class="micro green" data-anim>THE HYPOTHESIS</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Owned attention should outperform <span class="accent">rented</span> attention.</h2>
-        <div class="hyp">
-          <div class="hypbox" data-anim data-d="2">
-            <div class="ht">Hypothesis · to be tested</div>
-            <div class="hbig">At least <span class="k-green">30% lower</span> fully-loaded CAC vs a comparable paid-acquisition control.</div>
-            <p class="note-soft" style="margin-top:16px;color:var(--text-dim)">A target, not a promise. The pilot exists to prove or disprove it rigorously.</p>
+        <div class="bighero">
+          <div data-anim data-d="2">
+            <div class="bn g">&ge;30%</div>
+            <div class="bl">lower fully-loaded CAC vs a comparable paid-acquisition control.<br/><span style="color:var(--text-faint)">Hypothesis · to be tested. A target, not a promise &mdash; the pilot exists to prove or disprove it rigorously.</span></div>
           </div>
           <div class="cacbox" data-anim data-d="3">
             <div class="seg" style="margin-bottom:10px">Fully-loaded CAC</div>
@@ -709,9 +750,9 @@
         <div class="micro" data-anim>MONETISATION ARCHITECTURE</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">The same attention, monetised <span class="k-gold">repeatedly.</span></h2>
         <div class="stair" data-anim data-d="2">
-          <div class="step s1"><div class="sk">Near term</div><h4>Earn on reach</h4><p>Sponsored formats · brand integrations · acquisition-as-a-service · performance partnerships</p></div>
-          <div class="step s2"><div class="sk">Medium term</div><h4>Own the IP</h4><p>Licensing · media rights · live experiences · commerce · branded entertainment</p></div>
-          <div class="step s3"><div class="sk">Long term</div><h4>Own the products</h4><p>Original games · gaming platform · white-label · prediction / betting products · data &amp; distribution</p></div>
+          <div class="step s1"><div class="sk">01 · Near term</div><h4>Earn on reach</h4><p>Sponsored formats · brand integrations · acquisition-as-a-service · performance partnerships</p></div>
+          <div class="step s2"><div class="sk">02 · Medium term</div><h4>Own the IP</h4><p>Licensing · media rights · live experiences · commerce · branded entertainment</p></div>
+          <div class="step s3"><div class="sk">03 · Long term</div><h4>Own the products</h4><p>Original games · gaming platform · white-label · prediction / betting products · data &amp; distribution</p></div>
         </div>
         <p class="note-soft" data-anim data-d="3">No single revenue source. The gaming product isn&rsquo;t the only stream &mdash; it&rsquo;s one of the highest-value outcomes of an audience we already own.</p>
       </div>
@@ -722,16 +763,24 @@
       <div class="inner">
         <div class="micro" data-anim>WHY AIGO CAN WIN</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Others buy reach.<span class="nl">We design the system that <span class="accent">creates</span> it.</span></h2>
-        <table class="wt" data-anim data-d="2">
-          <thead><tr><th>The traditional model</th><th class="aigoh">AIGO</th></tr></thead>
-          <tbody>
-            <tr><td class="x">Campaign</td><td class="a">Franchise</td></tr>
-            <tr><td class="x">Paid reach</td><td class="a">Owned + partner distribution</td></tr>
-            <tr><td class="x">Clicks</td><td class="a">Participation</td></tr>
-            <tr><td class="x">One client outcome</td><td class="a">Multi-layer monetisation</td></tr>
-            <tr><td class="x">Resets every month</td><td class="a">Compounding audience asset</td></tr>
-          </tbody>
-        </table>
+        <div class="vs2" data-anim data-d="2">
+          <div class="vcol dim">
+            <div class="vk">The traditional model</div>
+            <div class="vli">Campaign</div>
+            <div class="vli">Paid reach</div>
+            <div class="vli">Clicks</div>
+            <div class="vli">One client outcome</div>
+            <div class="vli">Resets every month</div>
+          </div>
+          <div class="vcol win">
+            <div class="vk">AIGO</div>
+            <div class="vli">Franchise</div>
+            <div class="vli">Owned + partner distribution</div>
+            <div class="vli">Participation</div>
+            <div class="vli">Multi-layer monetisation</div>
+            <div class="vli">Compounding audience asset</div>
+          </div>
+        </div>
         <p class="punch" data-anim data-d="3" style="margin-top:26px;font-size:clamp(17px,2.2vw,28px)">The moat isn&rsquo;t one creator.<span class="accent"> It&rsquo;s the operating system.</span></p>
       </div>
     </section>
