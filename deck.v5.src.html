@@ -47,7 +47,23 @@
   .moved .side{ border:1px solid var(--line); border-radius:16px; background:var(--stage2); padding:24px; }
   .moved .vs{ display:flex; align-items:center; justify-content:center; padding:0 18px; font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--text-faint); }
   .moved .sh{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:16px; }
-  .moved .old .sh{ color:var(--text-dim);} .moved .new .sh{ color:var(--blue);}
+  .moved .old .sh{ color:var(--text-dim);} .moved .new .sh{ color:var(--accent);}
+  .moved .new{ border-color:rgba(255,70,39,.32); box-shadow:0 0 60px -28px rgba(255,70,39,.5); }
+  /* THE SHIFT — old (cold, static, one-way) vs new (living many-to-many mesh) */
+  .shift-fig{ margin-top:4px; }
+  .shift-fig svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .bo-node{ fill:rgba(255,255,255,.025); stroke:var(--text-faint); stroke-width:1.3; }
+  .bo-ico{ stroke:var(--text-dim); stroke-width:1.6; fill:none; stroke-linecap:round; }
+  .bo-line{ stroke:var(--text-faint); stroke-width:1.6; }
+  .bo-feed{ stroke:var(--text-faint); stroke-width:1; fill:none; opacity:.45; }
+  .bo-arrow{ fill:var(--text-faint); }
+  .bo-aud circle{ fill:rgba(255,255,255,.15); }
+  .bo-lbl{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; fill:var(--text-faint); text-transform:uppercase; }
+  .mx-edge{ stroke:rgba(255,70,39,.20); stroke-width:1.3; fill:none; }
+  .mx-flow{ stroke:var(--accent); stroke-width:1.7; fill:none; stroke-dasharray:4 13; opacity:.9; filter:drop-shadow(0 0 4px rgba(255,70,39,.6)); animation:cflow 2.2s linear infinite; }
+  .mx-node rect{ fill:#0e0f13; stroke:rgba(255,70,39,.5); stroke-width:1.2; }
+  .mx-node text{ font-family:var(--mono); font-size:13px; fill:var(--text); letter-spacing:.02em; }
+  .mx-node{ filter:drop-shadow(0 0 7px rgba(255,70,39,.25)); }
   .oneway{ display:flex; align-items:center; gap:12px; color:var(--text-dim); }
   .oneway .tower{ font-size:30px; }
   .oneway .arr{ flex:1; height:1px; background:linear-gradient(90deg,var(--text-faint),transparent); position:relative;}
@@ -508,16 +524,50 @@
         <div class="moved" data-anim data-d="2">
           <div class="side old">
             <div class="sh">The old model</div>
-            <div class="oneway"><svg class="twr" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v9.5M7.5 20.5l4.5-7.5 4.5 7.5M9.2 17h5.6M8.4 6.2a5 5 0 000 6.4M15.6 6.2a5 5 0 010 6.4"/></svg><span class="arr"></span><span>Audience</span></div>
-            <p class="sub" style="font-size:13.5px;margin-top:16px">One broadcaster. A schedule. Attention bought from a gatekeeper, one way.</p>
+            <div class="shift-fig" data-anim>
+              <svg viewBox="0 0 600 300" aria-hidden="true">
+                <circle class="bo-node" cx="96" cy="150" r="38"/>
+                <path class="bo-ico" d="M96 136 v30 M85 174 l11 -16 11 16 M88 166 h16 M86 128 a13 13 0 000 18 M106 128 a13 13 0 010 18"/>
+                <line class="bo-line" x1="138" y1="150" x2="392" y2="150"/>
+                <path class="bo-arrow" d="M392 150 l-13 -7 v14 z"/>
+                <path class="bo-feed" d="M396 150 L432 96 M396 150 L432 150 M396 150 L432 204"/>
+                <g class="bo-aud">
+                  <circle cx="438" cy="96" r="7"/><circle cx="480" cy="96" r="7"/><circle cx="522" cy="96" r="7"/><circle cx="564" cy="96" r="7"/>
+                  <circle cx="438" cy="150" r="7"/><circle cx="480" cy="150" r="7"/><circle cx="522" cy="150" r="7"/><circle cx="564" cy="150" r="7"/>
+                  <circle cx="438" cy="204" r="7"/><circle cx="480" cy="204" r="7"/><circle cx="522" cy="204" r="7"/><circle cx="564" cy="204" r="7"/>
+                </g>
+                <text class="bo-lbl" x="96" y="216" text-anchor="middle">Broadcaster</text>
+                <text class="bo-lbl" x="266" y="138" text-anchor="middle">one&#8209;way</text>
+                <text class="bo-lbl" x="501" y="250" text-anchor="middle">Audience</text>
+              </svg>
+            </div>
+            <p class="sub" style="font-size:13.5px;margin-top:10px">One broadcaster. A schedule. Attention bought from a gatekeeper, one way.</p>
           </div>
           <div class="vs">→</div>
           <div class="side new">
             <div class="sh">Where culture happens now</div>
-            <div class="netgrid">
-              <span class="pill b">YouTube</span><span class="pill b">TikTok</span><span class="pill b">Instagram</span><span class="pill b">Twitch</span><span class="pill b">Kick</span><span class="pill b">X</span><span class="pill b">Reddit</span><span class="pill b">Telegram</span><span class="pill b">Discord</span>
+            <div class="shift-fig" data-anim>
+              <svg viewBox="0 0 600 300" aria-hidden="true">
+                <g>
+                  <line class="mx-edge" x1="110" y1="72" x2="258" y2="52"/><line class="mx-edge" x1="258" y1="52" x2="422" y2="70"/><line class="mx-edge" x1="422" y1="70" x2="528" y2="148"/><line class="mx-edge" x1="528" y1="148" x2="442" y2="236"/><line class="mx-edge" x1="442" y1="236" x2="300" y2="266"/><line class="mx-edge" x1="300" y1="266" x2="150" y2="240"/><line class="mx-edge" x1="150" y1="240" x2="80" y2="162"/><line class="mx-edge" x1="80" y1="162" x2="110" y2="72"/>
+                  <line class="mx-edge" x1="292" y1="150" x2="110" y2="72"/><line class="mx-edge" x1="292" y1="150" x2="258" y2="52"/><line class="mx-edge" x1="292" y1="150" x2="422" y2="70"/><line class="mx-edge" x1="292" y1="150" x2="442" y2="236"/><line class="mx-edge" x1="292" y1="150" x2="150" y2="240"/>
+                  <line class="mx-edge" x1="110" y1="72" x2="422" y2="70"/><line class="mx-edge" x1="258" y1="52" x2="300" y2="266"/><line class="mx-edge" x1="528" y1="148" x2="150" y2="240"/><line class="mx-edge" x1="80" y1="162" x2="258" y2="52"/>
+                </g>
+                <g>
+                  <line class="mx-flow" x1="110" y1="72" x2="258" y2="52"/><line class="mx-flow" x1="422" y1="70" x2="528" y2="148" style="animation-delay:-.7s"/><line class="mx-flow" x1="442" y1="236" x2="300" y2="266" style="animation-delay:-1.3s"/><line class="mx-flow" x1="150" y1="240" x2="80" y2="162" style="animation-delay:-.4s"/><line class="mx-flow" x1="292" y1="150" x2="110" y2="72" style="animation-delay:-1.6s"/><line class="mx-flow" x1="292" y1="150" x2="422" y2="70" style="animation-delay:-.9s"/><line class="mx-flow" x1="292" y1="150" x2="442" y2="236" style="animation-delay:-1.1s"/><line class="mx-flow" x1="258" y1="52" x2="300" y2="266" style="animation-delay:-.2s"/>
+                </g>
+                <g class="mx-node"><rect x="66" y="59" width="88" height="26" rx="13"/><text x="110" y="76" text-anchor="middle">YouTube</text></g>
+                <g class="mx-node"><rect x="218" y="39" width="80" height="26" rx="13"/><text x="258" y="56" text-anchor="middle">TikTok</text></g>
+                <g class="mx-node"><rect x="370" y="57" width="104" height="26" rx="13"/><text x="422" y="74" text-anchor="middle">Instagram</text></g>
+                <g class="mx-node"><rect x="488" y="135" width="80" height="26" rx="13"/><text x="528" y="152" text-anchor="middle">Twitch</text></g>
+                <g class="mx-node"><rect x="412" y="223" width="60" height="26" rx="13"/><text x="442" y="240" text-anchor="middle">Kick</text></g>
+                <g class="mx-node"><rect x="278" y="253" width="44" height="26" rx="13"/><text x="300" y="270" text-anchor="middle">X</text></g>
+                <g class="mx-node"><rect x="110" y="227" width="80" height="26" rx="13"/><text x="150" y="244" text-anchor="middle">Reddit</text></g>
+                <g class="mx-node"><rect x="32" y="149" width="96" height="26" rx="13"/><text x="80" y="166" text-anchor="middle">Telegram</text></g>
+                <g class="mx-node"><rect x="248" y="137" width="88" height="26" rx="13"/><text x="292" y="154" text-anchor="middle">Discord</text></g>
+              </svg>
             </div>
-            <p class="sub" style="font-size:13.5px;margin-top:16px">Fragmented, interactive, community-led. Many-to-many. The audience moved here.</p>
+            <p class="sub" style="font-size:13.5px;margin-top:10px">Fragmented, interactive, community-led. Many-to-many. The audience moved here.</p>
           </div>
         </div>
         <div class="statrow" data-anim data-d="3">
