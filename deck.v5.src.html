@@ -199,18 +199,21 @@
   @media(max-width:760px){ .hyp{ grid-template-columns:1fr; } }
 
   /* === S16 — pilot timeline + budget === */
-  .tl{ display:flex; gap:0; margin-top:24px; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-  .tlp{ flex:1; padding:18px; border-right:1px solid var(--line); }
+  .tl{ display:flex; gap:0; margin-top:36px; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .tlp{ flex:1; padding:22px 24px; border-right:1px solid var(--line); }
   .tlp:last-child{ border-right:none; }
   .tlp .tw{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; color:var(--accent); text-transform:uppercase; }
   .tlp h5{ font-family:var(--display); font-weight:600; font-size:15px; margin:8px 0 6px; }
   .tlp p{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
-  .budget{ margin-top:18px; display:flex; flex-direction:column; gap:9px; }
-  .brow{ display:grid; grid-template-columns:170px 1fr 44px; align-items:center; gap:12px; font-size:12.5px; color:var(--text-dim); }
-  .brow .bt{ height:8px; border-radius:4px; background:rgba(255,255,255,.06); overflow:hidden; }
-  .brow .bt i{ display:block; height:100%; background:var(--accent); }
-  .brow .bp{ font-family:var(--mono); color:var(--text); text-align:right; }
-  @media(max-width:760px){ .tl{ flex-direction:column; } .tlp{ border-right:none; border-bottom:1px solid var(--line);} .brow{ grid-template-columns:120px 1fr 40px; } }
+  .budget{ margin-top:42px; display:flex; flex-direction:column; gap:20px; }
+  .budget-h{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); margin-bottom:3px; }
+  .brow{ display:grid; grid-template-columns:212px 1fr 72px 46px; align-items:center; gap:18px; font-size:13.5px; color:var(--text-dim); }
+  .brow .bl{ letter-spacing:.01em; }
+  .brow .bt{ height:11px; border-radius:6px; background:rgba(255,255,255,.05); overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.4); }
+  .brow .bt i{ display:block; height:100%; border-radius:6px; background:linear-gradient(90deg,#ff5a3c,var(--accent)); box-shadow:0 0 14px rgba(255,70,39,.4); }
+  .brow .ba{ font-family:var(--mono); color:var(--text); font-weight:600; text-align:right; font-size:13px; letter-spacing:.01em; }
+  .brow .bp{ font-family:var(--mono); color:var(--text-faint); text-align:right; font-size:12px; }
+  @media(max-width:760px){ .tl{ flex-direction:column; } .tlp{ border-right:none; border-bottom:1px solid var(--line);} .brow{ grid-template-columns:120px 1fr 58px 38px; gap:12px; font-size:12.5px; } }
 
   /* === S17 — rented→owned year bars === */
   .ybars{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:30px; align-items:end; }
@@ -388,9 +391,10 @@
   .vstrip b{ color:var(--accent); font-weight:600; } .vstrip .live{ color:var(--green); } .vstrip .sep{ color:var(--text-faint); }
 
   /* Vault Run mechanic — editorial step-rail (Nafti: define the game + casino x-sell). No box/card; image stays dominant. */
-  .vbleed-scrim.vr{ background:linear-gradient(90deg, rgba(4,4,6,.97), rgba(4,4,6,.82) 36%, rgba(4,4,6,.34) 56%, transparent 64%); }
-  #vaultrun .punch{ max-width:26ch; }
-  .vr-steps{ list-style:none; margin:18px 0 0; padding:0; max-width:37ch; }
+  .vbleed-scrim.vr{ background:linear-gradient(90deg, rgba(4,4,6,.99) 0%, rgba(4,4,6,.97) 30%, rgba(4,4,6,.86) 47%, rgba(4,4,6,.5) 60%, transparent 74%); }
+  #vaultrun .inner{ text-shadow:0 1px 12px rgba(0,0,0,.6); }
+  #vaultrun .punch{ max-width:min(480px,36vw); }
+  .vr-steps{ list-style:none; margin:18px 0 0; padding:0; max-width:min(640px,47vw); }
   .vr-step{ display:grid; grid-template-columns:78px 1fr; gap:16px; align-items:start; padding:10px 0; border-top:1px solid var(--line); }
   .vr-step:first-child{ border-top:1px solid var(--line-strong); }
   .vr-n{ font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-faint); padding-top:3px; white-space:nowrap; }
@@ -399,10 +403,10 @@
   .vr-t{ font-family:var(--body); font-size:13.5px; line-height:1.45; color:var(--text-dim); }
   .vr-t .accent{ color:var(--accent); font-weight:600; }
   .vr-t .lime{ color:var(--own); font-weight:600; }
-  .vr-xsell{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); max-width:44ch; font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; line-height:1.6; color:var(--text-dim); }
+  .vr-xsell{ margin-top:16px; padding-top:13px; border-top:1px solid var(--line); max-width:min(600px,44vw); font-family:var(--mono); font-size:11.5px; letter-spacing:.02em; line-height:1.6; color:var(--text-dim); }
   .vr-xsell b{ color:var(--text); font-weight:600; }
   /* legal must be legibly visible (compliance) — quiet but readable on the dark gutter, never crossing the doors */
-  .vr-legal{ margin-top:11px; max-width:50ch; font-family:var(--mono); font-size:11px; letter-spacing:.03em; line-height:1.55; color:var(--text-dim); }
+  .vr-legal{ margin-top:11px; max-width:min(560px,41vw); font-family:var(--mono); font-size:11px; letter-spacing:.03em; line-height:1.55; color:var(--text-dim); }
   @media (max-width:860px){
     .vbleed-scrim.vr{ background:linear-gradient(0deg, rgba(4,4,6,.95), rgba(4,4,6,.78) 60%, rgba(4,4,6,.5)); }
     .vr-step{ grid-template-columns:58px 1fr; gap:12px; }
@@ -944,13 +948,14 @@
           <div class="tlp"><div class="tw">Months 7&ndash;9</div><h5>Read-out</h5><p>CAC comparison · retention cohort · decision to scale</p></div>
         </div>
         <div class="budget" data-anim data-d="4">
-          <div class="brow"><span>Creators &amp; talent</span><span class="bt"><i style="width:35%"></i></span><span class="bp">35%</span></div>
-          <div class="brow"><span>Production &amp; prize pool</span><span class="bt"><i style="width:20%"></i></span><span class="bp">20%</span></div>
-          <div class="brow"><span>Distribution &amp; amplification</span><span class="bt"><i style="width:20%"></i></span><span class="bp">20%</span></div>
-          <div class="brow"><span>Product &amp; community tooling</span><span class="bt"><i style="width:15%"></i></span><span class="bp">15%</span></div>
-          <div class="brow"><span>Legal · data · contingency</span><span class="bt"><i style="width:10%"></i></span><span class="bp">10%</span></div>
+          <div class="budget-h">Use of funds &middot; &euro;500K</div>
+          <div class="brow"><span class="bl">Creators &amp; talent</span><span class="bt"><i style="width:35%"></i></span><span class="ba">&euro;175k</span><span class="bp">35%</span></div>
+          <div class="brow"><span class="bl">Production &amp; prize pool</span><span class="bt"><i style="width:20%"></i></span><span class="ba">&euro;100k</span><span class="bp">20%</span></div>
+          <div class="brow"><span class="bl">Distribution &amp; amplification</span><span class="bt"><i style="width:20%"></i></span><span class="ba">&euro;100k</span><span class="bp">20%</span></div>
+          <div class="brow"><span class="bl">Product &amp; community tooling</span><span class="bt"><i style="width:15%"></i></span><span class="ba">&euro;75k</span><span class="bp">15%</span></div>
+          <div class="brow"><span class="bl">Legal · data · contingency</span><span class="bt"><i style="width:10%"></i></span><span class="ba">&euro;50k</span><span class="bp">10%</span></div>
         </div>
-        <p class="note-soft" data-anim data-d="5" style="margin-top:14px"><b style="color:var(--text-dim)">Success gate:</b> hit &ge;30% lower CAC on Vault Run Season One &rarr; raise a Seed round to scale to multiple formats &amp; channels.</p>
+        <p class="note-soft" data-anim data-d="5" style="margin-top:34px"><b style="color:var(--text-dim)">Success gate:</b> hit &ge;30% lower CAC on Vault Run Season One &rarr; raise a Seed round to scale to multiple formats &amp; channels.</p>
         <div class="srcline" data-anim data-d="6"><b>The pilot&rsquo;s job:</b> prove &mdash; or disprove &mdash; whether original entertainment creates gaming customers more efficiently than paid acquisition. Draft planning allocations.</div>
       </div>
     </section>
