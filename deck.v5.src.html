@@ -59,13 +59,15 @@
   @media(max-width:760px){ .moved{ grid-template-columns:1fr; gap:12px; } .moved .vs{ padding:6px 0; } }
 
   /* === S3 — audience ecosystem orbit === */
-  .orbitwrap{ position:relative; width:min(560px,90vw); aspect-ratio:1/.74; margin:6px auto 0; }
+  .orbitwrap{ position:relative; width:min(620px,94vw); aspect-ratio:1/.78; margin:0 auto; }
   .orbitwrap svg{ width:100%; height:100%; overflow:visible; }
-  .o-ring{ fill:none; stroke:rgba(91,200,255,.16); stroke-width:1; }
-  .o-spoke{ stroke:rgba(255,255,255,.07); stroke-width:1; }
-  .o-core{ font-family:var(--display); font-weight:700; }
-  .o-lbl{ font-family:var(--mono); font-size:12px; fill:var(--text); }
-  .o-node{ filter:drop-shadow(0 0 7px rgba(91,200,255,.5)); }
+  .o-ring{ fill:none; stroke:rgba(255,70,39,.12); stroke-width:1; }
+  .o-flow{ fill:none; stroke:var(--accent); stroke-width:1.5; stroke-dasharray:2 15; opacity:.55; filter:drop-shadow(0 0 4px rgba(255,70,39,.55)); animation:cflow 2.4s linear infinite; }
+  @media(prefers-reduced-motion:reduce){ .o-flow{ animation:none; } }
+  .o-spoke{ stroke:rgba(255,70,39,.10); stroke-width:1; }
+  .o-core-t{ font-family:var(--display); font-weight:700; }
+  .o-lbl{ font-family:var(--mono); font-size:12px; letter-spacing:.02em; fill:var(--text); }
+  .o-node{ fill:#0d0a07; stroke:var(--accent); stroke-width:2.5; filter:drop-shadow(0 0 9px rgba(255,70,39,.85)); }
 
   /* === S4 — leaking bucket / treadmill === */
   .leak{ display:grid; grid-template-columns:1.1fr 1fr; gap:26px; margin-top:24px; align-items:center; }
@@ -424,31 +426,32 @@
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,52px)">The broadcaster is no longer a channel.<span class="nl">It&rsquo;s an <span class="k-blue">ecosystem.</span></span></h2>
         <div style="display:grid;grid-template-columns:1fr .9fr;gap:30px;align-items:center;margin-top:8px" class="bcast">
           <div class="orbitwrap" data-anim data-d="2">
-            <svg viewBox="0 0 520 380" aria-hidden="true">
-              <ellipse class="o-ring" cx="260" cy="190" rx="170" ry="120"/>
-              <ellipse class="o-ring" cx="260" cy="190" rx="110" ry="74"/>
+            <svg viewBox="0 0 560 440" aria-hidden="true">
+              <defs><radialGradient id="aucore"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.62"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
+              <ellipse class="o-ring" cx="280" cy="210" rx="210" ry="150"/>
+              <ellipse class="o-ring" cx="280" cy="210" rx="120" ry="86"/>
               <g class="o-spoke">
-                <line x1="260" y1="190" x2="90" y2="120"/><line x1="260" y1="190" x2="430" y2="120"/>
-                <line x1="260" y1="190" x2="80" y2="250"/><line x1="260" y1="190" x2="440" y2="250"/>
-                <line x1="260" y1="190" x2="260" y2="64"/><line x1="260" y1="190" x2="260" y2="316"/>
-                <line x1="260" y1="190" x2="150" y2="300"/><line x1="260" y1="190" x2="370" y2="300"/>
+                <line x1="280" y1="210" x2="280" y2="60"/><line x1="280" y1="210" x2="428" y2="104"/>
+                <line x1="280" y1="210" x2="490" y2="210"/><line x1="280" y1="210" x2="428" y2="316"/>
+                <line x1="280" y1="210" x2="280" y2="360"/><line x1="280" y1="210" x2="132" y2="316"/>
+                <line x1="280" y1="210" x2="70" y2="210"/><line x1="280" y1="210" x2="132" y2="104"/>
               </g>
-              <circle class="o-node" cx="90" cy="120" r="5" fill="#FF4627"/><circle class="o-node" cx="430" cy="120" r="5" fill="#FF4627"/>
-              <circle class="o-node" cx="80" cy="250" r="5" fill="#FF4627"/><circle class="o-node" cx="440" cy="250" r="5" fill="#FF4627"/>
-              <circle class="o-node" cx="260" cy="64" r="5" fill="#FF4627"/><circle class="o-node" cx="260" cy="316" r="5" fill="#FF4627"/>
-              <circle class="o-node" cx="150" cy="300" r="5" fill="#FF4627"/><circle class="o-node" cx="370" cy="300" r="5" fill="#FF4627"/>
-              <text class="o-lbl" x="90" y="108" text-anchor="middle">Creator</text>
-              <text class="o-lbl" x="430" y="108" text-anchor="middle">Platform</text>
-              <text class="o-lbl" x="70" y="270" text-anchor="middle">Clip</text>
-              <text class="o-lbl" x="445" y="270" text-anchor="middle">Live</text>
-              <text class="o-lbl" x="260" y="52" text-anchor="middle">Community</text>
-              <text class="o-lbl" x="260" y="336" text-anchor="middle">Group chat</text>
-              <text class="o-lbl" x="150" y="320" text-anchor="middle">Meme</text>
-              <text class="o-lbl" x="370" y="320" text-anchor="middle">Podcast</text>
-              <defs><radialGradient id="augl"><stop offset="0%" stop-color="#FF4627" stop-opacity="0.55"/><stop offset="100%" stop-color="#FF4627" stop-opacity="0"/></radialGradient></defs>
-              <circle cx="260" cy="190" r="74" fill="url(#augl)"/>
-              <circle cx="260" cy="190" r="44" fill="#08090B" stroke="rgba(255,70,39,.4)"/>
-              <text class="o-core" x="260" y="195" text-anchor="middle" fill="#F4F5F7" font-size="16">Audience</text>
+              <ellipse class="o-flow" cx="280" cy="210" rx="210" ry="150"/>
+              <text class="o-lbl" x="280" y="42" text-anchor="middle">Community</text>
+              <text class="o-lbl" x="448" y="100" text-anchor="start">Platform</text>
+              <text class="o-lbl" x="512" y="214" text-anchor="start">Live</text>
+              <text class="o-lbl" x="448" y="338" text-anchor="start">Podcast</text>
+              <text class="o-lbl" x="280" y="392" text-anchor="middle">Group chat</text>
+              <text class="o-lbl" x="112" y="338" text-anchor="end">Meme</text>
+              <text class="o-lbl" x="48" y="214" text-anchor="end">Clip</text>
+              <text class="o-lbl" x="112" y="100" text-anchor="end">Creator</text>
+              <circle class="o-node" cx="280" cy="60" r="6.5"/><circle class="o-node" cx="428" cy="104" r="6.5"/>
+              <circle class="o-node" cx="490" cy="210" r="6.5"/><circle class="o-node" cx="428" cy="316" r="6.5"/>
+              <circle class="o-node" cx="280" cy="360" r="6.5"/><circle class="o-node" cx="132" cy="316" r="6.5"/>
+              <circle class="o-node" cx="70" cy="210" r="6.5"/><circle class="o-node" cx="132" cy="104" r="6.5"/>
+              <circle cx="280" cy="210" r="94" fill="url(#aucore)"/>
+              <circle cx="280" cy="210" r="56" fill="#08090B" stroke="rgba(255,70,39,.5)" stroke-width="1.5"/>
+              <text class="o-core-t" x="280" y="216" text-anchor="middle" fill="#F4F5F7" font-size="17">Audience</text>
             </svg>
           </div>
           <div data-anim data-d="3">
