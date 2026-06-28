@@ -117,6 +117,7 @@
   .eqn{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 12px; margin:8px auto 0; max-width:920px; }
   .eterm{ border:1px solid var(--line); border-radius:12px; background:var(--stage2); padding:13px 16px; font-family:var(--display); font-weight:600; font-size:14.5px; }
   .eop{ font-family:var(--display); font-weight:700; font-size:22px; color:var(--text-faint); }
+  .eunit{ display:inline-flex; align-items:center; gap:12px; }   /* operator stays bound to its term → no orphan '+' at line end */
   .esum{ border:1px solid rgba(189,255,95,.4); background:rgba(189,255,95,.06); border-radius:12px; padding:14px 20px; font-family:var(--display); font-weight:700; font-size:clamp(16px,2vw,22px); color:var(--own); }
   .outs{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:22px; }
 
@@ -126,8 +127,8 @@
   .layer .ln{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
   .layer .ld{ display:flex; flex-wrap:wrap; gap:7px; }
   .layer.l1{ border-left:3px solid var(--accent);} .layer.l1 .ln{ color:var(--accent);}
-  .layer.l2{ border-left:3px solid var(--blue);} .layer.l2 .ln{ color:var(--blue);}
-  .layer.l3{ border-left:3px solid var(--text-dim);} .layer.l3 .ln{ color:var(--text-dim);}
+  .layer.l2{ border-left:3px solid color-mix(in srgb,var(--accent) 60%,var(--own));} .layer.l2 .ln{ color:color-mix(in srgb,var(--accent) 60%,var(--own));}
+  .layer.l3{ border-left:3px solid color-mix(in srgb,var(--own) 70%,var(--accent));} .layer.l3 .ln{ color:color-mix(in srgb,var(--own) 70%,var(--accent));}
   .layer.l4{ border-left:3px solid var(--own);} .layer.l4 .ln{ color:var(--own);}
   @media(max-width:760px){ .layer{ grid-template-columns:1fr; gap:10px; } }
 
@@ -165,10 +166,10 @@
   .flowcard.aigo{ border-color:rgba(255,70,39,.3); }
   .flowcard .fc-h{ font-family:var(--display); font-weight:700; font-size:18px; margin-bottom:16px; }
   .fchain{ display:flex; flex-direction:column; gap:0; }
-  .fnode{ font-family:var(--body); font-size:13.5px; color:var(--text-dim); padding:9px 0; }
+  .fnode{ font-family:var(--body); font-size:13.5px; color:var(--text-dim); padding:11px 0; border-top:1px solid var(--line); }
+  .fchain .fnode:first-child{ border-top:none; }
   .fnode b{ color:var(--text); font-weight:600; }
-  .fdash{ width:1px; height:12px; margin-left:3px; background:var(--line-strong); }
-  .flowcard.aigo .fdash{ background:linear-gradient(180deg,rgba(255,70,39,.7),rgba(255,70,39,.2)); }
+  .fdash{ display:none; }
   @media(max-width:760px){ .rbflow{ grid-template-columns:1fr; } }
 
   /* === S14 — flywheel (ported from V3: glowing nodes + dotted orbit + arrows + centre AIGO star) === */
@@ -272,8 +273,8 @@
   #monetisation .step.s3::before{ background:var(--own); }
 
   /* ===== review-pass fixes ===== */
-  /* content slides: consistent top anchor so the eyebrow lands on the same Y line every slide → cinematic rhythm, no centred dead-bands */
-  .slide.topalign{ align-items:flex-start; padding-top:clamp(80px,13vh,150px); padding-bottom:clamp(56px,8vh,100px); }
+  /* content slides: TRUE vertical centring (George: "la mijloc") — content block centred at 50% on every slide; min-heights on cards/diagrams keep it filling the frame so centring reads balanced, not floaty */
+  .slide.topalign{ align-items:safe center; }
   .slide.topalign .inner{ width:100%; }
   .vcol.good{ border-color:rgba(189,255,95,.5); box-shadow:inset 0 0 34px rgba(189,255,95,.05); }
   .vcol.good .vli::before{ color:var(--own); }
@@ -327,13 +328,13 @@
 
     <!-- 1 · COVER -->
     <section class="slide stage-pure" id="cover">
-      <canvas id="cover-fx" aria-hidden="true"></canvas>
-      <svg class="star-bg" style="width:46vw;top:-16vh;right:-12vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <svg class="star-bg" style="width:60vw;top:-20vh;right:-15vw" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+      <svg class="star-bg" style="width:38vw;bottom:-20vh;left:-14vw;opacity:0.045" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
       <div class="inner">
-        <img class="star-hero" src="assets/brand/star.png" alt="AIGO" data-anim style="width:clamp(58px,7vw,88px)" />
-        <h1 class="display" data-anim data-d="1" style="max-width:20ch;margin-top:18px">Gaming companies spend billions <span class="accent">buying</span> attention.</h1>
-        <p class="punch" data-anim data-d="2" style="font-size:clamp(20px,3vw,38px);margin-top:14px;max-width:24ch">AIGO exists to <span class="green-t">build</span> it instead.</p>
-        <div class="brandline" data-anim data-d="3" style="margin-top:18px">THE ATTENTION INFRASTRUCTURE COMPANY</div>
+        <img class="star-hero" src="assets/brand/star.png" alt="AIGO" data-anim />
+        <h1 class="display" data-anim data-d="1" style="max-width:18ch;margin-top:10px">Gaming companies spend billions <span class="accent">buying</span> attention.</h1>
+        <p class="punch" data-anim data-d="2" style="font-size:clamp(20px,3vw,38px);margin-top:6px;max-width:24ch">AIGO exists to <span class="green-t">build</span> it instead.</p>
+        <div class="brandline" data-anim data-d="3">THE ATTENTION INFRASTRUCTURE COMPANY</div>
         <div class="boot" data-anim data-d="4">
           <span>CONFIDENTIAL · FOUNDER NARRATIVE</span><span class="sep">·</span>
           <span>GAMING IS THE BEACHHEAD</span>
@@ -540,14 +541,13 @@
         <div class="micro" data-anim>WHAT WE BUILD</div>
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(26px,3.4vw,46px)">We don&rsquo;t build campaigns.<span class="nl">We build ecosystems that make attention <span class="k-green">compound.</span></span></h2>
         <div class="eqn" data-anim data-d="2" style="margin-top:28px">
-          <span class="eterm">Original Formats</span><span class="eop">+</span>
-          <span class="eterm">Creators &amp; Talent</span><span class="eop">+</span>
-          <span class="eterm">Owned Channels</span><span class="eop">+</span>
-          <span class="eterm">Communities</span><span class="eop">+</span>
-          <span class="eterm">Interactive Participation</span><span class="eop">+</span>
-          <span class="eterm">Data &amp; Optimisation</span>
-          <span class="eop">=</span>
-          <span class="esum">Attention that moves people</span>
+          <span class="eterm">Original Formats</span>
+          <span class="eunit"><span class="eop">+</span><span class="eterm">Creators &amp; Talent</span></span>
+          <span class="eunit"><span class="eop">+</span><span class="eterm">Owned Channels</span></span>
+          <span class="eunit"><span class="eop">+</span><span class="eterm">Communities</span></span>
+          <span class="eunit"><span class="eop">+</span><span class="eterm">Interactive Participation</span></span>
+          <span class="eunit"><span class="eop">+</span><span class="eterm">Data &amp; Optimisation</span></span>
+          <span class="eunit"><span class="eop">=</span><span class="esum">Attention that moves people</span></span>
         </div>
         <div class="outs" data-anim data-d="3">
           <span class="pill">Casino registrations</span><span class="pill">Sportsbook users</span><span class="pill">Game downloads</span><span class="pill">Product launches</span><span class="pill">Brand lift</span><span class="pill">Commerce</span>
