@@ -365,6 +365,8 @@
   .vbleed{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
   .vbleed-scrim{ position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(4,4,6,.97), rgba(4,4,6,.74) 42%, rgba(4,4,6,.32) 72%, rgba(4,4,6,.6)); }
   .vbleed-scrim.b{ background:linear-gradient(0deg, rgba(4,4,6,.92), transparent 55%), linear-gradient(90deg, rgba(4,4,6,.9), rgba(4,4,6,.4) 60%, transparent); }
+  .vbleed-scrim.c{ background:radial-gradient(115% 115% at 50% 50%, rgba(4,4,6,.55), rgba(4,4,6,.9) 90%); }
+  .vbleed.dim{ opacity:.7; }
   .vstrip{ display:flex; flex-wrap:wrap; gap:10px 20px; align-items:center; margin-top:22px; font-family:var(--mono); font-size:12.5px; letter-spacing:.05em; color:var(--text); }
   .vstrip b{ color:var(--accent); font-weight:600; } .vstrip .live{ color:var(--green); } .vstrip .sep{ color:var(--text-faint); }
   /* games portfolio wall */
@@ -556,10 +558,10 @@
     </section>
 
     <!-- 6 · THE QUESTION -->
-    <section class="slide stage-pure" id="question">
-      <svg class="star-bg" style="width:44vw;bottom:-18vh;left:-14vw;opacity:0.05" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
+    <section class="slide" id="question" style="overflow:hidden">
+      <img class="vbleed" src="assets/bg/opportunity.webp" alt="" data-anim />
+      <div class="vbleed-scrim c"></div>
       <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;z-index:2">
-        <div class="chub" data-anim style="margin-bottom:2px"><div class="cring"></div><img src="assets/brand/star.png" alt="AIGO" /></div>
         <div class="micro dim" data-anim>THE QUESTION</div>
         <h2 class="qbig" data-anim data-d="1">Why <span class="accent">rent</span> attention forever<span class="nl">when you can build an ecosystem that</span><span class="nl"><span class="green-t">creates and owns</span> it?</span></h2>
         <p class="punch" data-anim data-d="2" style="margin-top:10px;font-size:clamp(16px,2vw,26px);max-width:30ch">Not a marketing department. Not an agency. Not a campaign machine.<span class="nl"><span class="accent">An attention infrastructure company.</span></span></p>
@@ -946,9 +948,10 @@
     </section>
 
     <!-- 20 · CLOSING -->
-    <section class="slide stage-pure" id="close">
-      <svg class="star-bg" style="width:50vw;top:-18vh;right:-14vw;opacity:0.055" viewBox="0 0 200 200"><path d="M170 100c-19.33 0-35 15.67-35 35 0-19.33-15.67-35-35-35 19.33 0 35-15.67 35-35 0 19.33 15.67 35 35 35z" fill="#FF4627"/></svg>
-      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px;position:relative;z-index:2">
+    <section class="slide" id="close" style="overflow:hidden">
+      <img class="vbleed dim" src="assets/bg/why-watch.webp" alt="" data-anim />
+      <div class="vbleed-scrim c"></div>
+      <div class="inner" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;z-index:2">
         <img class="close-star" src="assets/brand/star.png" alt="AIGO" data-anim />
         <div class="micro" data-anim>THE FUTURE</div>
         <h2 class="qbig" data-anim data-d="1">We build attention<span class="nl">that <span class="green-t">moves people.</span></span></h2>
