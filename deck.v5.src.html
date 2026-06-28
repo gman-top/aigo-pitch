@@ -398,6 +398,35 @@
   .gcard:hover .gtopline{ opacity:1; box-shadow:0 0 12px var(--accent); }
   @media(max-width:760px){ .gwall{ grid-template-columns:1fr 1fr; } }
 
+  /* Vault Run → owned IP pivot (slide 13) */
+  .pivot{ display:grid; grid-template-columns:1.05fr auto 1.05fr auto .92fr; gap:15px; align-items:center; margin-top:22px; }
+  .pcard{ border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--stage2); box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 22px 56px -34px rgba(0,0,0,.95); }
+  .pcard .pimg{ position:relative; aspect-ratio:16/9; overflow:hidden; }
+  .pcard .pimg img{ width:100%; height:100%; object-fit:cover; }
+  .pcard .pimg .pscrim{ position:absolute; inset:0; background:linear-gradient(180deg,transparent 46%,rgba(4,4,6,.6)); }
+  .pcard .pbody{ padding:13px 16px 15px; }
+  .pk{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+  .pk.g{ color:var(--green); }
+  .pcard .ptt{ font-family:var(--display); font-weight:600; font-size:18px; margin:5px 0 5px; letter-spacing:-.01em; }
+  .pcard .pdd{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
+  .pcard.crash .pimg{ display:grid; place-items:center; background:radial-gradient(circle at 50% 64%, rgba(255,70,39,.20), transparent 72%); }
+  .pcard.crash .pimg .crtag{ position:absolute; top:11px; right:13px; font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); border:1px solid rgba(255,70,39,.4); background:rgba(4,4,6,.5); padding:3px 8px; border-radius:100px; }
+  .parrow{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .parrow .pa{ font-family:var(--display); font-weight:700; font-size:24px; color:var(--accent); line-height:1; }
+  .parrow .pl{ font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint); text-align:center; max-width:84px; line-height:1.45; }
+  .pout{ display:flex; flex-direction:column; gap:12px; }
+  .pchip{ border:1px solid var(--line-strong); border-radius:13px; padding:14px 16px; background:radial-gradient(120% 100% at 50% 0,rgba(255,255,255,.045),transparent 62%),var(--stage2); }
+  .pchip .pcs{ display:block; font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--green); margin-bottom:5px; }
+  .pchip .pct{ font-family:var(--display); font-weight:600; font-size:14.5px; color:var(--text); line-height:1.3; }
+  .gstriplab{ margin-top:20px; font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-faint); }
+  .gstrip{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:9px; }
+  .gmini{ position:relative; border-radius:10px; overflow:hidden; aspect-ratio:16/10; border:1px solid var(--line); }
+  .gmini img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease-standard); }
+  .gmini:hover img{ transform:scale(1.06); }
+  .gmini .gmscrim{ position:absolute; inset:0; background:linear-gradient(180deg,transparent 42%,rgba(4,4,6,.82)); }
+  .gmini .gmn{ position:absolute; left:9px; bottom:7px; z-index:2; font-family:var(--mono); font-size:8.5px; letter-spacing:.03em; color:#fff; }
+  @media(max-width:760px){ .pivot{ grid-template-columns:1fr; } .parrow{ flex-direction:row; gap:10px; } .parrow .pa{ transform:rotate(90deg); } .gstrip{ grid-template-columns:repeat(3,1fr); } }
+
   /* mobile: keep footnotes & cards within the slide; calmer spacing */
   @media(max-width:760px){
     main.deck .slide{ padding-top:60px; padding-bottom:78px; }
@@ -708,17 +737,42 @@
     <!-- THE PRODUCT — real live games -->
     <section class="slide stage-pure topalign" id="games">
       <div class="inner">
-        <div class="micro" data-anim>THE PRODUCT · ALREADY LIVE</div>
-        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">We don&rsquo;t just pitch the engine.<span class="nl">We already <span class="k-green">ship the games.</span></span></h2>
-        <div class="gwall" data-anim data-d="2">
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/vault-run.jpg" alt="Vault Run" /><div class="gscrim"></div><div class="gtag">flagship</div><div class="gname">Vault Run</div></div>
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/uncrossable-rush.jpg" alt="Uncrossable Rush" /><div class="gscrim"></div><div class="gname">Uncrossable Rush</div></div>
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/plinko.jpg" alt="Plinko" /><div class="gscrim"></div><div class="gname">Plinko</div></div>
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/mine-game.jpg" alt="Mines" /><div class="gscrim"></div><div class="gname">Mines</div></div>
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/temple-of-xibalba.jpg" alt="Temple of Xibalba" /><div class="gscrim"></div><div class="gname">Temple of Xibalba</div></div>
-          <div class="gcard"><div class="gtopline"></div><img src="assets/captures/banana-hustlers.jpg" alt="Banana Hustlers" /><div class="gscrim"></div><div class="gname">Banana Hustlers</div></div>
+        <div class="micro" data-anim>THE ASSET · OWNED IP</div>
+        <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.6vw,50px)">Every hook we build<span class="nl">becomes <span class="k-green">owned IP.</span></span></h2>
+        <div class="pivot" data-anim data-d="2">
+          <div class="pcard">
+            <div class="pimg"><img src="assets/captures/vault-run.jpg" alt="Vault Run" /><div class="pscrim"></div></div>
+            <div class="pbody"><div class="pk">The hook · live</div><div class="ptt">Vault Run</div><div class="pdd">A creator challenge that builds a viral audience.</div></div>
+          </div>
+          <div class="parrow"><div class="pa">&rarr;</div><div class="pl">prove virality</div></div>
+          <div class="pcard crash">
+            <div class="pimg">
+              <svg viewBox="0 0 320 160" width="80%" aria-hidden="true">
+                <defs><linearGradient id="crfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF4627" stop-opacity=".38"/><stop offset="1" stop-color="#FF4627" stop-opacity="0"/></linearGradient></defs>
+                <path d="M16 142 C 96 138, 156 122, 214 70 S 284 24, 302 15 L302 142 Z" fill="url(#crfill)"/>
+                <path class="ef-flow" d="M16 142 C 96 138, 156 122, 214 70 S 284 24, 302 15" fill="none" stroke="#FF4627" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="302" cy="15" r="5.5" fill="#FF4627"/>
+                <text x="40" y="56" fill="#FF8a6f" style="font-family:var(--display);font-weight:700;font-size:26px">&times;12.4</text>
+              </svg>
+              <div class="crtag">in the making</div>
+            </div>
+            <div class="pbody"><div class="pk g">The pivot</div><div class="ptt">Vault Run Crash</div><div class="pdd">The casino game the audience actually plays.</div></div>
+          </div>
+          <div class="parrow"><div class="pa">&rarr;</div><div class="pl">monetised as</div></div>
+          <div class="pout">
+            <div class="pchip"><span class="pcs">Owned</span><span class="pct">Exclusively by an operator</span></div>
+            <div class="pchip"><span class="pcs">Or rented</span><span class="pct">To many platforms</span></div>
+          </div>
         </div>
-        <p class="note-soft" data-anim data-d="3">Seven live titles plus Vault Run. Real product, real players &mdash; the beachhead isn&rsquo;t a slide, it&rsquo;s shipping.</p>
+        <div class="gstriplab" data-anim data-d="3">Already shipping &mdash; the live catalogue</div>
+        <div class="gstrip" data-anim data-d="3">
+          <div class="gmini"><img src="assets/captures/uncrossable-rush.jpg" alt="Uncrossable Rush" /><div class="gmscrim"></div><div class="gmn">Uncrossable Rush</div></div>
+          <div class="gmini"><img src="assets/captures/plinko.jpg" alt="Plinko" /><div class="gmscrim"></div><div class="gmn">Plinko</div></div>
+          <div class="gmini"><img src="assets/captures/mine-game.jpg" alt="Mines" /><div class="gmscrim"></div><div class="gmn">Mines</div></div>
+          <div class="gmini"><img src="assets/captures/temple-of-xibalba.jpg" alt="Temple of Xibalba" /><div class="gmscrim"></div><div class="gmn">Temple of Xibalba</div></div>
+          <div class="gmini"><img src="assets/captures/banana-hustlers.jpg" alt="Banana Hustlers" /><div class="gmscrim"></div><div class="gmn">Banana Hustlers</div></div>
+        </div>
+        <p class="note-soft" data-anim data-d="4">Make the hook viral first &mdash; the casino version inherits the audience. <b style="color:var(--text-dim)">Every hook &rarr; a new monetisation layer.</b></p>
       </div>
     </section>
 
@@ -855,9 +909,9 @@
         <h2 class="headline" data-anim data-d="1" style="margin-top:14px;font-size:clamp(28px,3.8vw,54px)"><span class="accent">€500K</span> to <span class="k-green">test</span> the flywheel.</h2>
         <p class="sub lead-sub" data-anim data-d="2" style="max-width:72ch">Pilot: <b style="color:var(--text)">Vault Run Season One</b> &mdash; an 8-episode interactive series with recognised gaming creators, AIGO&rsquo;s own social channels launched in parallel, and a controlled CAC comparison against existing paid channels.</p>
         <div class="tl" data-anim data-d="3">
-          <div class="tlp"><div class="tw">Weeks 1&ndash;2</div><h5>Set up</h5><p>Creator onboarding · channels live · teaser content</p></div>
-          <div class="tlp"><div class="tw">Weeks 3&ndash;10</div><h5>8 episodes</h5><p>Clips · audience participation · community building</p></div>
-          <div class="tlp"><div class="tw">Weeks 11&ndash;12</div><h5>Read-out</h5><p>CAC comparison · retention cohort · decision to scale</p></div>
+          <div class="tlp"><div class="tw">Months 1&ndash;3</div><h5>Set up</h5><p>Creator onboarding · channels live · teaser content</p></div>
+          <div class="tlp"><div class="tw">Months 4&ndash;6</div><h5>8 episodes</h5><p>Clips · audience participation · community building</p></div>
+          <div class="tlp"><div class="tw">Months 7&ndash;9</div><h5>Read-out</h5><p>CAC comparison · retention cohort · decision to scale</p></div>
         </div>
         <div class="budget" data-anim data-d="4">
           <div class="brow"><span>Creators &amp; talent</span><span class="bt"><i style="width:35%"></i></span><span class="bp">35%</span></div>
